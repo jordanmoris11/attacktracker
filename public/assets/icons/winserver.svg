@@ -1,5 +1,5 @@
 <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="2" y="2" width="76" height="76" rx="12" fill="#18181b" stroke="#00ADEF" stroke-width="2"/>
+    
     <rect x="10" y="16" width="60" height="48" rx="6" fill="#27272a" stroke="#00ADEF" stroke-width="1.5"/>
     <g transform="translate(16, 20) scale(0.9)">
         <path fill="#00ADEF" d="M30,15H17c-0.6,0-1-0.4-1-1V3.3c0-0.5,0.4-0.9,0.8-1l13-2.3c0.3,0,0.6,0,0.8,0.2C30.9,0.4,31,0.7,31,1v13C31,14.6,30.6,15,30,15z"/>
