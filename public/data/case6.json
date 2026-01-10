@@ -1,0 +1,89 @@
+{
+    "title": "Case 6: Deep Nested Containers",
+    "description": "Verifies recursive compound node rendering (Network -> Zone -> Host -> Service).",
+    "nodes": [
+        {
+            "id": "corp_net",
+            "label": "Corporate Network",
+            "type": "container",
+            "metadata": {
+                "boundary": "network"
+            }
+        },
+        {
+            "id": "dmz_zone",
+            "label": "DMZ",
+            "type": "container",
+            "parent": "corp_net",
+            "metadata": {
+                "boundary": "network"
+            }
+        },
+        {
+            "id": "internal_lan",
+            "label": "Internal LAN",
+            "type": "container",
+            "parent": "corp_net",
+            "metadata": {
+                "boundary": "network"
+            }
+        },
+        {
+            "id": "web_server",
+            "label": "Web Server 01",
+            "type": "container",
+            "parent": "dmz_zone",
+            "metadata": {
+                "boundary": "machine"
+            }
+        },
+        {
+            "id": "nginx",
+            "label": "Nginx Process",
+            "type": "process",
+            "parent": "web_server",
+            "icon": "server"
+        },
+        {
+            "id": "web_config",
+            "label": "Config (Protected)",
+            "type": "data",
+            "parent": "web_server",
+            "metadata": {
+                "boundary": "protected"
+            }
+        },
+        {
+            "id": "db_server",
+            "label": "SQL Server 01",
+            "type": "container",
+            "parent": "internal_lan",
+            "metadata": {
+                "boundary": "machine"
+            }
+        },
+        {
+            "id": "sql_svc",
+            "label": "SQL Service",
+            "type": "service",
+            "parent": "db_server",
+            "icon": "database"
+        }
+    ],
+    "edges": [
+        {
+            "source": "nginx",
+            "target": "web_config",
+            "label": "Read Config",
+            "step": 1
+        },
+        {
+            "source": "nginx",
+            "target": "sql_svc",
+            "label": "Query DB (Cross-Zone)",
+            "mitre": "T1090",
+            "type": "normal",
+            "step": 2
+        }
+    ]
+}

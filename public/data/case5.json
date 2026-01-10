@@ -1,0 +1,78 @@
+{
+    "title": "Case 5: MITRE ATT&CK Simulation",
+    "description": "A comprehensive test of the MITRE Matrix Integration, covering multiple kill chain phases.",
+    "nodes": [
+        {
+            "id": "apt29",
+            "label": "APT Group",
+            "type": "actor",
+            "icon": "hacker"
+        },
+        {
+            "id": "phishing",
+            "label": "Email Server",
+            "type": "device",
+            "icon": "server"
+        },
+        {
+            "id": "endpoint",
+            "label": "Victim Workstation",
+            "type": "device",
+            "icon": "windows"
+        },
+        {
+            "id": "ad",
+            "label": "Active Directory",
+            "type": "device",
+            "icon": "server"
+        },
+        {
+            "id": "exfil",
+            "label": "C2 Server",
+            "type": "device",
+            "icon": "kali"
+        }
+    ],
+    "edges": [
+        {
+            "source": "apt29",
+            "target": "phishing",
+            "label": "Spearphishing Link (T1566)",
+            "mitre": "T1566.002",
+            "type": "illegal",
+            "step": 1
+        },
+        {
+            "source": "phishing",
+            "target": "endpoint",
+            "label": "Malicious File Execution (T1204)",
+            "mitre": "T1204.002",
+            "type": "illegal",
+            "step": 2
+        },
+        {
+            "source": "endpoint",
+            "target": "endpoint",
+            "label": "PowerShell (T1059)",
+            "mitre": "T1059.001",
+            "type": "illegal",
+            "step": 3
+        },
+        {
+            "source": "endpoint",
+            "target": "ad",
+            "label": "Kerberoasting (T1558)",
+            "mitre": "T1558.003",
+            "type": "illegal",
+            "step": 4
+        },
+        {
+            "source": "ad",
+            "target": "exfil",
+            "label": "Exfiltration over C2 (T1041)",
+            "mitre": "T1041",
+            "type": "impact",
+            "step": 5
+        }
+    ]
+}
