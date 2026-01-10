@@ -1,78 +1,143 @@
 {
-    "title": "Case 5: MITRE ATT&CK Simulation",
-    "description": "A comprehensive test of the MITRE Matrix Integration, covering multiple kill chain phases.",
+    "title": "SMB Relay via SOCKS Tunneling",
+    "description": "Relaying captured NTLM auth to create a SOCKS tunnel for dumping credentials.",
     "nodes": [
         {
-            "id": "apt29",
-            "label": "APT Group",
-            "type": "actor",
-            "icon": "hacker"
-        },
-        {
-            "id": "phishing",
-            "label": "Email Server",
+            "id": "attacker",
+            "label": "Attacker (Kali)",
             "type": "device",
-            "icon": "server"
+            "icon": "kali"
         },
         {
-            "id": "endpoint",
-            "label": "Victim Workstation",
+            "id": "target_host",
+            "label": "Target (SMB Signing Off)",
             "type": "device",
             "icon": "windows"
         },
         {
-            "id": "ad",
-            "label": "Active Directory",
-            "type": "device",
-            "icon": "server"
+            "id": "victim_user",
+            "label": "Victim User",
+            "type": "actor",
+            "icon": "user"
         },
         {
-            "id": "exfil",
-            "label": "C2 Server",
-            "type": "device",
-            "icon": "kali"
+            "id": "proc_nmap",
+            "label": "nmap",
+            "type": "process",
+            "parent": "attacker",
+            "icon": "terminal"
+        },
+        {
+            "id": "proc_relay",
+            "label": "ntlmrelayx.py",
+            "type": "process",
+            "parent": "attacker",
+            "icon": "process"
+        },
+        {
+            "id": "svc_socks",
+            "label": "SOCKS Listener (1080)",
+            "type": "service",
+            "parent": "attacker",
+            "icon": "service"
+        },
+        {
+            "id": "proc_dump",
+            "label": "secretsdump.py",
+            "type": "process",
+            "parent": "attacker",
+            "icon": "terminal"
+        },
+        {
+            "id": "data_sam",
+            "label": "SAM Database",
+            "type": "data",
+            "parent": "target_host",
+            "icon": "data"
+        },
+        {
+            "id": "creds_hashes",
+            "label": "Dumped NTLM Hashes",
+            "type": "credential",
+            "parent": "attacker",
+            "icon": "credential"
         }
     ],
     "edges": [
         {
-            "source": "apt29",
-            "target": "phishing",
-            "label": "Spearphishing Link (T1566)",
-            "mitre": "T1566.002",
-            "type": "illegal",
-            "step": 1
+            "step": 1,
+            "source": "attacker",
+            "target": "proc_nmap",
+            "label": "Executes",
+            "type": "normal"
         },
         {
-            "source": "phishing",
-            "target": "endpoint",
-            "label": "Malicious File Execution (T1204)",
-            "mitre": "T1204.002",
-            "type": "illegal",
-            "step": 2
+            "step": 1,
+            "source": "proc_nmap",
+            "target": "target_host",
+            "label": "Checks Signing",
+            "mitre": "T1046",
+            "type": "normal"
         },
         {
-            "source": "endpoint",
-            "target": "endpoint",
-            "label": "PowerShell (T1059)",
-            "mitre": "T1059.001",
-            "type": "illegal",
-            "step": 3
+            "step": 2,
+            "source": "attacker",
+            "target": "proc_relay",
+            "label": "Starts (-socks)",
+            "type": "normal"
         },
         {
-            "source": "endpoint",
-            "target": "ad",
-            "label": "Kerberoasting (T1558)",
-            "mitre": "T1558.003",
-            "type": "illegal",
-            "step": 4
+            "step": 3,
+            "source": "victim_user",
+            "target": "proc_relay",
+            "label": "Authenticates (Poisoned)",
+            "mitre": "T1557.001",
+            "type": "illegal"
         },
         {
-            "source": "ad",
-            "target": "exfil",
-            "label": "Exfiltration over C2 (T1041)",
-            "mitre": "T1041",
-            "type": "impact",
-            "step": 5
+            "step": 4,
+            "source": "proc_relay",
+            "target": "target_host",
+            "label": "Relays NTLM Auth",
+            "mitre": "T1557.001",
+            "type": "illegal"
+        },
+        {
+            "step": 5,
+            "source": "proc_relay",
+            "target": "svc_socks",
+            "label": "Stores Session",
+            "type": "normal"
+        },
+        {
+            "step": 6,
+            "source": "attacker",
+            "target": "proc_dump",
+            "label": "Executes via proxychains",
+            "type": "normal"
+        },
+        {
+            "step": 7,
+            "source": "proc_dump",
+            "target": "svc_socks",
+            "label": "Connects",
+            "mitre": "T1090",
+            "type": "normal"
+        },
+        {
+            "step": 8,
+            "source": "svc_socks",
+            "target": "data_sam",
+            "label": "Tunnels/Reads",
+            "type": "illegal"
+        },
+        {
+            "step": 9,
+            "source": "data_sam",
+            "target": "creds_hashes",
+            "label": "Extracts",
+            "mitre": "T1003.002",
+            "type": "impact"
         }
     ]
 }

@@ -1,9 +1,0 @@
-flowchart LR
-    kali_main["🐉 Attacker Machine<br>Kali Linux<br>Tools: nmap, ntlmrelayx"]
-    victim_user["👤 Victim User<br>Windows Client<br>Action: Triggers NTLM Auth"]
-    winserver_target["🖥️ Target Server<br>Windows (10.0.2.73)<br>SMB Signing: Disabled"]
-
-    kali_main -- "1. [RECON] Scan for SMB Signing (445)" --> winserver_target
-    victim_user -- "2. [ACCESS] Inbound NTLM Auth" --> kali_main
-    kali_main -- "3. [ACCESS] Relay Auth to Target" --> winserver_target
-    winserver_target -- "4. [CREDS] Auth Success: Dump SAM/LSA" --> kali_main

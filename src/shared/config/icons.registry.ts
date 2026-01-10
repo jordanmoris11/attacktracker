@@ -48,7 +48,9 @@ export type IconKey = keyof typeof ICON_REGISTRY;
  */
 export function getIconPath(key: string | undefined): string {
     const safeKey = (key || 'default').toLowerCase();
+    // Fallback to 'server' as a safe, professional default for unknown assets
+    // (User requested: "fail back to something in our asset maybe server")
     // @ts-ignore - Runtime safety fallback
-    const entry = ICON_REGISTRY[safeKey] || ICON_REGISTRY['default'];
+    const entry = ICON_REGISTRY[safeKey] || ICON_REGISTRY['server'];
     return `/assets/icons/${entry.file}`;
 }

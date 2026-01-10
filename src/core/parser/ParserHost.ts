@@ -49,13 +49,28 @@ export class ParserHost {
             const parsed = AttackGraphSchema.safeParse(rawObj);
 
             if (!parsed.success) {
-                // Transform Zod errors to readable strings
-                const errors = parsed.error.errors.map(e =>
-                    `[${e.path.join('.')}] ${e.message}`
-                );
+                // Defensive: Handle potential mismatch in Zod versions or unexpected error shapes
+                const zodError = parsed.error;
+                let errorMessages: string[] = ["Unknown Validation Error"];
+
+                if (zodError) {
+                    // Try standard .errors (Zod v3) or .issues (Zod v3 internal)
+                    const issues = zodError.errors || (zodError as any).issues || [];
+
+                    if (Array.isArray(issues) && issues.length > 0) {
+                        errorMessages = issues.map((e: any) => {
+                            const path = e.path ? e.path.join('.') : '?';
+                            return `[${path}] ${e.message || 'Invalid value'}`;
+                        });
+                    } else {
+                        // Value exists but no issues array? casting to string
+                        errorMessages = [zodError.toString()];
+                    }
+                }
+
                 return {
                     success: false,
-                    errors,
+                    errors: errorMessages,
                     metadata: { format, parseTimeMs: performance.now() - start, nodeCount: 0, edgeCount: 0 }
                 };
             }

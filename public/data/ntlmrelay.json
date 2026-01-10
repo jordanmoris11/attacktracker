@@ -1,0 +1,103 @@
+{
+    "title": "Golden Ticket Attack Flow",
+    "description": "Dumping krbtgt hash to forge a Golden Ticket for domain-wide persistence.",
+    "nodes": [
+        {
+            "id": "attacker",
+            "label": "Attacker",
+            "type": "actor",
+            "icon": "attacker"
+        },
+        {
+            "id": "dc_server",
+            "label": "Domain Controller",
+            "type": "container",
+            "metadata": {
+                "boundary": "machine"
+            }
+        },
+        {
+            "id": "proc_mimi",
+            "label": "mimikatz.exe",
+            "type": "process",
+            "parent": "dc_server",
+            "icon": "process"
+        },
+        {
+            "id": "proc_lsass",
+            "label": "lsass.exe",
+            "type": "process",
+            "parent": "dc_server",
+            "icon": "service"
+        },
+        {
+            "id": "cred_krbtgt",
+            "label": "krbtgt Hash",
+            "type": "credential",
+            "parent": "dc_server",
+            "icon": "credential"
+        },
+        {
+            "id": "ticket_golden",
+            "label": "Golden Ticket (TGT)",
+            "type": "credential",
+            "parent": "dc_server",
+            "icon": "credential"
+        },
+        {
+            "id": "target_host",
+            "label": "THEPUNISHER",
+            "type": "device",
+            "icon": "windows"
+        }
+    ],
+    "edges": [
+        {
+            "step": 1,
+            "source": "attacker",
+            "target": "proc_mimi",
+            "label": "Execute",
+            "mitre": "T1059",
+            "type": "normal"
+        },
+        {
+            "step": 2,
+            "source": "proc_mimi",
+            "target": "proc_lsass",
+            "label": "Inject/Dump LSA",
+            "mitre": "T1003.001",
+            "type": "illegal"
+        },
+        {
+            "step": 3,
+            "source": "proc_lsass",
+            "target": "cred_krbtgt",
+            "label": "Extracts",
+            "type": "impact"
+        },
+        {
+            "step": 4,
+            "source": "proc_mimi",
+            "target": "ticket_golden",
+            "label": "Forges (Offline)",
+            "mitre": "T1558.001",
+            "type": "illegal"
+        },
+        {
+            "step": 5,
+            "source": "ticket_golden",
+            "target": "proc_mimi",
+            "label": "Pass-the-Ticket",
+            "mitre": "T1550.003",
+            "type": "normal"
+        },
+        {
+            "step": 6,
+            "source": "proc_mimi",
+            "target": "target_host",
+            "label": "Access Admin Share",
+            "mitre": "T1021.002",
+            "type": "impact"
+        }
+    ]
+}
