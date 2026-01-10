@@ -60,6 +60,12 @@ How do we know which icon to use?
 2.  **Inferred**: The `LegacyMermaidAdapter` (Spec 3) uses reasonable defaults based on node type (`process` -> `process.svg`).
 3.  **Fallback**: `default.svg`.
 
+### 4.1 Node Rendering Strategy (The "Floating Icon")
+To achieve a modern look:
+-   **No Borders**: Nodes with icons have `border-width: 0` and `background-opacity: 0`.
+-   **Floating Effect**: Only the SVG glyph is visible. Edges connect to the invisible node boundary.
+-   **Clean Assets**: SVG assets must be devoid of hardcoded background rectangles (handled by `clean_icons.ts`).
+
 ## 5. React Integration
 The `GraphCanvas` component doesn't need to "load" icons manually. It simply passes the `iconPath` string to Cytoscape.
 -   **Preloading**: Optional. We can render hidden `<img>` tags or use `Link rel="preload"` if we notice flash-of-invisible-content (FOIC), but browsers generally handle background-image loading well.

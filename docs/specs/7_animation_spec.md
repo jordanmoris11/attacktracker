@@ -41,6 +41,11 @@ How do we update the graph?
 ### 3.1 The `AnimationSyncer` (in `GraphCanvas`)
 Inside the Cytoscape component, we listen to `currentStep` changes.
 
+**Logic Rules:**
+1.  **Step 0 is Empty**: When `currentStep === 0`, ALL edges are hidden (`display: none`).
+2.  **Fallback Sizing**: If edge data lacks explicit `step` fields, we assume sequential index 1-based order (Index 0 = Step 1).
+3.  **Strict State**: Visibility classes must be stripped before applying new ones to avoid CSS state leakage.
+
 ```typescript
 // Conceptual Implementation
 useEffect(() => {
@@ -84,18 +89,17 @@ We define specific classes in `cytoscape-theme.ts` (Spec 6 extension):
     *   `target-arrow-color`: (Inherits data color)
     *   `shadow-blur`: 10px (Glow effect)
 
-## 5. UI Controls (`src/ui/overlays/AnimationControls.tsx`)
+## 5. UI Controls (`src/ui/features/Animation/AnimationControls.tsx`)
 A "Glass Panel" containing:
-1.  **Scrubber**: Simple progress bar or "Step Dots" (legacy had dots, but bar is better for large graphs). NOTE: Legacy had specific dots, we'll implement **Dots** for small graphs (<20 steps) and **Bar** for large ones.
-2.  **Playback**:
-    *   `First`, `Prev`, `Play/Pause`, `Next`, `Last` buttons.
-    *   Icons: Lucide React (Play, Pause, SkipBack, SkipForward).
-3.  **Speed**: Dropdown (0.5x, 1x, 2x, 4x).
+1.  **Scrubber**: Simple progress bar.
+2.  **Playback**: `Prev`, `Play/Pause`, `Next` buttons. (Reset/Refresh is optional/contextual).
+3.  **Positioning**: Absolute floating panel at the **bottom-center**, scaled (110%) for visibility.
+4.  **Z-Index**: High z-index to sit above the Matrix Explorer or Canvas.
 
 ## 6. Camera Movement
 Legacy code hinted at camera following. We will implement an optional **Auto-Focus** feature.
-*   When stepping, use `cy.animate({ fit: { eles: activeNode }, duration: 300 })` to center the action.
-*   This needs a "Camera Follow" toggle in the UI (default: Off).
+-   When stepping, use `cy.animate({ fit: { eles: activeNode }, duration: 300 })` to center the action.
+-   This needs a "Camera Follow" toggle in the UI (default: Off).
 
 ## 7. Implementation Plan
 1.  Setup `useAnimationStore`.
