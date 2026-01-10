@@ -64,10 +64,36 @@ We translate the legacy CSS classes into Cytoscape Stylesheet selectors.
 | **Protected** | `[boundary="protected"]` | Dashed Red Border (`border-red-500`), Red Text. |
 | **Container** | `[boundary="container"]` | Dashed Blue Border (`border-blue-500`). |
 
-### 4.1 Layout Constraints
-`cytoscape-dagre` handles compound nodes, but can be finicky.
-*   **Padding**: Set `compoundPadding: 20` in generic style to give children breathing room.
-*   **Labels**: Use `text-valign: top` and `text-halign: center` for containers to avoid overlapping children.
+### 4. Layout Constraints (The Overlap Solution)
+Deeply nested containers pose a challenge for layout engines. Standard layouts often calculate spacing based on the *leaves*, causing the *intermediate* container borders to overlap.
+
+**Strategy: Adaptive Layout Injection**
+We solve this by injecting layout hints directly into the Container Node data.
+
+1.  **Leaf Nodes**: Inherit global spacing settings (Standard).
+2.  **Container Nodes**: Receive "Heavy" spacing settings via the `elk` data property.
+
+#### Data Injection Logic
+When transforming nodes for Cytoscape, if a node is a `container`:
+```typescript
+{
+    group: 'nodes',
+    data: {
+        id: 'container_id',
+        // ...
+        elk: {
+            'elk.direction': 'RIGHT',
+            'elk.algorithm': 'layered',
+            // Force massive separation between this container and its siblings
+            'elk.spacing.nodeNode': '200',
+            'elk.layered.spacing.nodeNodeBetweenLayers': '200',
+            // Reserve internal space for the label and border
+            'elk.padding': '[top=100,left=100,bottom=100,right=100]' 
+        }
+    }
+}
+```
+This forces the layout engine to treat containers as "Large blocks" requiring significant buffer zones, resolving the overlap issue.
 
 ## 5. Interaction
 *   **Collapse/Expand**: (Future Phase) Ability to double-click a boundary to collapse it into a single node.

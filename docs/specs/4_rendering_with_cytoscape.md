@@ -13,24 +13,28 @@ This specification details how `CyberViewer-Cyto` renders the `AttackGraph` usin
 The rendering logic is encapsulated in `src/ui/features/GraphCanvas/GraphCanvas.tsx`.
 
 ### 2.1 Dependencies
--   **Core**: `cytoscape`, `cytoscape-dagre`
+-   **Core**: `cytoscape`, `cytoscape-elk`
 -   **React**: `useRef` for DOM binding, `useEffect` for graph initialization.
 -   **Store**: Subscribes to `useGraphStore` for data updates.
 
-## 3. Layout Strategy (`dagre`)
-We continue to use **Dagre** for hierarchical layout (Left-to-Right default), as it best represents attack flows.
+### 3. Layout Strategy
+**Engine**: `cytoscape-elk` (Eclipse Layout Kernel)
+**Algorithm**: `layered` (Port of Sugiyama)
 
-**Configuration (Ported from `app.js`):**
+We migrated from `dagre` to `elk` to support complex nested containers correctly. `dagre` had limitations with compound node bounding box calculations, leading to overlapping parent containers.
+
+#### Configuration
+The layout is managed via a centralized configuration (`src/ui/features/GraphCanvas/layout-config.ts`) to separate strategy from rendering.
+
+- **Direction**: Left-to-Right (`RIGHT`).
+- **Algorithm**: `layered` (Strict hierarchy).
+- **Node Dimensions**: `nodeDimensionsIncludeLabels: true` (Critical for checking wrapped text size).
+- **Adaptive Spacing**: 
+    - **Leaf Nodes**: Standard spacing (80px).
+    - **Container Nodes**: Massive spacing (200px) forced via data injection to prevent overlap of intermediate parents.
+
+#### Layout Options (Global Defaults)
 ```typescript
-const LAYOUT_CONFIG = {
-  name: 'dagre',
-  rankDir: 'LR',
-  nodeSep: 150, // Spacing between nodes on same rank
-  rankSep: 250, // Spacing between ranks
-  padding: 100,
-  // Dagre specific alignment
-  align: 'UL', // Up-Left alignment tends to look cleaner
-  ranker: 'network-simplex'
 };
 ```
 
