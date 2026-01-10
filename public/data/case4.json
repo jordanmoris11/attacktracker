@@ -4,13 +4,13 @@
         {
             "id": "attacker",
             "label": "Attacker",
-            "type": "network_node",
+            "type": "device",
             "icon": "attacker"
         },
         {
             "id": "gateway",
             "label": "Gateway",
-            "type": "network_node",
+            "type": "device",
             "icon": "firewall"
         },
         {

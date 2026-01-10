@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer components {
+  .glass-panel {
+    @apply bg-background-secondary/90 backdrop-blur-md border border-white/10 shadow-xl rounded-lg;
+  }
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0d1117;
+  /* Fallback */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}

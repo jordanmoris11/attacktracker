@@ -4,13 +4,13 @@
         {
             "id": "attacker",
             "label": "Attacker",
-            "type": "network_node",
+            "type": "device",
             "icon": "attacker"
         },
         {
             "id": "server",
             "label": "Target Server",
-            "type": "network_node",
+            "type": "device",
             "icon": "server"
         }
     ],
