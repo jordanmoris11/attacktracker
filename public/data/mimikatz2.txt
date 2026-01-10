@@ -1,0 +1,32 @@
+flowchart LR
+    subgraph attacker_host["Attacker Machine"]
+        attacker_([Attacker])
+    end
+
+    subgraph victim_win["Compromised Windows Host"]
+        subgraph os["Windows OS"]
+            proc_mimi[Process: mimikatz.exe]:::elevated
+
+            subgraph protected["Protected: LSASS"]
+                proc_lsass[Process: lsass.exe]
+                mem_creds[(Kerberos Ticket Cache)]
+            end
+        end
+        data_tickets[(Stolen .kirbi Files)]
+    end
+
+    subgraph dc_host["Domain Controller"]
+        svc_smb[Service: SMB<br>Port: 445]
+        data_shares[(C$ Admin Share)]
+    end
+
+    cred_tgt{{Kerberos TGT/TGS}}
+
+    attacker_ -->|1. T1021.002 Remote Execution| proc_mimi
+    proc_mimi -.->|2. T1003.001 Dump LSASS Memory| mem_creds
+    mem_creds -->|3. Export| data_tickets
+    data_tickets -->|4. Identify Ticket| cred_tgt
+    cred_tgt -.->|5. T1550.003 Inject Ticket| proc_mimi
+    proc_mimi ==>|6. T1550.003 Pass the Ticket| svc_smb
+    svc_smb -->|7. Authenticated Access| data_shares
+    data_shares ==>|8. T1039 Data Discovery| attacker_

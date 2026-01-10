@@ -1,0 +1,481 @@
+/* =============================================================================
+   LAYOUT STYLES
+   Page structure, containers, responsive layout
+   ============================================================================= */
+
+/* ─────────────────────────────────────────────────────────────
+   RESET & BASE
+   ───────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  /* Prevent body scrolling, diagram scales instead */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   APP LAYOUT
+   ───────────────────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.app__header {
+  flex-shrink: 0;
+  padding: var(--spacing-6) var(--spacing-6);
+  text-align: center;
+}
+
+.app__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--spacing-6);
+  min-height: 0;
+  /* Critical for flex children to shrink */
+  overflow: hidden;
+}
+
+.app__controls {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-subtle);
+  z-index: var(--z-sticky);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CONTAINER
+   ───────────────────────────────────────────────────────────── */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HEADER
+   ───────────────────────────────────────────────────────────── */
+
+.header {
+  text-align: center;
+}
+
+.header__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  background: linear-gradient(135deg, #fff 0%, var(--color-text-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-2);
+}
+
+.header__subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DIAGRAM WRAPPER - RESPONSIVE CONTAINER
+   ───────────────────────────────────────────────────────────── */
+
+.diagram-wrapper {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-2xl);
+  padding: var(--spacing-6);
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  /* Important for flex shrinking */
+}
+
+.diagram-output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+  /* Allow shrinking */
+  position: relative;
+  overflow: hidden;
+}
+
+/* SVG Responsive Scaling */
+.diagram-output svg {
+  display: block;
+  /* Smooth size transitions */
+  transition: width 0.15s ease-out, height 0.15s ease-out, left 0.15s ease-out, top 0.15s ease-out;
+}
+
+/* When diagram is being scaled by JS */
+.diagram-output.responsive-scaling svg {
+  /* Position and size are set by JS */
+  position: absolute;
+  max-width: none;
+  max-height: none;
+}
+
+/* SVG elements scale naturally with container */
+
+/* ─────────────────────────────────────────────────────────────
+   STATUS BAR (Legend)
+   ───────────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────────
+   MATRIX EXPLORER (LEGEND V2)
+   ───────────────────────────────────────────────────────────── */
+
+.status-bar {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+  padding: var(--spacing-4) 0;
+  margin-top: var(--spacing-4);
+  border-top: 1px solid var(--color-border-subtle);
+  align-items: flex-start;
+}
+
+/* Base Card Style */
+.status-item {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  width: 220px;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+/* STATE: Active in Diagram (Bright) */
+.status-item.active-in-diagram {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* STATE: Inactive (Dimmed) */
+.status-item.inactive {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+
+.status-item.inactive:hover {
+  opacity: 0.8;
+  filter: grayscale(0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* STATE: Highlighted (Animation Pulse) */
+.status-item.highlight-pulse {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3);
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+/* HEADER SECTION (Always Visible) */
+.status-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.status-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-label {
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: var(--color-text-primary);
+}
+
+.status-badge {
+  font-size: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 3px;
+  border-radius: 3px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.status-chevron {
+  color: var(--color-text-dim);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* EXPANSION LOGIC */
+.status-item.expanded .status-chevron {
+  transform: rotate(180deg);
+}
+
+.status-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.status-item.expanded .status-body {
+  max-height: 300px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* TECHNIQUES GRID */
+.status-techniques {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+.technique-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--color-text-muted);
+  transition: all 0.3s ease;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* Specific Active Technique (Static) */
+.technique-tag.active-technique {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+
+.technique-tag.active-technique .t-code {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Specific Highlighted Technique (Animation) */
+.technique-tag.highlight-pulse-tag {
+  background: rgba(var(--color-primary-rgb), 0.3);
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.4);
+  transform: translateX(4px);
+}
+
+.t-code {
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+
+.status-footer {
+  padding: 6px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: right;
+}
+
+.mitre-deep-link {
+  font-size: 9px;
+  color: var(--color-primary);
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.mitre-deep-link:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+/* COMPATIBILITY: Status Dot */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LOADING & ERROR STATES
+   ───────────────────────────────────────────────────────────── */
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  color: var(--color-text-muted);
+  padding: var(--spacing-10);
+}
+
+.loading__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border-default);
+  border-top-color: var(--color-primary);
+  border-radius: var(--border-radius-full);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  background: var(--color-danger-muted);
+  border: 1px solid var(--color-danger);
+  color: #fca5a5;
+  padding: var(--spacing-5);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.error__title {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-2);
+}
+
+.error__message {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE BREAKPOINTS
+   ───────────────────────────────────────────────────────────── */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .app__header {
+    padding: var(--spacing-4) var(--spacing-4);
+  }
+
+  .app__main {
+    padding: 0 var(--spacing-4);
+  }
+
+  .header__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .diagram-wrapper {
+    padding: var(--spacing-5);
+    border-radius: var(--border-radius-xl);
+  }
+
+  .status-bar {
+    gap: var(--spacing-4);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .app__header {
+    padding: var(--spacing-3) var(--spacing-3);
+  }
+
+  .app__main {
+    padding: 0 var(--spacing-3);
+  }
+
+  .header__subtitle {
+    display: none;
+  }
+
+  .diagram-wrapper {
+    padding: var(--spacing-3);
+    border-radius: var(--border-radius-lg);
+  }
+
+  .diagram-output {
+    min-height: 300px;
+  }
+
+  .status-bar {
+    gap: var(--spacing-3);
+  }
+
+  .status-item span {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+   ───────────────────────────────────────────────────────────── */
+
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

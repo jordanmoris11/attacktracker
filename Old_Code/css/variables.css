@@ -1,0 +1,196 @@
+/* =============================================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   Mermaid Attack Flow Beautifier v2.0
+   ============================================================================= */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────
+     COLORS - Base Palette
+     ───────────────────────────────────────────────────────────── */
+
+  /* Background layers */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #12121a;
+  --color-bg-tertiary: #1e1e2e;
+  --color-bg-elevated: #1a1a24;
+
+  /* Borders */
+  --color-border-subtle: #1e1e2e;
+  --color-border-default: #2d2d3d;
+  --color-border-strong: #3d3d4d;
+
+  /* Text */
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #0a0a0f;
+
+  /* ─────────────────────────────────────────────────────────────
+     COLORS - Semantic
+     ───────────────────────────────────────────────────────────── */
+
+  /* Primary (Blue) */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-primary-active: #1d4ed8;
+  --color-primary-muted: rgba(59, 130, 246, 0.2);
+
+  /* Danger (Red) */
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-muted: rgba(239, 68, 68, 0.2);
+
+  /* Warning (Yellow) */
+  --color-warning: #eab308;
+  --color-warning-muted: rgba(234, 179, 8, 0.2);
+
+  /* Success (Green) */
+  --color-success: #22c55e;
+  --color-success-muted: rgba(34, 197, 94, 0.2);
+
+  /* ─────────────────────────────────────────────────────────────
+     COLORS - Attack Flow Semantics
+     ───────────────────────────────────────────────────────────── */
+
+  --color-infection: #ef4444;
+  --color-exfiltration: #f97316;
+  --color-lateral: #eab308;
+  --color-c2: #a855f7;
+  --color-escalation: #ef4444;
+  --color-default-edge: #4b5563;
+
+  /* ─────────────────────────────────────────────────────────────
+     COLORS - Internal Attack Modeling
+     ───────────────────────────────────────────────────────────── */
+
+  /* Edge semantics */
+  --color-edge-illegal: #ef4444;
+  --color-edge-illegal-glow: rgba(239, 68, 68, 0.4);
+  --color-edge-impact: #f59e0b;
+
+  /* Trust boundary types */
+  --color-boundary-machine: #64748b;
+  --color-boundary-kernel: #8b5cf6;
+  --color-boundary-protected: #ef4444;
+  --color-boundary-container: #3b82f6;
+  --color-boundary-network: #64748b;
+
+  /* Entity states */
+  --color-state-compromised: #ef4444;
+  --color-state-elevated: #f59e0b;
+  --color-state-encrypted: #8b5cf6;
+
+  /* Entity type colors */
+  --color-entity-process: #22c55e;
+  --color-entity-service: #3b82f6;
+  --color-entity-memory: #8b5cf6;
+
+  /* ─────────────────────────────────────────────────────────────
+     TYPOGRAPHY
+     ───────────────────────────────────────────────────────────── */
+
+  --font-family-base: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* SVG text needs larger sizes for readability */
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-base: 18px;
+  --font-size-md: 20px;
+  --font-size-lg: 24px;
+  --font-size-xl: 28px;
+  --font-size-2xl: 32px;
+
+  /* Diagram-specific font sizes (for SVG labels) */
+  --diagram-font-node: 18px;
+  --diagram-font-edge: 16px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ─────────────────────────────────────────────────────────────
+     SPACING
+     ───────────────────────────────────────────────────────────── */
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+
+  /* ─────────────────────────────────────────────────────────────
+     BORDERS & SHADOWS
+     ───────────────────────────────────────────────────────────── */
+
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
+  --border-radius-xl: 12px;
+  --border-radius-2xl: 16px;
+  --border-radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.6);
+
+  /* ─────────────────────────────────────────────────────────────
+     ANIMATION
+     ───────────────────────────────────────────────────────────── */
+
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  --easing-default: ease;
+  --easing-in: ease-in;
+  --easing-out: ease-out;
+  --easing-in-out: ease-in-out;
+
+  /* ─────────────────────────────────────────────────────────────
+     Z-INDEX LAYERS
+     ───────────────────────────────────────────────────────────── */
+
+  --z-base: 0;
+  --z-elevated: 10;
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-tooltip: 400;
+
+  /* ─────────────────────────────────────────────────────────────
+     LAYOUT
+     ───────────────────────────────────────────────────────────── */
+
+  --container-max-width: 1600px;
+  --header-height: 60px;
+  --controls-height: 120px;
+  --icon-size-default: 140px;
+  --icon-size-small: 100px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   REDUCED MOTION
+   ───────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 100ms;
+  }
+}

@@ -1,0 +1,12 @@
+flowchart LR
+    kali_main["Attacker Machine<br>Kali Linux<br>Tools: npm, bun, github"]
+    victim_dev["Victim Workstation<br>Windows/Linux<br>Service: npm install"]
+    github_infra["GitHub Infrastructure<br>Cloud<br>Service: Actions & Discussions"]
+
+    kali_main -- "1. [ACCESS] Poisoned NPM Package Upload" --> victim_dev
+    victim_dev -- "2. [ACCESS] Fetch Bun Runtime" --> kali_main
+    victim_dev -- "3. [CREDS] Trufflehog Secret Scan" --> victim_dev
+    victim_dev -- "4. [EXFIL] Upload Secrets to New Repo" --> github_infra
+    victim_dev -- "5. [PERSIST] Register Self-Hosted Runner" --> github_infra
+    github_infra -- "6. [C2] Execute Commands via Discussions" --> victim_dev
+    victim_dev -- "7. [LATERAL] Infect downstream packages (npm publish)" --> github_infra

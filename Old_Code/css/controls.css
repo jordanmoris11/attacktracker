@@ -1,0 +1,325 @@
+/* =============================================================================
+   CONTROL PANEL STYLES
+   Animation controls and step indicator
+   ============================================================================= */
+
+/* ─────────────────────────────────────────────────────────────
+   CONTROL PANEL CONTAINER
+   ───────────────────────────────────────────────────────────── */
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-5);
+  background: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-subtle);
+  position: relative;
+}
+
+.control-panel__buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.control-panel__speed {
+  position: absolute;
+  right: var(--spacing-5);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.control-panel__indicator {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CONTROL BUTTONS
+   ───────────────────────────────────────────────────────────── */
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-lg);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing-out);
+}
+
+.control-btn:hover:not(:disabled) {
+  background: var(--color-border-default);
+  border-color: var(--color-border-strong);
+}
+
+.control-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.control-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.control-btn .icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.control-btn__label {
+  font-size: var(--font-size-sm);
+}
+
+/* Primary button (Play/Pause) */
+.control-btn--primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  padding: var(--spacing-3) var(--spacing-6);
+  font-weight: var(--font-weight-medium);
+  min-width: 100px;
+}
+
+.control-btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.control-btn--primary:active:not(:disabled) {
+  background: var(--color-primary-active);
+}
+
+.control-btn--primary .icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SPEED SELECT
+   ───────────────────────────────────────────────────────────── */
+
+.speed-select {
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color var(--duration-fast);
+}
+
+.speed-select:hover {
+  border-color: var(--color-border-strong);
+}
+
+.speed-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.speed-select option {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   STEP INDICATOR
+   ───────────────────────────────────────────────────────────── */
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+}
+
+.step-indicator__dots {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.step-indicator__dot {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  background: var(--color-border-default);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing-out);
+}
+
+.step-indicator__dot:hover {
+  border-color: var(--color-text-muted);
+  transform: scale(1.2);
+}
+
+.step-indicator__dot:focus {
+  outline: none;
+}
+
+.step-indicator__dot:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.step-indicator__dot--completed {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.step-indicator__dot--active {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+  transform: scale(1.2);
+}
+
+.step-indicator__label {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.step-indicator__current {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.step-indicator__separator {
+  margin: 0 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE - TABLET
+   ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .control-panel {
+    padding: var(--spacing-4);
+  }
+
+  .control-btn__label {
+    display: none;
+  }
+
+  .control-btn {
+    padding: var(--spacing-3);
+  }
+
+  .control-btn--primary {
+    padding: var(--spacing-3) var(--spacing-5);
+    min-width: auto;
+  }
+
+  .control-panel__speed {
+    position: static;
+    transform: none;
+    order: 1;
+    margin-top: var(--spacing-2);
+  }
+
+  .step-indicator {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE - MOBILE
+   ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .control-panel__buttons {
+    gap: var(--spacing-1);
+  }
+
+  /* Hide first/last buttons on mobile */
+  .control-btn[data-action="first"],
+  .control-btn[data-action="last"] {
+    display: none;
+  }
+
+  .control-btn {
+    padding: var(--spacing-2);
+  }
+
+  .control-btn .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .control-btn--primary {
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+
+  .control-btn--primary .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .step-indicator__dots {
+    gap: var(--spacing-1);
+  }
+
+  .step-indicator__dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   KEYBOARD FOCUS STYLES
+   ───────────────────────────────────────────────────────────── */
+
+.control-btn:focus-visible,
+.speed-select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   REDUCED MOTION
+   ───────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .control-btn,
+  .step-indicator__dot,
+  .speed-select {
+    transition: none;
+  }
+
+  .control-btn:active:not(:disabled) {
+    transform: none;
+  }
+
+  .step-indicator__dot:hover,
+  .step-indicator__dot--active {
+    transform: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CONTROLS CONTAINER VISIBILITY
+   ───────────────────────────────────────────────────────────── */
+
+#controls-container {
+  display: none;  /* Hidden until initialized by JS */
+}
+
+#controls-container.initialized {
+  display: block;
+}

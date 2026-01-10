@@ -1,0 +1,46 @@
+/* =============================================================================
+   DIAGRAM STYLES
+   Layout and container styles for the Cytoscape Engine
+   ============================================================================= */
+
+/* Main Diagram Container */
+#diagram-output {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* Cytoscape handles pan/zoom */
+  background: var(--color-bg-primary);
+  /* Ensure dark background */
+}
+
+/* Cytoscape Canvas Container */
+#cy {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Cursor handling provided by Cytoscape */
+}
+
+/* Loading State */
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  z-index: 10;
+}
+
+/* Error State */
+.error {
+  color: var(--color-danger);
+  text-align: center;
+  padding: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--color-danger);
+  border-radius: var(--border-radius-lg);
+}

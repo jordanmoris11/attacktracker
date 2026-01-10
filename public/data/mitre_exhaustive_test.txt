@@ -1,0 +1,9 @@
+flowchart LR
+    attacker["Attacker"]
+    victim["Victim System"]
+
+    attacker -- "1. [T1592.002] Gather Victim Host Info (Peripheral Device)" --> victim
+    attacker -- "2. [T1203] Exploit Client Execution" --> victim
+    victim -- "3. [T1553.002] Subvert Trust (Code Signing)" --> attacker
+    victim -- "4. [T1491] Defacement" --> victim
+    attacker -- "5. [T1609] Container Administration Command" --> victim
