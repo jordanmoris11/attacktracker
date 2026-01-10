@@ -166,5 +166,28 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
             'overlay-opacity': 0.2, // Glow ring
             'overlay-padding': 5
         }
+    },
+
+    // --- ANIMATION STATES (Spec 7) ---
+    {
+        selector: '.hidden',
+        style: {
+            'display': 'none' // Completely remove from layout/view
+        }
+    },
+    {
+        selector: '.visible',
+        style: {
+            'display': 'element',
+            'opacity': 1,
+            'transition-property': 'opacity',
+            'transition-duration': 500
+        }
+    },
+    {
+        selector: '.faded',
+        style: {
+            'opacity': 0.2
+        }
     }
 ];

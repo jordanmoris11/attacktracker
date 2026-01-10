@@ -20,7 +20,13 @@ export const AnimationControls: React.FC = () => {
         if (edges.length > 0) {
             // Find max step defined in edges
             const maxStep = Math.max(...edges.map(e => e.step || 0), 0);
-            setTotalSteps(maxStep); // If 0, it means no steps defined
+
+            // Fallback: If no explicit steps, use edge count as sequence
+            const calculatedTotal = maxStep > 0 ? maxStep : edges.length;
+
+            setTotalSteps(calculatedTotal);
+        } else {
+            setTotalSteps(0);
         }
     }, [edges, setTotalSteps]);
 
@@ -38,7 +44,7 @@ export const AnimationControls: React.FC = () => {
     if (totalSteps === 0) return null; // Hide if no animation steps
 
     return (
-        <div className="glass-panel px-4 py-2 flex items-center gap-4 text-slate-200">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 glass-panel px-6 py-3 flex items-center gap-6 text-slate-200 shadow-2xl scale-110 origin-bottom">
 
             {/* Playback Controls */}
             <div className="flex items-center gap-2">

@@ -38,6 +38,7 @@ export const useAnimationStore = create<AnimationState>((set, get) => ({
 
     prevStep: () => {
         const { currentStep } = get();
+        // User clarified: MUST be able to go back to Step 0 (Clean Start / Empty)
         if (currentStep > 0) {
             set({ currentStep: currentStep - 1 });
         }
