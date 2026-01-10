@@ -53,8 +53,9 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
         selector: 'node[iconPath]',
         style: {
             'background-image': 'data(iconPath)',
-            'background-fit': 'cover', // or 'contain' depending on SVG padding
-            'background-opacity': 0 // Keep dark circle for contrast
+            'background-fit': 'contain', // Ensure full glyph visibility
+            'background-opacity': 0, // Transparent background
+            'border-width': 0 // Invisible border (Spec 5 refinement)
         }
     },
 
