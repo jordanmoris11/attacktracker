@@ -1,9 +1,0 @@
-flowchart LR
-    kali_main["Attacker"]
-    victim["Victim"]
-
-    kali_main -- "1. [T1595] Active Scanning" --> victim
-    kali_main -- "2. [T1566] Phishing Email" --> victim
-    victim -- "3. [T1003] Dump LSASS" --> kali_main
-    kali_main -- "4. [T1021.001] RDP Lateral" --> victim
-    kali_main -- "5. [T1486] Encrypt Data" --> victim

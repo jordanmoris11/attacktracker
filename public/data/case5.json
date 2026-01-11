@@ -32,14 +32,14 @@
             "label": "ntlmrelayx.py",
             "type": "process",
             "parent": "attacker",
-            "icon": "process"
+            "icon": "terminal"
         },
         {
             "id": "svc_socks",
             "label": "SOCKS Listener (1080)",
             "type": "service",
             "parent": "attacker",
-            "icon": "service"
+            "icon": "socks"
         },
         {
             "id": "proc_dump",

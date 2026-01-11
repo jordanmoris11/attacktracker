@@ -113,8 +113,9 @@ You MUST use one of exactly these keys. Do not invent new ones.
 | `cloud` | Cloud Assets | AWS, Azure, GCP, S3 |
 | `firewall` | Network Gear | WAF, Router, Switch, Proxy |
 | **Entities** | | |
-| `process` | Running Code | .exe, bin, script, malware |
+| `terminal` | CLI / Console | cmd, bash, nmap, powershell |
 | `service` | System Service | Daemon, svc, systemd |
+| `socks` | Proxy / Tunnel | SOCKS, Pivot, Port Fwd |
 | `memory` | RAM Contents | Heap, Buffer, LSASS memory |
 | `credential` | Auth Material | Key, Hash, Ticket, Password |
 | `data` | Persisted Data | **File**, Database, Config, Log (Use 'data', NOT 'file') |

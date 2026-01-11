@@ -1,7 +1,0 @@
-flowchart LR
-    kali_01["Attacker Machine<br>Kali Linux<br>Tools: mimikatz"] -- "1. [ACCESS] Compromise User Session" --> windows_01
-    windows_01["Windows Workstation<br>Win10/11<br>Process: LSASS"] -- "2. [PRIVESC] privilege::debug" --> windows_01
-    windows_01 -- "3. [CREDS] T1003.001 Export Tickets" --> windows_01
-    windows_01 -- "4. [EVASION] T1550.003 Pass-the-Ticket" --> windows_01
-    windows_01 -- "5. [LATERAL] T1021.002 SMB Admin Share Access" --> dc_01["Domain Controller<br>Windows Server 2022<br>Service: SMB"]
-    dc_01 -- "6. [COLLECT] T1039 Directory Listing" --> windows_01

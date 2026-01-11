@@ -1,8 +1,0 @@
-flowchart LR
-    kali_01["Attacker Machine<br>Kali Linux<br>Tools: responder, hashcat"]
-    windows_01["Victim Workstation<br>Windows 10/11<br>Service: Workstation"]
-
-    windows_01 -- "1. [RECON] LLMNR/NBT-NS Broadcast<br>(Who is 'SRV-01'?)" --> kali_01
-    kali_01 -- "2. [CREDS] Poisoned Response<br>(I am 'SRV-01')" --> windows_01
-    windows_01 -- "3. [CREDS] T1557.001 SMB Authentication<br>(Sends Net-NTLMv2 Hash)" --> kali_01
-    kali_01 -- "4. [CREDS] T1110.002 Offline Cracking<br>(Hashcat vs Rockyou)" --> kali_01

@@ -31,11 +31,14 @@ export const ICON_REGISTRY = {
     'firewall': { file: 'firewall.svg', color: '#EF4444', category: 'device', keywords: ['fw', 'paloalto'] },
 
     // Entities
+    // Entities
     'process': { file: 'process.svg', color: '#A855F7', category: 'generic', keywords: ['exe', 'bin'] },
+    'terminal': { file: 'terminal.svg', color: '#7C3AED', category: 'generic', keywords: ['cmd', 'bash', 'nmap'] },
     'service': { file: 'service.svg', color: '#A855F7', category: 'generic', keywords: ['svc', 'daemon'] },
+    'socks': { file: 'socks.svg', color: '#F59E0B', category: 'generic', keywords: ['proxy', 'tunnel'] },
     'memory': { file: 'memory.svg', color: '#A855F7', category: 'generic', keywords: ['ram', 'heap'] },
     'credential': { file: 'credential.svg', color: '#F59E0B', category: 'generic', keywords: ['key', 'hash', 'ticket'] },
-    'data': { file: 'database.svg', color: '#10B981', category: 'generic', keywords: ['db', 'sql'] },
+    'data': { file: 'db.svg', color: '#10B981', category: 'generic', keywords: ['db', 'sql'] },
 
     // Defaults
     'default': { file: 'default.svg', color: '#94A3B8', category: 'generic', keywords: [] }
