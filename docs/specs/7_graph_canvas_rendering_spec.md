@@ -171,6 +171,43 @@ newestEdge.animate({
 - `text-background-opacity`: 1 (Hides the line)
 - `underlay-opacity`: 0 (No glow)
 
+### 4.4 Seamless Multi-Edge Handling (Smart Arcs)
+
+**Problem:**
+Default `bezier` curves shift from straight to curved when a parallel edge is added, creating a jarring "jump" in the visualization (one straight line suddenly splitting into two arcs).
+
+**Solution:**
+Predictive rendering using `unbundled-bezier`. We analyze the full scenario timeline to pre-calculate the final "slot" for every edge.
+
+**Algorithm:**
+1.  **Preprocessing (Pre-render):**
+    - Iterate through the entire scenario timeline (all steps).
+    - Group edges by node pair (unordered: pair `A-B` is equivalent to `B-A`).
+    - Assign a stable `index` (0..N-1) to each edge in the pair group based on appearance order.
+    - Store `total_count` and `index` for each edge ID.
+
+2.  **Rendering Check:**
+    - For each edge being rendered, check its group's `total_count`.
+
+3.  **Style Application:**
+    - **Case A: Single Edge (`total_count == 1`)**
+        - `curve-style: bezier`
+        - Result: Straight line (default behavior).
+
+    - **Case B: Multiple Edges (`total_count > 1`)**
+        - `curve-style: unbundled-bezier`
+        - `control-point-weights`: `0.5` (Midpoint)
+        - `control-point-distances`: Calculated offset.
+        - **Formula:**
+            - `SPEED_OF_LIGHT_SEPARATION = 50` (px)
+            - `offset = (index - (total_count - 1) / 2) * SPEED_OF_LIGHT_SEPARATION`
+        - **Example (2 Edges):**
+            - Edge 1 (Index 0): `(0 - 0.5) * 50 = -25`
+            - Edge 2 (Index 1): `(1 - 0.5) * 50 = +25`
+
+**Benefit:**
+The first edge of a future pair renders as a curved arc (offset -25) immediately. When the second edge (offset +25) appears later, the first edge remains stationary, and the second edge simply fills the empty slot. This eliminates the visual "jump."
+
 ---
 
 ## 5. Edge Styling

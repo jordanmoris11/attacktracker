@@ -14,8 +14,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 295.4962785902348,
-        "y": 179.8413863323172
+        "x": 318.21875286152334,
+        "y": 178.3265547142313
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 855.3380638383082,
-        "y": 136.35750501223382
+        "x": 893.2088542904554,
+        "y": 203.76751201705656
       },
       "icon": "IconCloud",
       "type": "container",
@@ -41,8 +41,8 @@
       "id": "npm_registry",
       "label": "NPM Registry",
       "position": {
-        "x": 649.3152306011706,
-        "y": 87.22187909887
+        "x": 687.1860210533182,
+        "y": 154.63188610369278
       },
       "icon": "IconNpm",
       "type": "node"
@@ -51,8 +51,8 @@
       "id": "github_platform",
       "label": "GitHub API",
       "position": {
-        "x": 1056.360897075446,
-        "y": 152.49313092559763
+        "x": 1094.2316875275926,
+        "y": 219.9031379304204
       },
       "icon": "IconGitHub",
       "type": "node"
@@ -61,8 +61,8 @@
       "id": "attacker_infra",
       "label": "C2 INFRA via Github",
       "position": {
-        "x": 974.2493270541671,
-        "y": 159.09067150024435
+        "x": 1010.2265779837069,
+        "y": 228.39421802767447
       },
       "icon": "IconServer",
       "type": "container",
@@ -78,8 +78,8 @@
       "id": "c2_server",
       "label": "C2 / Webhook",
       "position": {
-        "x": 896.3506779876734,
-        "y": 148.47529112010582
+        "x": 934.221468439821,
+        "y": 215.8852981249286
       },
       "icon": "IconC2",
       "type": "node"
@@ -88,8 +88,8 @@
       "id": "victim_workstation",
       "label": "Developer Workstation",
       "position": {
-        "x": 506.0109541562973,
-        "y": 510.0522805006086
+        "x": 573.0125552931217,
+        "y": 538.0766654351978
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -107,8 +107,8 @@
       "id": "user_terminal",
       "label": "Terminal",
       "position": {
-        "x": 361.3924948279152,
-        "y": 453.256763344043
+        "x": 324.27912018481055,
+        "y": 481.2811482786322
       },
       "icon": "IconTerminal",
       "type": "node"
@@ -117,8 +117,8 @@
       "id": "malware_script",
       "label": "install script",
       "position": {
-        "x": 606.9354411517179,
-        "y": 456.74411581228276
+        "x": 569.8220665086133,
+        "y": 484.76850074687195
       },
       "icon": "IconCode",
       "type": "node"
@@ -127,8 +127,8 @@
       "id": "bun_runtime",
       "label": "bun process",
       "position": {
-        "x": 847.8593650445376,
-        "y": 480.7236896929228
+        "x": 810.745990401433,
+        "y": 508.748074627512
       },
       "icon": "IconProcess",
       "type": "node"
@@ -137,8 +137,8 @@
       "id": "cred_store",
       "label": "Secrets (~/.ssh, tokens)",
       "position": {
-        "x": 609.6294134846795,
-        "y": 545.8477976571742
+        "x": 572.5160388415749,
+        "y": 573.8721825917634
       },
       "icon": "IconKey",
       "type": "node"

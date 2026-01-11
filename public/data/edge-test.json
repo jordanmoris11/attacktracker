@@ -1,0 +1,50 @@
+{
+  "title": "Edge Overlap Test",
+  "description": "Test case for validating seamless multi-edge rendering with 4 edges between 2 nodes.",
+  "version": "1.0",
+  "viewport": {
+    "zoom": 1.767647522095777,
+    "pan": {
+      "x": 295.3944661590415,
+      "y": 285.7969795937195
+    }
+  },
+  "entities": [
+    {
+      "id": "node_a",
+      "label": "Node A",
+      "position": {
+        "x": 0.43263840783765994,
+        "y": 113.44428225226795
+      },
+      "icon": "IconServer",
+      "type": "node"
+    },
+    {
+      "id": "node_b",
+      "label": "Node B",
+      "position": {
+        "x": 409.48421673439793,
+        "y": 110.04994037980792
+      },
+      "icon": "IconWorkstation",
+      "type": "node"
+    }
+  ],
+  "steps": [
+    {
+      "id": 1,
+      "name": "Edge 1 (A->B)",
+      "type": "edge",
+      "from": "node_a",
+      "to": "node_b"
+    },
+    {
+      "id": 2,
+      "name": "Edge 2 (B->A)",
+      "type": "edge",
+      "from": "node_b",
+      "to": "node_a"
+    }
+  ]
+}

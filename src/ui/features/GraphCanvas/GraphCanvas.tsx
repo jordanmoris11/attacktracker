@@ -204,6 +204,25 @@ export const GraphCanvas: React.FC = () => {
             cy.edges().remove();
             cy.elements('.highlighted').removeClass('highlighted');
 
+            // --- PRE-PROCESSING: Seamless Multi-Edge Layout ---
+            // Calculate edge slots based on FULL timeline to prevent jumping
+            const pairGroups: Record<string, string[]> = {};
+            timeline.forEach(tStep => {
+                if (tStep.type === 'edge') {
+                    // Create stable pair ID (A-B same as B-A)
+                    const pairId = [tStep.from, tStep.to].sort().join('-');
+                    if (!pairGroups[pairId]) pairGroups[pairId] = [];
+                    pairGroups[pairId].push(`edge_${tStep.id}`);
+                }
+            });
+
+            const edgeMeta: Record<string, { index: number; total: number }> = {};
+            Object.values(pairGroups).forEach(group => {
+                group.forEach((edgeId, idx) => {
+                    edgeMeta[edgeId] = { index: idx, total: group.length };
+                });
+            });
+
             // Track the newest edge for animation (outside batch)
             let newestEdge: cytoscape.EdgeSingular | null = null;
 
@@ -223,6 +242,28 @@ export const GraphCanvas: React.FC = () => {
                 }
 
                 if (step.type === 'edge') {
+                    // Smart Arc Calculation
+                    const meta = edgeMeta[`edge_${step.id}`];
+                    let curveProps: any = { 'curve-style': 'bezier' };
+
+                    if (meta && meta.total > 1) {
+                        const SPEED_OF_LIGHT = 50; // Distance between arcs
+                        let offset = (meta.index - (meta.total - 1) / 2) * SPEED_OF_LIGHT;
+
+                        // DIRECTION CHECK:
+                        // If edge direction opposes canonical sorting (A->B vs A-B), flip the offset
+                        // value to ensure arcs curve in consistent pattern regardless of direction.
+                        if (step.from > step.to) {
+                            offset *= -1;
+                        }
+
+                        curveProps = {
+                            'curve-style': 'unbundled-bezier',
+                            'control-point-distances': offset,
+                            'control-point-weights': 0.5
+                        };
+                    }
+
                     const edge = cy.add({
                         group: 'edges',
                         data: {
@@ -240,6 +281,8 @@ export const GraphCanvas: React.FC = () => {
                             'text-rotation': 'autorotate',
                             'z-index': 100,
                             'opacity': 1,
+
+                            ...curveProps,
 
                             // Diffuse Glow (Constant size, breathing opacity)
                             'underlay-color': edgeColor,
@@ -259,6 +302,8 @@ export const GraphCanvas: React.FC = () => {
                             'width': 1.5, // Match thin laser width
                             'arrow-scale': 1.0,
                             'text-rotation': 'autorotate',
+
+                            ...curveProps,
 
                             // History Text Style
                             'color': edgeColor,
