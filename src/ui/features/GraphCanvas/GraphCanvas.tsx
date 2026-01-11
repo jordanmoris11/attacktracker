@@ -245,7 +245,13 @@ export const GraphCanvas: React.FC = () => {
                             'underlay-color': edgeColor,
                             'underlay-padding': 3, // slightly wider but soft
                             'underlay-opacity': 0.4, // Reduced base opacity
-                            'underlay-shape': 'round'
+                            'underlay-shape': 'round',
+
+                            // Text Glow (User Request)
+                            'color': edgeColor, // Text matches tactic color
+                            'text-outline-color': edgeColor,
+                            'text-outline-width': 1, // Thin crisp outline
+                            'text-outline-opacity': 0.4 // Base opacity
                         } : {
                             // Previous edges: normal gray
                             'line-color': '#94a3b8',
@@ -253,6 +259,11 @@ export const GraphCanvas: React.FC = () => {
                             'width': 2,
                             'arrow-scale': 1.0,
                             'text-rotation': 'autorotate',
+
+                            // History Text Style
+                            'color': '#cbd5e1',
+                            'text-outline-width': 0, // No glow
+
                             'opacity': 0.4, // Dimmed further
                             'underlay-opacity': 0
                         }
@@ -272,17 +283,23 @@ export const GraphCanvas: React.FC = () => {
                 }
             }
 
-            // E. Pulse Animation (Opacity Only - More Transparent)
+            // E. Pulse Animation (Opacity Only - More Transparent - Text Sync)
             if (newestEdge) {
                 const runPulse = () => {
                     if (!newestEdge || newestEdge.removed()) return;
 
                     newestEdge.animate({
-                        style: { 'underlay-opacity': 0.1 }, // Fade out almost completely
+                        style: {
+                            'underlay-opacity': 0.1,
+                            'text-outline-opacity': 0.1
+                        }, // Fade out almost completely
                         duration: 800,
                         easing: 'ease-in-out-sine'
                     }).delay(0).animate({
-                        style: { 'underlay-opacity': 0.5 }, // Peak at 0.5 (was 0.8) to avoid "thick rectangle" look
+                        style: {
+                            'underlay-opacity': 0.5,
+                            'text-outline-opacity': 0.5
+                        }, // Peak at 0.5 (was 0.8) to avoid "thick rectangle" look
                         duration: 800,
                         easing: 'ease-in-out-sine',
                         complete: runPulse
