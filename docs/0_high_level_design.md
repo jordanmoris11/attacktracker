@@ -68,9 +68,13 @@ A singleton-like class (or managed instance) that encapsulates the raw `cytoscap
 -   **Config**: A strictly typed registry mapping logical entity types (e.g., "Attacker", "Win10") to asset paths.
 
 ### 5.3 Legacy Adapter Layer
-Since the system must support legacy workflows:
 -   **LegacyMermaidAdapter**: Regex-based parsing to convert old text-based flowcharts into the new `GraphData` schema.
 -   **Goal**: Deprecate eventual text usage in favor of LLM-generated JSON, but maintain read-compatibility.
+
+### 5.4 Persistence Layer (Middleware)
+-   **Vite Plugin** (`vite-plugin-json-save`): A custom middleware that exposes a `POST /api/save` endpoint during development.
+-   **Function**: Enables writing graph layout changes (positions, viewport) directly back to the source JSON file on disk, enforcing a "File as Source of Truth" architecture.
+-   **Security**: Restricted to `public/data` directory to prevent arbitrary file system access.
 
 ## 6. Implementation Strategy
 1.  **Scaffold**: Initialize Vite + React + TypeScript + Tailwind.

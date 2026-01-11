@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useGraphStore } from './useGraphStore';
-import { useLayoutStore, type ViewportState, type XYPosition } from './useLayoutStore';
+import { useLayoutStore } from './useLayoutStore';
 import type { AttackGraph } from '../../shared/schemas/graph.schema';
 
 /**
@@ -32,7 +32,7 @@ export const usePersistence = () => {
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
         timeoutRef.current = setTimeout(async () => {
-            console.log(`[Persistence] Auto-saving changes to ${sourcePath}...`);
+            // console.log(`[Persistence] Auto-saving changes to ${sourcePath}...`);
             lastSavedState.current = stateString;
 
             // 4. Construct the Full JSON Object
@@ -75,7 +75,7 @@ export const usePersistence = () => {
                 });
 
                 if (response.ok) {
-                    console.log(`[Persistence] Saved successfully.`);
+                    // console.log(`[Persistence] Saved successfully.`);
                 } else {
                     console.error(`[Persistence] Server error: ${response.statusText}`);
                 }

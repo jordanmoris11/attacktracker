@@ -22,7 +22,7 @@ export const GraphCanvas: React.FC = () => {
 
     // State
     const { nodes, edges, status, title } = useGraphStore();
-    const { saveNodePosition, saveViewport, getGraphLayout } = useLayoutStore();
+    const { getGraphLayout } = useLayoutStore();
 
     // 1. Initialize Cytoscape (Once)
     useEffect(() => {
@@ -106,10 +106,10 @@ export const GraphCanvas: React.FC = () => {
             // 3. Run Layout (Conditional)
             const savedLayout = getGraphLayout(title);
 
-            // Check Store (LocalStorage)
-            const hasStorePositions = savedLayout && savedLayout.positions && Object.keys(savedLayout.positions).length > 0;
+            // Active Session: User has moved nodes since page load (Memory)
+            const hasSessionMoves = savedLayout && savedLayout.positions && Object.keys(savedLayout.positions).length > 0;
 
-            // Check File (JSON Data)
+            // Persisted Data: Positions loaded from JSON file (Disk)
             const hasFilePositions = nodes.some(n => !!n.position);
 
             let layoutConfig: any = {
@@ -123,20 +123,12 @@ export const GraphCanvas: React.FC = () => {
                 animationDuration: 500
             };
 
-            if (hasStorePositions || hasFilePositions) {
-                // Scenario: Restore Saved Positions (From Store OR File)
-                // Priority Check: 
-                // User Feedback: "it prioritized his own old saved localstorage , bad !"
-                // Fix: FILE > STORE.
-                // If the file has positions, we assume they are the source of truth (shared state).
-                // We only use localStorage if the file is "clean" (legacy/new).
+            if (hasSessionMoves || hasFilePositions) {
+                // Priority: Session Moves (Memory) > File Positions (Disk)
+                // If user drags a node, that is the most recent "truth" until saved.
 
-                const useStoreData = hasStorePositions && !hasFilePositions;
-
-                console.log(`[Layout Persistence] Restoring from ${hasFilePositions ? 'File (Priority)' : 'LocalStorage'}`);
-
-                // If using store data (because file has none), apply it.
-                if (useStoreData) {
+                // If user has active moves in memory, apply them on top of file positions
+                if (hasSessionMoves) {
                     cyNodes.forEach(node => {
                         const savedPos = savedLayout!.positions[node.data.id];
                         if (savedPos) {
@@ -177,7 +169,6 @@ export const GraphCanvas: React.FC = () => {
                     }
 
                     if (targetViewport) {
-                        console.log(`[Layout Persistence] Restoring viewport for "${title}"`);
                         cy.viewport({
                             zoom: targetViewport.zoom,
                             pan: targetViewport.pan
