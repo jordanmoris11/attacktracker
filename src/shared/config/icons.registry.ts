@@ -40,6 +40,10 @@ export const ICON_REGISTRY = {
     'credential': { file: 'credential.svg', color: '#F59E0B', category: 'generic', keywords: ['key', 'hash', 'ticket'] },
     'data': { file: 'db.svg', color: '#10B981', category: 'generic', keywords: ['db', 'sql'] },
 
+    // Threats
+    'malware': { file: 'malware.svg', color: '#EF4444', category: 'generic', keywords: ['virus', 'payload'] },
+    'c2': { file: 'c2.svg', color: '#EF4444', category: 'generic', keywords: ['beacon'] },
+
     // Defaults
     'default': { file: 'default.svg', color: '#94A3B8', category: 'generic', keywords: [] }
 } as const;

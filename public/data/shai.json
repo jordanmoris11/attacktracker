@@ -1,175 +1,164 @@
 {
-    "title": "Shai Hulud 2.0 Supply Chain Attack",
-    "description": "Supply chain compromise via poisoned npm packages targeting developers, leading to credential harvesting, cloud lateral movement, and data destruction.",
+    "title": "Shai-Hulud: NPM Supply Chain Attack",
+    "description": "A recursive supply chain attack leveraging poisoned NPM packages to harvest credentials, exfiltrate to GitHub, and wipe victim machines.",
     "nodes": [
         {
             "id": "internet",
             "label": "Public Internet",
             "type": "container",
+            "icon": "cloud",
             "metadata": {
                 "boundary": "network"
             }
-        },
-        {
-            "id": "attacker",
-            "label": "Threat Actor",
-            "type": "actor",
-            "icon": "kali",
-            "parent": "internet"
-        },
-        {
-            "id": "npm_maintainer",
-            "label": "NPM Maintainer",
-            "type": "actor",
-            "icon": "user",
-            "parent": "internet"
         },
         {
             "id": "npm_registry",
             "label": "NPM Registry",
             "type": "service",
-            "icon": "cloud",
-            "parent": "internet"
+            "parent": "internet",
+            "icon": "server"
         },
         {
-            "id": "github",
+            "id": "github_cloud",
             "label": "GitHub",
             "type": "service",
-            "icon": "server",
+            "parent": "internet",
+            "icon": "cloud"
+        },
+        {
+            "id": "attacker",
+            "label": "Threat Actor",
+            "type": "actor",
+            "icon": "attacker",
             "parent": "internet"
         },
         {
-            "id": "corp_net",
+            "id": "victim_network",
             "label": "Corporate Network",
             "type": "container",
+            "icon": "server",
             "metadata": {
                 "boundary": "network"
             }
         },
         {
-            "id": "victim_dev_box",
+            "id": "dev_machine",
             "label": "Developer Workstation",
-            "type": "device",
+            "type": "container",
+            "parent": "victim_network",
             "icon": "workstation",
-            "parent": "corp_net",
             "metadata": {
                 "boundary": "machine"
             }
         },
         {
-            "id": "poisoned_process",
-            "label": "Malicious Script (Node/Bun)",
+            "id": "victim_user",
+            "label": "Developer",
+            "type": "actor",
+            "parent": "dev_machine",
+            "icon": "user"
+        },
+        {
+            "id": "malware_proc",
+            "label": "Malicious Install Script",
             "type": "process",
-            "icon": "process",
-            "parent": "victim_dev_box"
+            "parent": "dev_machine",
+            "icon": "malware"
         },
         {
-            "id": "local_secrets",
+            "id": "local_creds",
             "label": "~/.aws & ~/.ssh",
-            "type": "credential",
-            "icon": "credential",
-            "parent": "victim_dev_box"
-        },
-        {
-            "id": "user_data",
-            "label": "Home Directory",
             "type": "data",
-            "icon": "data",
-            "parent": "victim_dev_box"
+            "parent": "dev_machine",
+            "icon": "credential"
         },
         {
-            "id": "cloud_env",
-            "label": "Company Cloud (AWS/Azure)",
+            "id": "target_cloud",
+            "label": "Target Cloud (AWS/Azure)",
             "type": "container",
+            "icon": "cloud",
             "metadata": {
                 "boundary": "network"
             }
-        },
-        {
-            "id": "cloud_infra",
-            "label": "Cloud Infrastructure",
-            "type": "device",
-            "icon": "server",
-            "parent": "cloud_env"
         }
     ],
     "edges": [
         {
             "source": "attacker",
-            "target": "npm_maintainer",
-            "label": "Phishing / MFA Bypass",
-            "step": 1,
-            "mitre": "T1586",
-            "type": "illegal"
-        },
-        {
-            "source": "attacker",
             "target": "npm_registry",
             "label": "Publishes Poisoned Package",
-            "step": 2,
-            "mitre": "T1195.001",
+            "step": 1,
+            "mitre": "T1195.002",
             "type": "illegal"
         },
         {
-            "source": "victim_dev_box",
+            "source": "victim_user",
             "target": "npm_registry",
-            "label": "npm install (Download)",
-            "step": 3,
-            "mitre": "T1195.001",
+            "label": "Runs npm install",
+            "step": 2,
+            "mitre": "T1204",
             "type": "normal"
         },
         {
-            "source": "poisoned_process",
-            "target": "victim_dev_box",
-            "label": "Executes (Detached)",
-            "step": 4,
-            "mitre": "T1059.007",
+            "source": "npm_registry",
+            "target": "malware_proc",
+            "label": "Downloads & Executes",
+            "step": 3,
+            "mitre": "T1204.002",
             "type": "illegal"
         },
         {
-            "source": "poisoned_process",
-            "target": "local_secrets",
-            "label": "Harvests Credentials",
+            "source": "malware_proc",
+            "target": "malware_proc",
+            "label": "Forks Detached Process",
+            "step": 4,
+            "mitre": "T1059",
+            "type": "illegal"
+        },
+        {
+            "source": "malware_proc",
+            "target": "local_creds",
+            "label": "Scans for Secrets",
             "step": 5,
             "mitre": "T1552.001",
             "type": "illegal"
         },
         {
-            "source": "poisoned_process",
-            "target": "github",
-            "label": "Exfils to Public Repo",
+            "source": "malware_proc",
+            "target": "github_cloud",
+            "label": "Exfil via Git Push",
             "step": 6,
             "mitre": "T1567.001",
             "type": "illegal"
         },
         {
             "source": "attacker",
-            "target": "github",
+            "target": "github_cloud",
             "label": "Registers Rogue Runner",
             "step": 7,
             "mitre": "T1098",
             "type": "illegal"
         },
         {
-            "source": "poisoned_process",
+            "source": "malware_proc",
             "target": "npm_registry",
-            "label": "Propagates (Worm)",
+            "label": "Propagates Worm",
             "step": 8,
-            "mitre": "T1195",
+            "mitre": "T1550",
             "type": "illegal"
         },
         {
             "source": "attacker",
-            "target": "cloud_infra",
-            "label": "Accesses via Stolen Creds",
+            "target": "target_cloud",
+            "label": "Lateral Movement",
             "step": 9,
-            "mitre": "T1021.007",
+            "mitre": "T1078",
             "type": "illegal"
         },
         {
-            "source": "poisoned_process",
-            "target": "user_data",
-            "label": "Shreds Data",
+            "source": "malware_proc",
+            "target": "dev_machine",
+            "label": "Wipes Disk",
             "step": 10,
             "mitre": "T1485",
             "type": "impact"

@@ -1,102 +1,128 @@
 {
-    "title": "Golden Ticket Attack Flow",
-    "description": "Dumping krbtgt hash to forge a Golden Ticket for domain-wide persistence.",
+    "title": "SMB Relay to SOCKS Tunnel",
+    "description": "Attacker leverages LLMNR/NBT-NS poisoning to relay NTLM authentication, creating a SOCKS proxy to dump local SAM hashes.",
     "nodes": [
         {
-            "id": "attacker",
-            "label": "Attacker",
-            "type": "actor",
-            "icon": "attacker"
-        },
-        {
-            "id": "dc_server",
-            "label": "Domain Controller",
+            "id": "dmz_network",
+            "label": "Corporate DMZ",
             "type": "container",
+            "icon": "server",
             "metadata": {
-                "boundary": "machine"
+                "boundary": "network"
             }
         },
         {
-            "id": "proc_mimi",
-            "label": "mimikatz.exe",
-            "type": "process",
-            "parent": "dc_server",
-            "icon": "process"
-        },
-        {
-            "id": "proc_lsass",
-            "label": "lsass.exe",
-            "type": "process",
-            "parent": "dc_server",
-            "icon": "service"
-        },
-        {
-            "id": "cred_krbtgt",
-            "label": "krbtgt Hash",
-            "type": "credential",
-            "parent": "dc_server",
-            "icon": "credential"
-        },
-        {
-            "id": "ticket_golden",
-            "label": "Golden Ticket (TGT)",
-            "type": "credential",
-            "parent": "dc_server",
-            "icon": "credential"
-        },
-        {
-            "id": "target_host",
-            "label": "THEPUNISHER",
+            "id": "kali_vm",
+            "label": "Attacker (Kali)",
             "type": "device",
-            "icon": "windows"
+            "icon": "kali",
+            "parent": "dmz_network"
+        },
+        {
+            "id": "target_server",
+            "label": "Target Windows Server",
+            "type": "device",
+            "icon": "windows",
+            "parent": "dmz_network"
+        },
+        {
+            "id": "victim_user",
+            "label": "Victim User",
+            "type": "actor",
+            "icon": "user",
+            "parent": "dmz_network"
+        },
+        {
+            "id": "proc_nmap",
+            "label": "nmap (SMB Scan)",
+            "type": "process",
+            "icon": "malware",
+            "parent": "kali_vm"
+        },
+        {
+            "id": "proc_ntlmrelayx",
+            "label": "ntlmrelayx.py",
+            "type": "process",
+            "icon": "malware",
+            "parent": "kali_vm"
+        },
+        {
+            "id": "svc_socks",
+            "label": "SOCKS4 Proxy",
+            "type": "service",
+            "icon": "socks",
+            "parent": "kali_vm"
+        },
+        {
+            "id": "proc_secretsdump",
+            "label": "secretsdump.py",
+            "type": "process",
+            "icon": "malware",
+            "parent": "kali_vm"
+        },
+        {
+            "id": "data_sam",
+            "label": "SAM Database",
+            "type": "credential",
+            "icon": "credential",
+            "parent": "target_server"
         }
     ],
     "edges": [
         {
+            "source": "proc_nmap",
+            "target": "target_server",
+            "label": "Checks SMB Signing",
             "step": 1,
-            "source": "attacker",
-            "target": "proc_mimi",
-            "label": "Execute",
-            "mitre": "T1059",
+            "mitre": "T1046",
             "type": "normal"
         },
         {
+            "source": "proc_ntlmrelayx",
+            "target": "dmz_network",
+            "label": "Poisons LLMNR/NBT-NS",
             "step": 2,
-            "source": "proc_mimi",
-            "target": "proc_lsass",
-            "label": "Inject/Dump LSA",
-            "mitre": "T1003.001",
+            "mitre": "T1557.001",
             "type": "illegal"
         },
         {
+            "source": "victim_user",
+            "target": "proc_ntlmrelayx",
+            "label": "Sends NTLM Auth",
             "step": 3,
-            "source": "proc_lsass",
-            "target": "cred_krbtgt",
-            "label": "Extracts",
+            "mitre": "T1187",
+            "type": "illegal"
+        },
+        {
+            "source": "proc_ntlmrelayx",
+            "target": "target_server",
+            "label": "Relays Auth",
+            "step": 4,
+            "mitre": "T1557.001",
+            "type": "illegal"
+        },
+        {
+            "source": "target_server",
+            "target": "svc_socks",
+            "label": "Establishes Admin Session",
+            "step": 5,
+            "mitre": "T1090",
             "type": "impact"
         },
         {
-            "step": 4,
-            "source": "proc_mimi",
-            "target": "ticket_golden",
-            "label": "Forges (Offline)",
-            "mitre": "T1558.001",
-            "type": "illegal"
-        },
-        {
-            "step": 5,
-            "source": "ticket_golden",
-            "target": "proc_mimi",
-            "label": "Pass-the-Ticket",
-            "mitre": "T1550.003",
+            "source": "proc_secretsdump",
+            "target": "svc_socks",
+            "label": "Connects via Proxy",
+            "step": 6,
+            "mitre": "T1090",
             "type": "normal"
         },
         {
-            "step": 6,
-            "source": "proc_mimi",
-            "target": "target_host",
-            "label": "Access Admin Share",
-            "mitre": "T1021.002",
+            "source": "svc_socks",
+            "target": "data_sam",
+            "label": "Dumps Hashes",
+            "step": 7,
+            "mitre": "T1003.002",
             "type": "impact"
         }
     ]

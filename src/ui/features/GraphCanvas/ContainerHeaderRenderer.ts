@@ -17,7 +17,7 @@ cytoscape.use(cytoscapeCanvas);
 // --- Configuration ---
 const ICON_SIZE = 24;
 const ICON_TEXT_GAP = 8;
-const HEADER_Y_OFFSET = 20; // Distance from top of container
+const HEADER_Y_OFFSET = 10; // Distance ABOVE the top edge of container
 const FONT_SIZE = 14;
 const FONT_FAMILY = 'Inter, system-ui, sans-serif';
 const TEXT_COLOR = '#cbd5e1'; // slate-300
@@ -120,7 +120,8 @@ export function initContainerHeaderLayer(cy: cytoscape.Core): () => void {
 
             // Calculate center X of container
             const centerX = bb.x1 + bb.w / 2;
-            const headerY = bb.y1 + HEADER_Y_OFFSET;
+            // Position ABOVE the container (negative offset from top edge)
+            const headerY = bb.y1 - HEADER_Y_OFFSET;
 
             // Setup text measurement
             ctx.font = `bold ${FONT_SIZE}px ${FONT_FAMILY}`;
