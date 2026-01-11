@@ -1,28 +1,29 @@
 import React, { useEffect, useRef } from 'react';
 import cytoscape from 'cytoscape';
-import dagre from 'cytoscape-dagre';
-import { useGraphStore } from '../../../core/store/useGraphStore';
-import { useAnimationStore } from '../../../core/animation/useAnimationStore';
-import { useLayoutStore } from '../../../core/store/useLayoutStore';
-import { usePersistence } from '../../../core/store/usePersistence';
-import { CYTOSCAPE_THEME } from './cytoscape-theme';
-import { getIconPath } from '../../../shared/config/icons.registry';
+// import dagre from 'cytoscape-dagre'; // Removed: defaulting to preset
+import { useScenarioStore } from '../../../core/store/useScenarioStore';
+import { usePersistence } from '../../../core/store/usePersistence'; // Re-enabled
 import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
 
-// Register Layout
-cytoscape.use(dagre);
+// cytoscape.use(dagre);
 
 export const GraphCanvas: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const cyRef = useRef<cytoscape.Core | null>(null);
     const cleanupHeaderLayerRef = useRef<(() => void) | null>(null);
 
-    // Active File Persistence
-    usePersistence();
+    // New Store
+    const {
+        status,
+        cyElements,
+        currentStep,
+        timeline,
+        visibility,
+        scenario
+    } = useScenarioStore();
 
-    // State
-    const { nodes, edges, status, title } = useGraphStore();
-    const { getGraphLayout } = useLayoutStore();
+    // 0. Enable Persistence
+    usePersistence();
 
     // 1. Initialize Cytoscape (Once)
     useEffect(() => {
@@ -30,13 +31,81 @@ export const GraphCanvas: React.FC = () => {
 
         cyRef.current = cytoscape({
             container: containerRef.current,
-            style: CYTOSCAPE_THEME,
+            style: [
+                // Minimal Default Theme matching new 'Scenario' look
+                {
+                    selector: 'node',
+                    style: {
+                        'label': 'data(label)',
+                        'text-valign': 'bottom',
+                        'text-margin-y': 8,
+                        'background-color': 'data(color)', // Use JSON color
+                        'color': '#fff',
+                        'font-size': 12,
+                        'width': 40,
+                        'height': 40,
+                        'background-fit': 'contain',
+                        'background-image': 'data(iconPath)',
+                        'background-opacity': 0 // Icons are SVGs, hide the circle usually
+                    }
+                },
+                {
+                    selector: 'node[type="container"]',
+                    style: {
+                        'background-image': 'none', // Fix: Remove duplicate icon from center
+                        'background-opacity': 0,
+                        'border-width': 2,
+                        'border-color': 'data(color)', // e.g. #10B981
+                        'border-style': 'dashed',
+                        'label': '', // HeaderRenderer handles label
+                        'shape': 'roundrectangle'
+                    }
+                },
+                {
+                    selector: ':parent',
+                    style: {
+                        'text-valign': 'top',
+                        'text-halign': 'center',
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'width': 3,
+                        'line-color': '#94a3b8',
+                        'target-arrow-color': '#94a3b8',
+                        'target-arrow-shape': 'triangle',
+                        'curve-style': 'bezier',
+                        'label': 'data(label)',
+                        'text-background-opacity': 1,
+                        'text-background-color': '#0f172a',
+                        'text-background-padding': '4px', // Fixed type
+                        'color': '#cbd5e1',
+                        'font-size': 10
+                    }
+                },
+                // Visibility Classes
+                {
+                    selector: '.hidden',
+                    style: {
+                        'display': 'none'
+                    }
+                },
+                {
+                    selector: '.highlighted',
+                    style: {
+                        'border-width': 4,
+                        'border-color': '#fbbf24', // Amber
+                        'transition-property': 'border-width, border-color',
+                        'transition-duration': 300
+                    }
+                }
+            ],
             wheelSensitivity: 0.2,
             maxZoom: 3,
             minZoom: 0.2,
         });
 
-        // Initialize the custom container header canvas layer
         cleanupHeaderLayerRef.current = initContainerHeaderLayer(cyRef.current);
 
         return () => {
@@ -46,246 +115,143 @@ export const GraphCanvas: React.FC = () => {
         };
     }, []);
 
-    // 2. Sync Data -> Elements
+    // 2. Load Elements (Setting the Scene)
     useEffect(() => {
         const cy = cyRef.current;
         if (!cy || status !== 'success') return;
 
-        // Batch for performance
         cy.batch(() => {
-            cy.elements().remove(); // Clear old graph
+            cy.elements().remove();
 
-            // Transform Nodes (inject iconPath)
-            const cyNodes = nodes.map(node => ({
-                group: 'nodes',
-                data: {
-                    id: node.id,
-                    label: node.label,
-                    parent: node.parent, // Spec 10: Compound Parent
-                    type: node.type,
-                    iconPath: getIconPath(node.icon), // Spec 5: Icon Resolution (Enabled for Containers now)
-                    boundary: node.metadata?.boundary,
-                    state: node.state,
-                    step: node.step // Spec 12: Animation Step (Critical for Ghosting)
-                },
-                // LOAD POSITION FROM FILE (if available)
-                // This is crucial for cross-browser persistence
-                position: node.position
-            }));
+            // Add Pre-computed Nodes
+            if (cyElements.length > 0) {
+                cy.add(cyElements);
+            }
 
-            // ... Edges Transformation (omitted for brevity, unchanged) ...
-            // RESTORING MISSING LOGIC (Start)
-            const cyEdges = edges.map((edge, i) => {
-                // Visibility Logic
-                let isVisible = false;
-                if (currentStep > 0) {
-                    if (useExplicit) {
-                        const step = edge.step || 9999;
-                        isVisible = step <= currentStep;
-                    } else {
-                        // Step 1 corresponds to Index 0
-                        isVisible = (i + 1) <= currentStep;
-                    }
-                }
+            // Set Viewport (if provided)
+            if (scenario?.viewport) {
+                cy.zoom(scenario.viewport.zoom);
+                cy.pan(scenario.viewport.pan);
+            } else {
+                cy.fit();
+            }
+        });
 
-                return {
-                    group: 'edges',
-                    data: {
-                        id: edge.id,
-                        source: edge.source,
-                        target: edge.target,
-                        label: edge.label,
-                        type: edge.type, // Spec 4: 'illegal', 'impact'
-                        mitre: edge.mitre,
-                        step: edge.step // Pass step data to element for Syncer usage later
-                    },
-                    classes: isVisible ? 'visible' : 'hidden'
-                };
-            });
-            // RESTORING MISSING LOGIC (End)
+        // Trigger Icon Preload
+        preloadContainerIcons(cy);
 
-            // 3. Run Layout (Conditional)
-            const savedLayout = getGraphLayout(title);
+        // Initial render logic
+        cy.emit('render');
 
-            // Active Session: User has moved nodes since page load (Memory)
-            const hasSessionMoves = savedLayout && savedLayout.positions && Object.keys(savedLayout.positions).length > 0;
-
-            // Persisted Data: Positions loaded from JSON file (Disk)
-            const hasFilePositions = nodes.some(n => !!n.position);
-
-            let layoutConfig: any = {
-                name: 'dagre',
-                rankDir: 'LR',
-                align: 'UL',
-                rankSep: 200,
-                nodeSep: 50,
-                padding: 100,
-                animate: true,
-                animationDuration: 500
+        // --- Persistence Listeners ---
+        const updateStore = () => {
+            const viewport = {
+                zoom: cy.zoom(),
+                pan: cy.pan()
             };
+            useScenarioStore.getState().updateViewport(viewport.zoom, viewport.pan);
+        };
 
-            if (hasSessionMoves || hasFilePositions) {
-                // Priority: Session Moves (Memory) > File Positions (Disk)
-                // If user drags a node, that is the most recent "truth" until saved.
+        const updateNodePos = (evt: any) => {
+            const node = evt.target;
+            const pos = node.position();
+            useScenarioStore.getState().updateEntityPosition(node.id(), pos.x, pos.y);
+        };
 
-                // If user has active moves in memory, apply them on top of file positions
-                if (hasSessionMoves) {
-                    cyNodes.forEach(node => {
-                        const savedPos = savedLayout!.positions[node.data.id];
-                        if (savedPos) {
-                            (node as any).position = savedPos;
+        cy.on('pan zoom', updateStore);
+        cy.on('dragfree', 'node', updateNodePos);
+
+        // Cleanup listeners
+        return () => {
+            cy.off('pan zoom', updateStore);
+            cy.off('dragfree', 'node', updateNodePos);
+        };
+    }, [cyElements, status]); // Only re-run if complete graph replacement (not just pos update)
+
+    // 3. The Movie Loop: Step Updates
+    // Handles specific Edge Drawing + Visibility Toggling
+    useEffect(() => {
+        const cy = cyRef.current;
+        if (!cy || status !== 'success') return;
+
+        cy.batch(() => {
+            // A. Visibility Manager
+            if (visibility) {
+                cy.nodes().forEach(node => {
+                    const id = node.id();
+                    const range = visibility[id];
+
+                    let isVisible = true; // Default to visible if no constraints
+                    // If range exists, strictly enforce it
+                    if (range) {
+                        // Special Case: At Step 0 (Ready), show items that start at 1 (Scene Setting)
+                        const checkStep = currentStep === 0 ? 1 : currentStep;
+                        isVisible = (checkStep >= range.start && currentStep <= range.end);
+                    }
+
+                    if (isVisible) {
+                        node.removeClass('hidden');
+                    } else {
+                        node.addClass('hidden');
+                    }
+                });
+            }
+
+            // B. Cumulative Edges
+            // 1. Remove ALL edges first (to rebuild clean state)
+            cy.edges().remove();
+            cy.elements('.highlighted').removeClass('highlighted');
+
+            // 2. Iterate from 0 to Current Step explicitly (1-based index adjustment)
+            // If currentStep = 0 (Initial), loop doesn't run.
+            // If currentStep = 1, loop runs for k=0 (timeline[0]).
+            for (let i = 0; i < currentStep; i++) {
+                const step = timeline[i];
+                if (!step) continue;
+
+                if (step.type === 'edge') {
+                    // Check deduplication? Or just let them pile up? 
+                    // Cytoscape allows parallel edges. 
+                    // Let's assume unique step IDs make unique edges.
+                    cy.add({
+                        group: 'edges',
+                        data: {
+                            id: `edge_${step.id}`,
+                            source: step.from,
+                            target: step.to,
+                            label: step.name,
+                        },
+                        style: {
+                            // Uniform styling for all edges (No active highlight)
+                            'line-color': '#94a3b8',
+                            'target-arrow-color': '#94a3b8',
+                            'width': 2
                         }
                     });
                 }
 
-                layoutConfig = {
-                    name: 'preset', // Uses the positions (from file mapping or store override)
-                    padding: 100,
-                    animate: false
-                };
-            } else {
-                console.log(`[Layout Persistence] No saved positions for "${title}". Running Auto-Layout.`);
+                // C. Text/Alert Handling (Highlight logic) - Only for CURRENT step (last one in loop)
+                const isLast = (i === currentStep - 1);
+
+                if (isLast && step.type === 'show_text') {
+                    const target = cy.getElementById(step.target_entity);
+                    if (target.nonempty()) {
+                        target.addClass('highlighted');
+                    }
+                }
             }
 
-            // @ts-ignore - cytoscape types logic
-            cy.add([...cyNodes, ...cyEdges]);
-
-            const layout = cy.layout(layoutConfig);
-
-            // 4. Preload container icons AFTER layout completes
-            cy.one('layoutstop', () => {
-                preloadContainerIcons(cy).then(() => {
-
-                    // Viewport Restoration Logic
-                    let targetViewport = null;
-
-                    // Priority: FILE > STORE
-                    // 1. File Data (Shared Source of Truth)
-                    if (useGraphStore.getState().graph?.viewport) {
-                        targetViewport = useGraphStore.getState().graph!.viewport;
-                    }
-                    // 2. LocalStore (Fallback)
-                    else if (savedLayout?.viewport) {
-                        targetViewport = savedLayout.viewport;
-                    }
-
-                    if (targetViewport) {
-                        cy.viewport({
-                            zoom: targetViewport.zoom,
-                            pan: targetViewport.pan
-                        });
-                    }
-
-                    cy.emit('render');
-                });
-            });
-
-            layout.run();
-
-            // 5. Layout Persistence: Capture Moves & Viewport
-            // Remove previous listeners to avoid duplicates if useEffect re-runs
-            cy.off('dragfree', 'node');
-            cy.off('pan zoom'); // Clear old listeners
-
-            const { saveNodePosition, saveViewport } = useLayoutStore.getState();
-
-            cy.on('dragfree', 'node', (evt) => {
-                const node = evt.target;
-                saveNodePosition(title, node.id(), node.position());
-            });
-
-            // Debounced Viewport Save (Pan/Zoom)
-            let viewportTimeout: any;
-            cy.on('pan zoom', () => {
-                clearTimeout(viewportTimeout);
-                viewportTimeout = setTimeout(() => {
-                    saveViewport(title, cy.zoom(), cy.pan());
-                }, 500); // Wait 500ms after last move
-            });
         });
-
-    }, [nodes, edges, status, title]); // Added title to deps
-
-    // 4. Animation Syncer (Spec 7)
-    // We import this hook inside here to avoid re-rendering the whole canvas, 
-    // but effectively we just need access to the store's currentStep.
-    const { currentStep } = useAnimationStore();
-
-    useEffect(() => {
-        const cy = cyRef.current;
-        if (!cy || status !== 'success') return;
-
-        cy.batch(() => {
-            const cyEdges = cy.edges();
-
-            // If at step 0, hide all edges
-            if (currentStep === 0) {
-                cyEdges.removeClass('visible').addClass('hidden');
-                return;
-            }
-
-            // Determine if using explicit steps or index-based fallback
-            // (Shared logic with Controls, ideal to centralize but fine here for now)
-            const maxExplicitStep = Math.max(...edges.map(e => e.step || 0), 0);
-            const useExplicit = maxExplicitStep > 0;
-
-            cyEdges.forEach((edge, i) => {
-                // If explicit: edge.data('step') <= currentStep
-                // If fallback: index (0-based) < currentStep (1-based count)
-                // e.g. Step 1 shows edge index 0.
-
-                let isVisible = false;
-                if (useExplicit) {
-                    const step = edge.data('step') || 9999;
-                    isVisible = step <= currentStep;
-                } else {
-                    isVisible = i < currentStep;
-                }
-
-                if (isVisible) {
-                    edge.removeClass('hidden').addClass('visible');
-                } else {
-                    edge.removeClass('visible').addClass('hidden');
-                }
-            });
-
-            // Node Visibility (Spec 12: Ghost Strategy)
-            const cyNodes = cy.nodes();
-            cyNodes.forEach(node => {
-                // Default: Step 0 (Always Visible / Infrastructure)
-                const appearStep = node.data('step') || 0;
-
-                // Visible if current step >= appearance step
-                const isVisible = appearStep <= currentStep;
-
-                if (isVisible) {
-                    node.removeClass('pending').addClass('visible');
-                } else {
-                    node.removeClass('visible').addClass('pending');
-                }
-            });
-        });
-
-    }, [currentStep, edges, status]); // Dependencies: Re-run when step changes
+    }, [currentStep, status, timeline, visibility]);
 
     return (
-        <div className="w-full h-full relative bg-background-primary overflow-hidden">
-            {/* The Canvas */}
+        <div className="w-full h-full relative bg-slate-900 overflow-hidden">
             <div ref={containerRef} className="w-full h-full" />
 
-            {/* Simple Status Overlay */}
-            {status === 'loading' && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-50">
-                    <span className="text-white">Loading Graph...</span>
-                </div>
-            )}
-            {status === 'error' && (
-                <div className="absolute top-10 left-10 p-4 glass-panel border border-brand-red text-red-100 max-w-lg z-50">
-                    <h3 className="font-bold mb-2">Error Loading Graph</h3>
-                    {/* Access error from store if needed, but simple message for now */}
-                    <p>Check console or upload valid JSON/Mermaid.</p>
-                </div>
-            )}
+            {/* Step Indicator (Temporary UI) */}
+            <div className="absolute bottom-4 left-4 bg-black/70 text-white p-2 text-xs z-50 rounded font-mono">
+                Step: {currentStep} / {timeline.length}
+            </div>
         </div>
     );
 };

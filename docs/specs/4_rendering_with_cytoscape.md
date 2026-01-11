@@ -1,90 +1,38 @@
-# Spec 4: Rendering with Cytoscape Specification
+# Spec 4: Rendering Specification
 
-**Status:** Draft
-**Related:** `docs/specs/1_data_modeling_spec.md`
-**Legacy Source:** `Old_Code/js/app.js`, `Old_Code/docs/specs/07-edge-styles.md`
+**Status:** Active
+**Related:** `src/ui/features/GraphCanvas/GraphCanvas.tsx`
 
 ## 1. Overview
-This specification details how `CyberViewer-Cyto` renders the `AttackGraph` using **Cytoscape.js**. It ensures the visual fidelity matches the "World Class" aesthetics defined in the legacy system while leveraging React for component lifecycle management.
+The **GraphCanvas** is the main stage. It renders the `Scenario` using `Cytoscape.js`.
+Unlike the legacy system, it does **not** assume a static graph. It renders a dynamic "Movie Frame".
 
-**Core Goal:** 1:1 Parity with legacy "Beautifier" aesthetics + React's declarative power, including proper handling of "Glassmorphism" containers.
+## 2. Layout Strategy: Preset
+*   **Layout**: `preset`
+*   **Source**: coordinates are read directly from `entity.position` in the JSON.
+*   **Rationale**: LLMs/Users define the "Stage Set" once. We do not re-layout during the animation.
 
-## 2. Architecture: `GraphCanvas` Component
-The rendering logic is encapsulated in `src/ui/features/GraphCanvas/GraphCanvas.tsx`.
+## 3. The Render Loop (Animation)
+The canvas reacts to `currentStep` changes in `useScenarioStore`.
 
-### 2.1 Dependencies
--   **Core**: `cytoscape`, `cytoscape-elk`
--   **React**: `useRef` for DOM binding, `useEffect` for graph initialization.
--   **Store**: Subscribes to `useGraphStore` for data updates.
+### 3.1 Step 1: Visibility (Who is on stage?)
+Iterate all nodes:
+*   Check `visibility[nodeId]`.
+*   If `currentStep` is within `start/end`, remove `.hidden` class.
+*   Else, add `.hidden` class.
 
-### 3. Layout Strategy
-**Engine**: `cytoscape-elk` (Eclipse Layout Kernel)
-**Algorithm**: `layered` (Port of Sugiyama)
+### 3.2 Step 2: Ephemeral Edges (What is happening?)
+*   **Clear**: `cy.edges().remove()`. All edges are temporary.
+*   **Draw**: If the current step is type `edge`:
+    *   Create a new edge from `step.from` to `step.to`.
+    *   Apply label `step.name`.
+    *   Style it (icon traveling, etc.).
 
-We migrated from `dagre` to `elk` to support complex nested containers correctly. `dagre` had limitations with compound node bounding box calculations, leading to overlapping parent containers.
+### 3.3 Step 3: Text Events
+*   If current step is type `show_text`:
+    *   Find `target_entity`.
+    *   Apply `.highlighted` class (or show Overlay).
 
-#### Configuration
-The layout is managed via a centralized configuration (`src/ui/features/GraphCanvas/layout-config.ts`) to separate strategy from rendering.
-
-- **Direction**: Left-to-Right (`RIGHT`).
-- **Algorithm**: `layered` (Strict hierarchy).
-- **Node Dimensions**: `nodeDimensionsIncludeLabels: true` (Critical for checking wrapped text size).
-- **Adaptive Spacing**: 
-    - **Leaf Nodes**: Standard spacing (80px).
-    - **Container Nodes**: Massive spacing (200px) forced via data injection to prevent overlap of intermediate parents.
-
-#### Layout Options (Global Defaults)
-```typescript
-};
-```
-
-## 4. Sub-Component: Stylesheet
-The visual rules (CSS-for-Graphs) are defined in `src/core/graph/styles/cytoscape-theme.ts`.
-
-### 4.1 Node Styles
-| Selector | Style Rule | Legacy Value |
-|----------|------------|--------------|
-| `node` | Background | `#1e293b` (Slate-800) |
-| `node` | Label Color | `#e2e8f0` (Slate-200) |
-| `node[icon]` | BG Image | `data(iconPath)` |
-| `node:parent` | Shape | `roundrectangle` |
-| `node:parent` | Border | Dashed `#475569` |
-
-### 4.2 Edge Styles (Semantic Coloring)
-We map the semantic `type` from Spec 1 to specific visual rules.
-
-| Type | Color | Style |
-|------|-------|-------|
-| `normal` | `#64748b` | Solid |
-| `illegal` | `#ef4444` | Dashed (Line of compromise) |
-| `impact` | `#f59e0b` | Thick (Critical path) |
-
-**Keyword-Reference**:
-Legacy `07-edge-styles.md` defined automatic keyword matching (e.g. "exploit" -> red).
-*   **New Strategy**: The *Parser* assigns the `type`. The *Renderer* simply respects the `type`. This moves logic out of the view layer.
-
-## 5. Icon Rendering Strategy
-Cytoscape renders icons via `background-image`.
-1.  **Icon Registry**: `src/core/graph/styles/icons.registry.ts` maps names to paths.
-2.  **Asset Handling**: All SVGs stored in `public/assets/icons/`.
-3.  **Data Mapper**: The `CytoscapeAdapter` (Spec 3) injects the resolved `iconPath` into the node's data object, so the stylesheet can use `background-image: data(iconPath)`.
-
-## 6. Containers (Subgraphs)
-Containers are critical for "Trust Boundaries".
--   **Selector**: `:parent`
--   **Style**:
-    -   `background-opacity`: 0.05 (Subtle tint)
-    -   `border-width`: 4px
-    -   `border-style`: `dashed`
-    -   `padding`: 40px (Ensure internal nodes aren't cramped)
-
-### 6.1 State Overlays
-Spec 1 defined states like `compromised` and `protected`.
--   `.compromised`: `border-color: #ef4444`, `shadow-blur: 20px` (Red Glow).
--   `.protected`: `border-color: #3b82f6` (Blue Shield).
-
-## 7. Implementation Plan
-1.  **Dependency**: `npm install cytoscape cytoscape-dagre react-cytoscapejs` (or raw hook usage).
-2.  **Theme Module**: Create `cytoscape-theme.ts` porting all values from `Old_Code/js/app.js`.
-3.  **Component**: Build `GraphCanvas` to initialize `cy` instance.
-4.  **ResizeHandler**: Implement `ResizeObserver` on the container div to call `cy.resize()` and `cy.fit()`.
+## 4. Component Architecture
+*   `GraphCanvas`: Wraps the Cytoscape instance.
+*   `ContainerHeaderRenderer`: Pure canvas drawing for Container Titles + Icons (since Cytoscape compound nodes have limited styling).

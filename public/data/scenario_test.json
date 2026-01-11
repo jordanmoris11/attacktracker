@@ -1,0 +1,192 @@
+{
+    "title": "Attacker DMZ Scenario",
+    "description": "Simulation of an external attacker pivoting through a DMZ container to a sensitive internal database.",
+    "version": "2.0",
+    "viewport": {
+        "zoom": 1.2500291051900911,
+        "pan": {
+            "x": 313.2561538842783,
+            "y": 253.7325979713001
+        }
+    },
+    "entities": [
+        {
+            "id": "attacker",
+            "label": "External Attacker",
+            "type": "node",
+            "icon": "IconAttacker",
+            "position": {
+                "x": 50.0,
+                "y": 150.0
+            }
+        },
+        {
+            "id": "edge_firewall",
+            "label": "Edge Firewall",
+            "type": "node",
+            "icon": "IconFirewall",
+            "position": {
+                "x": 200.0,
+                "y": 150.0
+            }
+        },
+        {
+            "id": "dmz_zone",
+            "label": "DMZ Segment",
+            "type": "container",
+            "icon": "IconCloud",
+            "position": {
+                "x": 350.0,
+                "y": 100.0
+            },
+            "width": 200,
+            "height": 250,
+            "style": "dashed_border",
+            "members": [
+                "web_server",
+                "api_gateway"
+            ]
+        },
+        {
+            "id": "web_server",
+            "label": "Public Web Server",
+            "type": "node",
+            "icon": "IconServer",
+            "position": {
+                "x": 400.0,
+                "y": 140.0
+            }
+        },
+        {
+            "id": "api_gateway",
+            "label": "API Gateway",
+            "type": "node",
+            "icon": "IconAPI",
+            "position": {
+                "x": 400.0,
+                "y": 240.0
+            }
+        },
+        {
+            "id": "db_server",
+            "label": "Sensitive DB",
+            "type": "node",
+            "icon": "IconDatabase",
+            "position": {
+                "x": 650.0,
+                "y": 150.0
+            }
+        },
+        {
+            "id": "alert_box",
+            "label": "SIEM Alert",
+            "type": "text_box",
+            "icon": "IconAlert",
+            "position": {
+                "x": 350.0,
+                "y": 400.0
+            }
+        }
+    ],
+    "visibility": {
+        "attacker": {
+            "start": 0,
+            "end": 10
+        },
+        "edge_firewall": {
+            "start": 0,
+            "end": 10
+        },
+        "dmz_zone": {
+            "start": 1,
+            "end": 10
+        },
+        "web_server": {
+            "start": 1,
+            "end": 10
+        },
+        "api_gateway": {
+            "start": 1,
+            "end": 10
+        },
+        "db_server": {
+            "start": 3,
+            "end": 10
+        },
+        "alert_box": {
+            "start": 2,
+            "end": 2
+        }
+    },
+    "steps": [
+        {
+            "id": 0,
+            "type": "edge",
+            "name": "Port Scan",
+            "icon": "IconSearch",
+            "from": "attacker",
+            "to": "edge_firewall",
+            "mitre": {
+                "id": "T1595.001",
+                "tactic": "Reconnaissance",
+                "technique": "Active Scanning"
+            },
+            "tooltip": "SYN Packet: Scanning for open ports on the perimeter."
+        },
+        {
+            "id": 1,
+            "type": "edge",
+            "name": "Exploit Web App",
+            "icon": "IconExploit",
+            "from": "attacker",
+            "to": "web_server",
+            "mitre": {
+                "id": "T1190",
+                "tactic": "Initial Access",
+                "technique": "Exploit Public-Facing Application"
+            },
+            "tooltip": "SQL Injection: Malicious payload delivered to vulnerable DMZ server."
+        },
+        {
+            "id": 2,
+            "type": "show_text",
+            "name": "Detection Alert",
+            "target_entity": "alert_box",
+            "content": "Malicious SQL syntax detected on DMZ Web Server ingress.",
+            "style": "warning_alert",
+            "mitre": {
+                "id": "DS0015",
+                "tactic": "Detection",
+                "technique": "Network Traffic Analysis"
+            }
+        },
+        {
+            "id": 3,
+            "type": "edge",
+            "name": "Access Database",
+            "icon": "IconDatabase",
+            "from": "web_server",
+            "to": "db_server",
+            "mitre": {
+                "id": "T1021",
+                "tactic": "Lateral Movement",
+                "technique": "Remote Services"
+            },
+            "tooltip": "Query Customer Table: Compromised web server accessing internal DB."
+        },
+        {
+            "id": "4",
+            "type": "edge",
+            "name": "Exfiltrate via API",
+            "icon": "IconData",
+            "from": "db_server",
+            "to": "api_gateway",
+            "mitre": {
+                "id": "T1048",
+                "tactic": "Exfiltration",
+                "technique": "Exfiltration Over Alternative Protocol"
+            },
+            "tooltip": "JSON Stream: Exfiltrating stolen data via legitimate API channels."
+        }
+    ]
+}

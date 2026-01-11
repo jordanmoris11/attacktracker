@@ -1,154 +1,165 @@
 {
-  "title": "SMB Relay Attack",
-  "description": "Using ntlmrelayx to intercept victim authentication and dump hashes from a target server.",
+  "title": "NTLM Relay Attack Chain",
+  "description": "Visualizing the sequence of an NTLM Relay attack: from Recon to Credential Dumping.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.2500291051900911,
+    "zoom": 0.8935013537480553,
     "pan": {
-      "x": 313.2561538842783,
-      "y": 253.7325979713001
+      "x": 100.58128174883257,
+      "y": 29.721238375161477
     }
   },
-  "nodes": [
+  "entities": [
     {
       "id": "corp_net",
-      "label": "Corporate Network (10.0.2.x)",
-      "type": "container",
-      "icon": "server",
-      "state": "normal",
+      "label": "Corporate Network (10.0.2.0/24)",
       "position": {
-        "x": 491.4438717538656,
-        "y": 200.39780202722213
+        "x": 1058.2648663895716,
+        "y": 342.868713123833
       },
-      "metadata": {
-        "boundary": "network"
-      }
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 600,
+      "height": 400,
+      "style": "dashed_border",
+      "members": [
+        "attacker_kali",
+        "victim_ws",
+        "target_srv"
+      ]
     },
     {
       "id": "attacker_kali",
       "label": "Attacker (Kali)",
-      "type": "device",
-      "parent": "corp_net",
-      "icon": "kali",
-      "state": "normal",
-      "step": 0,
       "position": {
-        "x": 303.9022724803299,
-        "y": 182.99846328174425
-      }
+        "x": 622.4935785668224,
+        "y": 458.1853301627759
+      },
+      "icon": "IconKali",
+      "type": "node"
     },
     {
-      "id": "target_server",
+      "id": "victim_ws",
+      "label": "Victim Workstation",
+      "position": {
+        "x": 1481.036154212321,
+        "y": 419.79890123472734
+      },
+      "icon": "IconWorkstation",
+      "type": "node"
+    },
+    {
+      "id": "target_srv",
       "label": "Target Server (10.0.2.73)",
-      "type": "device",
-      "parent": "corp_net",
-      "icon": "windows",
-      "state": "normal",
-      "step": 0,
       "position": {
-        "x": 663.2985843565164,
-        "y": 23.103594989373967
-      }
+        "x": 1264.1541432205377,
+        "y": 206.55209608489014
+      },
+      "icon": "IconServer",
+      "type": "node"
     },
     {
-      "id": "victim_user",
-      "label": "Victim User",
-      "type": "actor",
-      "parent": "corp_net",
-      "icon": "user",
-      "state": "normal",
-      "step": 0,
+      "id": "info_panel",
+      "label": "Attack Status",
       "position": {
-        "x": 724.4854710274013,
-        "y": 368.0939090076412
-      }
-    },
-    {
-      "id": "nmap_scan",
-      "label": "nmap (SMB Check)",
-      "type": "process",
-      "parent": "attacker_kali",
-      "icon": "malware",
-      "state": "normal",
-      "step": 1,
-      "position": {
-        "x": 307.90217934589026,
-        "y": 149.89780202722213
-      }
-    },
-    {
-      "id": "impacket_relay",
-      "label": "impacket-ntlmrelayx",
-      "type": "process",
-      "parent": "attacker_kali",
-      "icon": "malware",
-      "state": "normal",
-      "step": 2,
-      "position": {
-        "x": 303.9022724803299,
-        "y": 311.2952315166854
-      }
-    },
-    {
-      "id": "dumped_hashes",
-      "label": "SAM Hashes",
-      "type": "credential",
-      "parent": "attacker_kali",
-      "icon": "credential",
-      "state": "normal",
-      "step": 5,
-      "position": {
-        "x": 309.1115114167522,
-        "y": 33.70169504680311
-      }
+        "x": 219.84051304016432,
+        "y": 319.8405130401643
+      },
+      "icon": "IconTerminal",
+      "type": "text_box"
     }
   ],
-  "edges": [
+  "visibility": {
+    "corp_net": {
+      "start": 0,
+      "end": 10
+    },
+    "attacker_kali": {
+      "start": 0,
+      "end": 10
+    },
+    "victim_ws": {
+      "start": 0,
+      "end": 10
+    },
+    "target_srv": {
+      "start": 0,
+      "end": 10
+    },
+    "info_panel": {
+      "start": 2,
+      "end": 10
+    }
+  },
+  "steps": [
     {
-      "source": "attacker_kali",
-      "target": "nmap_scan",
-      "label": "Executes",
-      "type": "normal",
-      "step": 1
+      "id": 1,
+      "name": "Recon: SMB Signing Check",
+      "mitre": {
+        "id": "T1046",
+        "tactic": "Discovery",
+        "technique": "Network Service Discovery"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "target_srv",
+      "icon": "IconSearch",
+      "tooltip": "nmap --script=smb2-security-mode.nse: Checking if SMB signing is 'not required'."
     },
     {
-      "source": "nmap_scan",
-      "target": "target_server",
-      "label": "Checks SMB Signing",
-      "type": "normal",
-      "step": 1,
-      "mitre": "T1046"
+      "id": 2,
+      "name": "Start Relay Listener",
+      "mitre": {
+        "id": "T1557.001",
+        "tactic": "Credential Access",
+        "technique": "LLMNR/NBT-NS Poisoning and SMB Relay"
+      },
+      "type": "show_text",
+      "target_entity": "info_panel",
+      "content": "Attacker starts 'impacket-ntlmrelayx' targeting 10.0.2.73. Waiting for incoming connections...",
+      "style": "info_alert"
     },
     {
-      "source": "attacker_kali",
-      "target": "impacket_relay",
-      "label": "Starts Listener",
-      "type": "normal",
-      "step": 2
+      "id": 3,
+      "name": "Coerced Auth (SMB)",
+      "mitre": {
+        "id": "T1187",
+        "tactic": "Credential Access",
+        "technique": "Forced Authentication"
+      },
+      "type": "edge",
+      "from": "victim_ws",
+      "to": "attacker_kali",
+      "icon": "IconUser",
+      "tooltip": "Victim connects to Attacker via malicious UNC path or coercion (PrinterBug)."
     },
     {
-      "source": "victim_user",
-      "target": "impacket_relay",
-      "label": "Auths (Phished)",
-      "type": "illegal",
-      "step": 3,
-      "mitre": "T1566"
+      "id": 4,
+      "name": "Relay Credentials",
+      "mitre": {
+        "id": "T1557.001",
+        "tactic": "Credential Access",
+        "technique": "LLMNR/NBT-NS Poisoning and SMB Relay"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "target_srv",
+      "icon": "IconCredential",
+      "tooltip": "ntlmrelayx forwards the Victim's NTLM challenge/response to the Target Server."
     },
     {
-      "source": "impacket_relay",
-      "target": "target_server",
-      "label": "Relays NTLM Auth",
-      "type": "illegal",
-      "step": 4,
-      "mitre": "T1557.001"
-    },
-    {
-      "source": "target_server",
-      "target": "dumped_hashes",
-      "label": "Exfiltrates Hashes",
-      "type": "impact",
-      "step": 5,
-      "mitre": "T1003.002"
+      "id": 5,
+      "name": "Dump Hashes (SAM)",
+      "mitre": {
+        "id": "T1003.002",
+        "tactic": "Credential Access",
+        "technique": "Security Account Manager"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "target_srv",
+      "icon": "IconData",
+      "tooltip": "Post-Auth: impacket-secretsdump dumps the SAM database from the Target."
     }
   ]
 }

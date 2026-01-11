@@ -1,6 +1,3 @@
-// Spec 5: Icon Registry & Manager
-// Legacy Source: Old_Code/config/icons.registry.js
-
 /**
  * Definition for a registered icon entry.
  */
@@ -18,34 +15,46 @@ export interface IconEntry {
  */
 export const ICON_REGISTRY = {
     // Roles
-    'kali': { file: 'kali.svg', color: '#2B79C2', category: 'os', keywords: ['kali', 'attacker'] },
-    'attacker': { file: 'attacker.svg', color: '#EF4444', category: 'role', keywords: ['hacker'] },
-    'user': { file: 'user.svg', color: '#64748B', category: 'role', keywords: ['client', 'victim'] },
+    'IconKali': { file: 'kali.svg', color: '#2B79C2', category: 'os', keywords: ['kali', 'attacker'] },
+    'IconAttacker': { file: 'attacker.svg', color: '#EF4444', category: 'role', keywords: ['hacker'] },
+    'IconUser': { file: 'user.svg', color: '#64748B', category: 'role', keywords: ['client', 'victim'] },
 
     // OS / Devices
-    'windows': { file: 'windows.svg', color: '#00ADEF', category: 'os', keywords: ['win10', 'server'] },
-    'server': { file: 'server.svg', color: '#3B82F6', category: 'device', keywords: ['dc', 'srv'] },
-    'linux': { file: 'linux.svg', color: '#FCC624', category: 'os', keywords: ['ubuntu', 'centos'] },
-    'cloud': { file: 'cloud.svg', color: '#3B82F6', category: 'device', keywords: ['aws', 'azure'] },
-    'workstation': { file: 'workstation.svg', color: '#64748B', category: 'device', keywords: ['pc', 'laptop'] },
-    'firewall': { file: 'firewall.svg', color: '#EF4444', category: 'device', keywords: ['fw', 'paloalto'] },
+    'IconWindows': { file: 'windows.svg', color: '#00ADEF', category: 'os', keywords: ['win10', 'server'] },
+    'IconServer': { file: 'server.svg', color: '#3B82F6', category: 'device', keywords: ['dc', 'srv'] },
+    'IconLinux': { file: 'linux.svg', color: '#FCC624', category: 'os', keywords: ['ubuntu', 'centos'] },
+    'IconCloud': { file: 'cloud.svg', color: '#3B82F6', category: 'device', keywords: ['aws', 'azure'] },
+    'IconWorkstation': { file: 'workstation.svg', color: '#64748B', category: 'device', keywords: ['pc', 'laptop'] },
+    'IconFirewall': { file: 'firewall.svg', color: '#EF4444', category: 'device', keywords: ['fw', 'paloalto'] },
+    'IconRouter': { file: 'router.svg', color: '#64748B', category: 'device', keywords: ['router'] },
 
     // Entities
-    // Entities
-    'process': { file: 'process.svg', color: '#A855F7', category: 'generic', keywords: ['exe', 'bin'] },
-    'terminal': { file: 'terminal.svg', color: '#7C3AED', category: 'generic', keywords: ['cmd', 'bash', 'nmap'] },
-    'service': { file: 'service.svg', color: '#A855F7', category: 'generic', keywords: ['svc', 'daemon'] },
-    'socks': { file: 'socks.svg', color: '#F59E0B', category: 'generic', keywords: ['proxy', 'tunnel'] },
-    'memory': { file: 'memory.svg', color: '#A855F7', category: 'generic', keywords: ['ram', 'heap'] },
-    'credential': { file: 'credential.svg', color: '#F59E0B', category: 'generic', keywords: ['key', 'hash', 'ticket'] },
-    'data': { file: 'db.svg', color: '#10B981', category: 'generic', keywords: ['db', 'sql'] },
+    'IconProcess': { file: 'process.svg', color: '#A855F7', category: 'generic', keywords: ['exe', 'bin'] },
+    'IconTerminal': { file: 'terminal.svg', color: '#7C3AED', category: 'generic', keywords: ['cmd', 'bash', 'nmap'] },
+    'IconService': { file: 'service.svg', color: '#A855F7', category: 'generic', keywords: ['svc', 'daemon'] },
+    'IconSocks': { file: 'socks.svg', color: '#F59E0B', category: 'generic', keywords: ['proxy', 'tunnel'] },
+    'IconMemory': { file: 'memory.svg', color: '#A855F7', category: 'generic', keywords: ['ram', 'heap'] },
+    'IconCredential': { file: 'credential.svg', color: '#F59E0B', category: 'generic', keywords: ['key', 'hash', 'ticket'] },
+    'IconData': { file: 'db.svg', color: '#10B981', category: 'generic', keywords: ['db', 'sql'] },
+    'IconDatabase': { file: 'db.svg', color: '#3B82F6', category: 'generic', keywords: ['db', 'sql'] },
+    'IconAPI': { file: 'cloud.svg', color: '#10B981', category: 'generic', keywords: ['api'] },
+    'IconCode': { file: 'process.svg', color: '#F59E0B', category: 'generic', keywords: ['code'] },
+    'IconFolder': { file: 'default.svg', color: '#F59E0B', category: 'generic', keywords: ['folder'] },
+
+    // Actions & Events (Mapped to best available)
+    'IconSearch': { file: 'terminal.svg', color: '#60A5FA', category: 'generic', keywords: ['scan'] },
+    'IconExploit': { file: 'malware.svg', color: '#EF4444', category: 'generic', keywords: ['exploit'] },
+    'IconLock': { file: 'default.svg', color: '#EF4444', category: 'generic', keywords: ['encrypt'] },
+    'IconAlert': { file: 'default.svg', color: '#F59E0B', category: 'generic', keywords: ['alert'] },
+    'IconCheck': { file: 'default.svg', color: '#10B981', category: 'generic', keywords: ['success'] },
 
     // Threats
-    'malware': { file: 'malware.svg', color: '#EF4444', category: 'generic', keywords: ['virus', 'payload'] },
-    'c2': { file: 'c2.svg', color: '#EF4444', category: 'generic', keywords: ['beacon'] },
+    'IconHacker': { file: 'attacker.svg', color: '#EF4444', category: 'role', keywords: ['hacker'] }, // Alias for IconAttacker
+    'IconMalware': { file: 'malware.svg', color: '#EF4444', category: 'generic', keywords: ['virus', 'payload'] },
+    'IconC2': { file: 'c2.svg', color: '#EF4444', category: 'generic', keywords: ['beacon'] },
 
-    // Defaults
-    'default': { file: 'default.svg', color: '#94A3B8', category: 'generic', keywords: [] }
+    // Fallback
+    'IconDefault': { file: 'default.svg', color: '#94A3B8', category: 'generic', keywords: [] }
 } as const;
 
 export type IconKey = keyof typeof ICON_REGISTRY;
@@ -54,10 +63,8 @@ export type IconKey = keyof typeof ICON_REGISTRY;
  * Resolve the public URL for an icon.
  */
 export function getIconPath(key: string | undefined): string {
-    const safeKey = (key || 'default').toLowerCase();
-    // Fallback to 'server' as a safe, professional default for unknown assets
-    // (User requested: "fail back to something in our asset maybe server")
-    // @ts-ignore - Runtime safety fallback
-    const entry = ICON_REGISTRY[safeKey] || ICON_REGISTRY['server'];
+    const iconKey = (key || 'IconDefault');
+    // @ts-ignore
+    const entry = ICON_REGISTRY[iconKey] || ICON_REGISTRY['IconDefault'];
     return `/assets/icons/${entry.file}`;
 }

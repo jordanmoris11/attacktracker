@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Play, Pause, SkipBack, SkipForward, RefreshCw } from 'lucide-react';
-import { useAnimationStore } from '../../../core/animation/useAnimationStore';
-import { useGraphStore } from '../../../core/store/useGraphStore';
+import { useScenarioStore } from '../../../core/store/useScenarioStore';
 
 /**
  * Spec 7: Animation Controls
@@ -9,26 +8,15 @@ import { useGraphStore } from '../../../core/store/useGraphStore';
  */
 export const AnimationControls: React.FC = () => {
     const {
-        currentStep, totalSteps, isPlaying,
-        play, pause, nextStep, prevStep, reset, setTotalSteps
-    } = useAnimationStore();
-
-    const { edges } = useGraphStore();
-
-    // Sync Total Steps when graph changes
-    useEffect(() => {
-        if (edges.length > 0) {
-            // Find max step defined in edges
-            const maxStep = Math.max(...edges.map(e => e.step || 0), 0);
-
-            // Fallback: If no explicit steps, use edge count as sequence
-            const calculatedTotal = maxStep > 0 ? maxStep : edges.length;
-
-            setTotalSteps(calculatedTotal);
-        } else {
-            setTotalSteps(0);
-        }
-    }, [edges, setTotalSteps]);
+        currentStep,
+        timeline,
+        isPlaying,
+        nextStep,
+        prevStep,
+        togglePlay,
+        reset,
+        status
+    } = useScenarioStore();
 
     // Animation Loop
     useEffect(() => {
@@ -41,10 +29,12 @@ export const AnimationControls: React.FC = () => {
         return () => clearInterval(interval);
     }, [isPlaying, nextStep]);
 
-    if (totalSteps === 0) return null; // Hide if no animation steps
+    if (status !== 'success' || timeline.length === 0) return null;
+
+    const totalSteps = timeline.length > 0 ? timeline.length - 1 : 0;
 
     return (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 glass-panel px-6 py-3 flex items-center gap-6 text-slate-200 shadow-2xl scale-110 origin-bottom">
+        <div className="glass-panel px-6 py-3 flex items-center gap-6 text-slate-200 shadow-2xl scale-110 origin-bottom">
 
             {/* Playback Controls */}
             <div className="flex items-center gap-2">
@@ -56,7 +46,7 @@ export const AnimationControls: React.FC = () => {
                 </button>
 
                 <button
-                    onClick={isPlaying ? pause : play}
+                    onClick={togglePlay}
                     className="w-10 h-10 flex items-center justify-center bg-brand-blue hover:bg-brand-blue/90 text-white rounded-full shadow-lg transition-transform hover:scale-105 active:scale-95"
                 >
                     {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-0.5" />}

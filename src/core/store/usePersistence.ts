@@ -1,18 +1,17 @@
 
 import { useEffect, useRef } from 'react';
-import { useGraphStore } from './useGraphStore';
-import { useLayoutStore } from './useLayoutStore';
-import type { AttackGraph } from '../../shared/schemas/graph.schema';
+import { useScenarioStore } from './useScenarioStore';
 
 /**
  * usePersistence Hook
  * 
- * Watches for changes in LayoutStore (positions/viewport) and auto-saves them
+ * Watches for changes in ScenarioStore (positions/viewport) and auto-saves them
  * to the source JSON file on disk via the Vite Middleware API.
  */
 export const usePersistence = () => {
-    const { title, rawData, sourcePath } = useGraphStore();
-    const { layouts } = useLayoutStore();
+    const scenario = useScenarioStore(state => state.scenario);
+    const sourcePath = useScenarioStore(state => state.sourcePath);
+    const status = useScenarioStore(state => state.status);
 
     // Debounce Ref
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -20,12 +19,27 @@ export const usePersistence = () => {
 
     // Listener Effect
     useEffect(() => {
-        // 1. Get current layout data for this graph
-        const currentLayout = layouts[title];
-        if (!currentLayout || !sourcePath) return;
+        // 1. Pre-checks
+        if (!scenario || !sourcePath || status !== 'success') {
+            // console.log('[Persistence] Skipping: Missing requirements', { hasScenario: !!scenario, path: sourcePath, status });
+            return;
+        }
 
-        // 2. Serialize to detect changes (Basic Deep Equal)
-        const stateString = JSON.stringify(currentLayout);
+        // 2. Serialize to detect changes (Basic Deep Equal on what defines layout)
+        // We track: entities (specifically positions) and viewport
+        const layoutSnapshot = {
+            viewport: scenario.viewport,
+            positions: scenario.entities.map(e => ({ id: e.id, pos: e.position }))
+        };
+
+        const stateString = JSON.stringify(layoutSnapshot);
+
+        // Initial load check
+        if (lastSavedState.current === '') {
+            lastSavedState.current = stateString;
+            return;
+        }
+
         if (stateString === lastSavedState.current) return;
 
         // 3. Debounce Save (1000ms)
@@ -35,42 +49,17 @@ export const usePersistence = () => {
             // console.log(`[Persistence] Auto-saving changes to ${sourcePath}...`);
             lastSavedState.current = stateString;
 
-            // 4. Construct the Full JSON Object
-            // We need to merge the *original* data with the *new* layout positions.
-            // This is critical to avoid losing data we don't track (like custom props).
+            // 4. Send the FULL SCENARIO to Server
+            // Unlike Legacy, we just send the entire JSON object because the Store IS the Source of Truth.
+            // We don't need to merge positions externally because 'updateEntityPosition' updated the Scenario object directly.
 
-            // Deep Clone Reference
-            const graphToSave: AttackGraph = JSON.parse(JSON.stringify(rawData || {
-                title, nodes: [], edges: [], version: '2.0'
-            }));
-
-            // Inject Positions
-            // We iterate over the *nodes we have in memory* to find their positions
-            // But we must update the *nodes in the file object*.
-
-            if (currentLayout.positions) {
-                graphToSave.nodes = graphToSave.nodes.map(node => {
-                    const pos = currentLayout.positions[node.id];
-                    if (pos) {
-                        return { ...node, position: pos };
-                    }
-                    return node;
-                });
-            }
-
-            // Inject Viewport
-            if (currentLayout.viewport) {
-                graphToSave.viewport = currentLayout.viewport;
-            }
-
-            // 5. Send to Server
             try {
                 const response = await fetch('/api/save', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        filePath: sourcePath, // e.g. "/data/shai.json"
-                        content: graphToSave
+                        filePath: sourcePath,
+                        content: scenario // Send the whole updated JSON
                     })
                 });
 
@@ -89,5 +78,5 @@ export const usePersistence = () => {
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
         };
 
-    }, [layouts, title, sourcePath, rawData]); // Re-run when layout or graph changes
+    }, [scenario, sourcePath, status]); // Re-run when scenario updates (drag)
 };

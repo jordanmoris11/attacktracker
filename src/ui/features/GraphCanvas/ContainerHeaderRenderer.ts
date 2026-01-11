@@ -178,21 +178,13 @@ export function initContainerHeaderLayer(cy: cytoscape.Core): () => void {
     };
 }
 
-/**
- * Get the appropriate text color based on node boundary type.
- * Uses shared THEME_COLORS from cytoscape-theme.ts for consistency.
- */
 function getTextColor(node: cytoscape.NodeSingular): string {
-    const boundary = node.data('boundary');
+    const style = node.data('style'); // 'dashed_border', 'red_alert', etc.
 
-    switch (boundary) {
-        case 'protected':
-            return THEME_COLORS.b_protected;
-        case 'kernel':
-            return THEME_COLORS.b_kernel;
-        case 'machine':
-            return THEME_COLORS.b_machine;
-        default:
-            return THEME_COLORS.textMuted;
-    }
+    // Map style strings to Theme Colors
+    if (style?.includes('red')) return THEME_COLORS.b_kernel;
+    if (style?.includes('managed')) return THEME_COLORS.b_protected;
+
+    // Default for standard containers
+    return THEME_COLORS.textMuted;
 }

@@ -1,174 +1,344 @@
 {
-  "title": "Shai-Hulud: NPM Supply Chain Attack",
-  "description": "A recursive supply chain attack leveraging poisoned NPM packages to harvest credentials, exfiltrate to GitHub, and wipe victim machines.",
-  "version": "2.0",
-  "nodes": [
+  "title": "Shai Hulud 2.0: Malicious NPM Campaign",
+  "description": "Simulation of the Shai Hulud 2.0 supply chain attack, utilizing obfuscated payloads within npm packages to harvest sensitive environment variables and credentials.",
+  "version": "3.0",
+  "viewport": {
+    "zoom": 1.388063347853497,
+    "pan": {
+      "x": 133.7275644016941,
+      "y": 169.17719713476504
+    }
+  },
+  "entities": [
     {
-      "id": "attacker",
-      "label": "Threat Actor",
-      "type": "actor",
-      "icon": "attacker",
-      "state": "normal"
-    },
-    {
-      "id": "public_services",
-      "label": "Public Internet Services",
+      "id": "internet_zone",
+      "label": "Internet / Public Zone",
+      "position": {
+        "x": 354.9048210063427,
+        "y": 67.34352227573572
+      },
+      "icon": "IconCloud",
       "type": "container",
-      "icon": "cloud",
-      "state": "normal",
-      "metadata": {
-        "boundary": "network"
-      }
+      "width": 600,
+      "height": 200,
+      "style": "dashed_border",
+      "members": [
+        "npm_registry",
+        "attacker_c2",
+        "threat_actor"
+      ]
     },
     {
       "id": "npm_registry",
       "label": "NPM Registry",
-      "type": "service",
-      "parent": "public_services",
-      "icon": "server",
-      "state": "normal"
+      "position": {
+        "x": 455.5056624504287,
+        "y": -12.570047098230862
+      },
+      "icon": "IconServer",
+      "type": "node"
     },
     {
-      "id": "github_cloud",
-      "label": "GitHub",
-      "type": "service",
-      "parent": "public_services",
-      "icon": "cloud",
-      "state": "normal"
+      "id": "attacker_c2",
+      "label": "Attacker C2",
+      "position": {
+        "x": 661.2771760174353,
+        "y": -6.856961958717029
+      },
+      "icon": "IconC2",
+      "type": "node"
     },
     {
-      "id": "target_cloud",
-      "label": "Target Cloud (AWS/Azure)",
-      "type": "container",
-      "parent": "public_services",
-      "icon": "cloud",
-      "state": "normal",
-      "metadata": {
-        "boundary": "network"
-      }
+      "id": "threat_actor",
+      "label": "Adversary",
+      "position": {
+        "x": 43.53246599524999,
+        "y": 126.25709164970229
+      },
+      "icon": "IconAttacker",
+      "type": "node"
     },
     {
-      "id": "victim_network",
-      "label": "Corporate Network",
-      "type": "container",
-      "icon": "server",
-      "state": "normal",
-      "metadata": {
-        "boundary": "network"
-      }
-    },
-    {
-      "id": "dev_machine",
+      "id": "victim_machine",
       "label": "Developer Workstation",
-      "type": "device",
-      "parent": "victim_network",
-      "icon": "workstation",
-      "state": "normal"
+      "position": {
+        "x": 433.69730235124314,
+        "y": 439.936340186631
+      },
+      "icon": "IconWorkstation",
+      "type": "container",
+      "width": 600,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "user_terminal",
+        "package_manager",
+        "obfuscated_file",
+        "malware_process",
+        "env_vars",
+        "credentials"
+      ]
     },
     {
-      "id": "malware_proc",
-      "label": "Malicious Install Script",
-      "type": "process",
-      "parent": "dev_machine",
-      "icon": "malware",
-      "state": "normal"
+      "id": "user_terminal",
+      "label": "Terminal",
+      "position": {
+        "x": 151.42457507851606,
+        "y": 401.66629963891535
+      },
+      "icon": "IconTerminal",
+      "type": "node"
     },
     {
-      "id": "local_creds",
-      "label": "~/.aws & ~/.ssh",
-      "type": "data",
-      "parent": "dev_machine",
-      "icon": "credential",
-      "state": "normal"
+      "id": "package_manager",
+      "label": "npm Process",
+      "position": {
+        "x": 361.8875017317423,
+        "y": 331.7518352798007
+      },
+      "icon": "IconProcess",
+      "type": "node"
+    },
+    {
+      "id": "obfuscated_file",
+      "label": "README.md (Payload)",
+      "position": {
+        "x": 280.5154841694252,
+        "y": 435.3026632752791
+      },
+      "icon": "IconCode",
+      "type": "node"
+    },
+    {
+      "id": "malware_process",
+      "label": "Active Payload",
+      "position": {
+        "x": 637.788211442152,
+        "y": 340.7572087298245
+      },
+      "icon": "IconMalware",
+      "type": "node"
+    },
+    {
+      "id": "env_vars",
+      "label": "Environment Vars",
+      "position": {
+        "x": 456.87912053306167,
+        "y": 483.48448145709756
+      },
+      "icon": "IconDefault",
+      "type": "node"
+    },
+    {
+      "id": "credentials",
+      "label": "System Secrets",
+      "position": {
+        "x": 695.9700296239703,
+        "y": 527.1208450934614
+      },
+      "icon": "IconCredential",
+      "type": "node"
+    },
+    {
+      "id": "alert_box",
+      "label": "Evasion Detected",
+      "position": {
+        "x": 550,
+        "y": 450
+      },
+      "icon": "IconAlert",
+      "type": "text_box"
     }
   ],
-  "edges": [
-    {
-      "source": "attacker",
-      "target": "npm_registry",
-      "label": "Publishes Poisoned Package",
-      "type": "illegal",
-      "step": 1,
-      "mitre": "T1195.002"
+  "visibility": {
+    "internet_zone": {
+      "start": 0,
+      "end": 100
     },
-    {
-      "source": "dev_machine",
-      "target": "npm_registry",
-      "label": "npm install (Request)",
-      "type": "normal",
-      "step": 2,
-      "mitre": "T1204"
+    "npm_registry": {
+      "start": 0,
+      "end": 100
     },
-    {
-      "source": "npm_registry",
-      "target": "malware_proc",
-      "label": "Delivers Payload (Response)",
-      "type": "illegal",
-      "step": 2,
-      "mitre": "T1195.001"
+    "attacker_c2": {
+      "start": 0,
+      "end": 100
     },
-    {
-      "source": "malware_proc",
-      "target": "malware_proc",
-      "label": "Forks Detached Process",
-      "type": "illegal",
-      "step": 3,
-      "mitre": "T1059"
+    "threat_actor": {
+      "start": 1,
+      "end": 100
     },
-    {
-      "source": "malware_proc",
-      "target": "local_creds",
-      "label": "Scans for Secrets",
-      "type": "illegal",
-      "step": 4,
-      "mitre": "T1552.001"
+    "victim_machine": {
+      "start": 0,
+      "end": 100
     },
-    {
-      "source": "malware_proc",
-      "target": "github_cloud",
-      "label": "Exfil via Git Push",
-      "type": "illegal",
-      "step": 5,
-      "mitre": "T1567.001"
+    "user_terminal": {
+      "start": 0,
+      "end": 100
     },
-    {
-      "source": "attacker",
-      "target": "github_cloud",
-      "label": "Registers Rogue Runner",
-      "type": "illegal",
-      "step": 6,
-      "mitre": "T1098"
+    "package_manager": {
+      "start": 3,
+      "end": 100
     },
-    {
-      "source": "malware_proc",
-      "target": "npm_registry",
-      "label": "Propagates Worm",
-      "type": "illegal",
-      "step": 7,
-      "mitre": "T1550"
+    "obfuscated_file": {
+      "start": 4,
+      "end": 100
     },
-    {
-      "source": "attacker",
-      "target": "target_cloud",
-      "label": "Lateral Movement",
-      "type": "illegal",
-      "step": 8,
-      "mitre": "T1078"
+    "malware_process": {
+      "start": 6,
+      "end": 100
     },
-    {
-      "source": "malware_proc",
-      "target": "dev_machine",
-      "label": "Wipes Disk",
-      "type": "impact",
-      "step": 9,
-      "mitre": "T1485"
+    "env_vars": {
+      "start": 0,
+      "end": 100
+    },
+    "credentials": {
+      "start": 0,
+      "end": 100
+    },
+    "alert_box": {
+      "start": 5,
+      "end": 6
     }
-  ],
-  "viewport": {
-    "zoom": 1.837099316868103,
-    "pan": {
-      "x": 101.83709931686815,
-      "y": 296.9939569101419
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Publish malicious package",
+      "mitre": {
+        "id": "T1195.001",
+        "tactic": "Initial Access",
+        "technique": "Supply Chain Compromise: Compromise Software Dependencies"
+      },
+      "type": "edge",
+      "from": "threat_actor",
+      "to": "npm_registry",
+      "icon": "IconCode",
+      "tooltip": "Attacker publishes a package containing obfuscated malware hidden in benign-looking files"
+    },
+    {
+      "id": 2,
+      "name": "Run npm install",
+      "mitre": {
+        "id": "T1204.002",
+        "tactic": "Execution",
+        "technique": "User Execution: Malicious File"
+      },
+      "type": "edge",
+      "from": "user_terminal",
+      "to": "package_manager",
+      "icon": "IconTerminal",
+      "tooltip": "Developer executes installation command for the compromised package"
+    },
+    {
+      "id": 3,
+      "name": "Request package",
+      "mitre": {
+        "id": "T1105",
+        "tactic": "Command and Control",
+        "technique": "Ingress Tool Transfer"
+      },
+      "type": "edge",
+      "from": "package_manager",
+      "to": "npm_registry",
+      "icon": "IconCloud",
+      "tooltip": "Package manager requests the specific version from the public registry"
+    },
+    {
+      "id": 4,
+      "name": "Deliver package & payload",
+      "mitre": {
+        "id": "T1195.001",
+        "tactic": "Initial Access",
+        "technique": "Supply Chain Compromise"
+      },
+      "type": "edge",
+      "from": "npm_registry",
+      "to": "package_manager",
+      "icon": "IconMalware",
+      "tooltip": "Registry delivers the package containing the obfuscated payload file (e.g., inside README.md or logo.png)"
+    },
+    {
+      "id": 5,
+      "name": "Obfuscation Detected",
+      "mitre": {
+        "id": "T1027",
+        "tactic": "Defense Evasion",
+        "technique": "Obfuscated Files or Information"
+      },
+      "type": "show_text",
+      "target_entity": "alert_box",
+      "content": "Scripts detected decoding executable code from non-executable file types (Defense Evasion)",
+      "style": "warning_alert"
+    },
+    {
+      "id": 6,
+      "name": "Execute & Decode Payload",
+      "mitre": {
+        "id": "T1059.007",
+        "tactic": "Execution",
+        "technique": "Command and Scripting Interpreter: JavaScript"
+      },
+      "type": "edge",
+      "from": "package_manager",
+      "to": "malware_process",
+      "icon": "IconProcess",
+      "tooltip": "Post-install script decodes the hidden payload and executes it in memory"
+    },
+    {
+      "id": 7,
+      "name": "Harvest Environment Vars",
+      "mitre": {
+        "id": "T1552.003",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials: Shell History"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "env_vars",
+      "icon": "IconSearch",
+      "tooltip": "Malware scans process environment for keys like AWS_ACCESS_KEY_ID or API tokens"
+    },
+    {
+      "id": 8,
+      "name": "Harvest Filesystem Secrets",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials: Credentials In Files"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "credentials",
+      "icon": "IconSearch",
+      "tooltip": "Malware searches specifically for .env files, SSH keys, and config files"
+    },
+    {
+      "id": 9,
+      "name": "Exfiltrate Data",
+      "mitre": {
+        "id": "T1041",
+        "tactic": "Exfiltration",
+        "technique": "Exfiltration Over C2 Channel"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "attacker_c2",
+      "icon": "IconData",
+      "tooltip": "Stolen credentials and system info are POSTed to the attacker's C2 server"
+    },
+    {
+      "id": 10,
+      "name": "Ack / Command",
+      "mitre": {
+        "id": "T1105",
+        "tactic": "Command and Control",
+        "technique": "Ingress Tool Transfer"
+      },
+      "type": "edge",
+      "from": "attacker_c2",
+      "to": "malware_process",
+      "icon": "IconCode",
+      "tooltip": "C2 confirms receipt and may send further instructions"
     }
-  }
+  ]
 }

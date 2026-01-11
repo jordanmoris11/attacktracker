@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronRight, ChevronLeft, Layers } from 'lucide-react';
-import { useGraphStore } from '../../../core/store/useGraphStore';
+import { useScenarioStore } from '../../../core/store/useScenarioStore';
 import { MITRE_INDEX, TACTIC_SLUGS } from '../../../shared/config/mitre-index';
 import clsx from 'clsx';
 
@@ -10,16 +10,20 @@ import clsx from 'clsx';
  */
 export const MatrixExplorer: React.FC = () => {
     const [isOpen, setIsOpen] = useState(true);
-    const { edges } = useGraphStore();
+
+    // Use new Scenario Store
+    const { timeline, currentStep, status } = useScenarioStore();
+
+    if (status !== 'success' || timeline.length === 0) return null;
 
     // 1. Enrich & Group
-    // Collect all unique T-Codes from edges, group by Tactic.
-    const activeTechniques = Array.from(new Set(edges.map(e => e.mitre).filter(Boolean))) as string[];
+    // Collect all unique T-Codes from ALL steps
+    const allTechniqueIDs = Array.from(new Set(timeline.map(s => s.mitre?.id).filter(Boolean))) as string[];
 
     // Tactic -> Techniques[]
     const tacticGroups: Record<string, string[]> = {};
 
-    activeTechniques.forEach(code => {
+    allTechniqueIDs.forEach(code => {
         const tech = MITRE_INDEX[code];
         if (tech) {
             tech.tactics.forEach(tactic => {
@@ -32,18 +36,22 @@ export const MatrixExplorer: React.FC = () => {
     // Tactic Order (Kill Chain)
     const orderedTactics = Object.keys(TACTIC_SLUGS);
 
+    // 2. Determine Active Tech (Current Step)
+    const activeStep = timeline[currentStep];
+    const currentActiveTech = activeStep?.mitre?.id;
+
     return (
         <div className={clsx(
-            "absolute top-4 left-4 h-[calc(100vh-80px)] pointer-events-auto transition-all duration-300 ease-in-out z-20 flex",
+            "absolute top-4 right-4 h-[calc(100vh-80px)] pointer-events-auto transition-all duration-300 ease-in-out z-20 flex",
             isOpen ? "w-80" : "w-10"
         )}>
 
-            {/* Toggle Handle */}
+            {/* Toggle Handle (Left Side of panel when Right Aligned) */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="absolute -right-3 top-2 bg-slate-700 text-slate-300 p-1 rounded-full border border-slate-600 shadow-md hover:bg-slate-600 z-30"
+                className="absolute -left-3 top-2 bg-slate-700 text-slate-300 p-1 rounded-full border border-slate-600 shadow-md hover:bg-slate-600 z-30"
             >
-                {isOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
+                {isOpen ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
             </button>
 
             {/* The Panel */}
@@ -56,13 +64,13 @@ export const MatrixExplorer: React.FC = () => {
                     <Layers size={18} className="text-brand-purple" />
                     <h2 className="font-bold text-slate-100 text-sm">ATT&CK MATRIX</h2>
                     <span className="ml-auto text-xs bg-brand-purple/20 text-brand-purple px-2 py-0.5 rounded-full">
-                        {activeTechniques.length}
+                        {allTechniqueIDs.length}
                     </span>
                 </div>
 
                 {/* Scrollable List */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-6">
-                    {activeTechniques.length === 0 ? (
+                    {allTechniqueIDs.length === 0 ? (
                         <div className="text-center text-slate-500 text-xs py-10 opacity-60">
                             No MITRE T-Codes detected.<br />
                             Try adding edges with keywords like <br />
@@ -81,10 +89,30 @@ export const MatrixExplorer: React.FC = () => {
                                     <div className="space-y-1">
                                         {techs.map(code => {
                                             const t = MITRE_INDEX[code];
+                                            const isActive = code === currentActiveTech;
                                             return (
-                                                <div key={code} className="flex items-center gap-2 text-xs bg-slate-800/50 p-2 rounded border border-white/5 hover:border-brand-purple/50 transition-colors cursor-help group" title={`${code}: ${t.name}`}>
-                                                    <span className="text-brand-purple font-mono font-bold group-hover:text-white transition-colors">{code}</span>
-                                                    <span className="truncate text-slate-300 group-hover:text-white transition-colors">{t.name}</span>
+                                                <div
+                                                    key={code}
+                                                    className={clsx(
+                                                        "flex items-center gap-2 text-xs p-2 rounded border transition-all duration-300 cursor-help group",
+                                                        isActive
+                                                            ? "bg-brand-purple/20 border-brand-purple shadow-[0_0_15px_rgba(168,85,247,0.4)] scale-105"
+                                                            : "bg-slate-800/50 border-white/5 hover:border-brand-purple/50"
+                                                    )}
+                                                    title={`${code}: ${t.name}`}
+                                                >
+                                                    <span className={clsx(
+                                                        "font-mono font-bold transition-colors",
+                                                        isActive ? "text-white" : "text-brand-purple group-hover:text-white"
+                                                    )}>
+                                                        {code}
+                                                    </span>
+                                                    <span className={clsx(
+                                                        "truncate transition-colors",
+                                                        isActive ? "text-white" : "text-slate-300 group-hover:text-white"
+                                                    )}>
+                                                        {t.name}
+                                                    </span>
                                                 </div>
                                             );
                                         })}
@@ -98,7 +126,7 @@ export const MatrixExplorer: React.FC = () => {
 
             {/* Collapsed State Icon (When Closed) */}
             {!isOpen && (
-                <div className="absolute top-0 left-0 w-10 h-10 flex items-center justify-center bg-slate-800 rounded border border-white/10">
+                <div className="absolute top-0 right-0 w-10 h-10 flex items-center justify-center bg-slate-800 rounded border border-white/10 shadow-xl">
                     <Layers size={18} className="text-slate-400" />
                 </div>
             )}

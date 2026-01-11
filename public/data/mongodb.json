@@ -1,0 +1,305 @@
+{
+  "title": "MongoBleed (CVE-2025-14847) Exploitation",
+  "description": "Simulation of the 'MongoBleed' vulnerability where attackers exploit a memory safety issue in MongoDB to leak authentication tokens and exfiltrate database contents.",
+  "version": "3.0",
+  "viewport": {
+    "zoom": 1.1,
+    "pan": {
+      "x": 100,
+      "y": 50
+    }
+  },
+  "entities": [
+    {
+      "id": "internet_zone",
+      "label": "Internet / Attacker Infrastructure",
+      "position": {
+        "x": 903.5909090909092,
+        "y": 330.04545454545456
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 400,
+      "height": 200,
+      "style": "dashed_border",
+      "members": [
+        "attacker_kali",
+        "c2_listener"
+      ]
+    },
+    {
+      "id": "attacker_kali",
+      "label": "Attacker Machine",
+      "position": {
+        "x": 848.1818181818182,
+        "y": 185.4545454545455
+      },
+      "icon": "IconKali",
+      "type": "node"
+    },
+    {
+      "id": "c2_listener",
+      "label": "Exfil Receiver",
+      "position": {
+        "x": 970.0000000000002,
+        "y": 453.6363636363636
+      },
+      "icon": "IconC2",
+      "type": "node"
+    },
+    {
+      "id": "target_cloud",
+      "label": "Target Cloud Environment",
+      "position": {
+        "x": 169.95454545454578,
+        "y": 328.22727272727275
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 500,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "mongo_server"
+      ]
+    },
+    {
+      "id": "mongo_server",
+      "label": "Database Server (Ubuntu)",
+      "position": {
+        "x": 169.95454545454578,
+        "y": 328.22727272727275
+      },
+      "icon": "IconLinux",
+      "type": "container",
+      "width": 420,
+      "height": 280,
+      "style": "dashed_border",
+      "members": [
+        "mongo_service",
+        "process_memory",
+        "admin_token",
+        "customer_db"
+      ]
+    },
+    {
+      "id": "mongo_service",
+      "label": "mongod (Port 27017)",
+      "position": {
+        "x": 86.36363636363659,
+        "y": 126.36363636363632
+      },
+      "icon": "IconDatabase",
+      "type": "node"
+    },
+    {
+      "id": "process_memory",
+      "label": "Heap Memory",
+      "position": {
+        "x": 157.27272727272768,
+        "y": 314.54545454545445
+      },
+      "icon": "IconMemory",
+      "type": "node"
+    },
+    {
+      "id": "admin_token",
+      "label": "Leaked Session Token",
+      "position": {
+        "x": 340.90909090909133,
+        "y": 654.5454545454539
+      },
+      "icon": "IconCredential",
+      "type": "node"
+    },
+    {
+      "id": "customer_db",
+      "label": "PII Collection",
+      "position": {
+        "x": 274.54545454545496,
+        "y": 509.0909090909092
+      },
+      "icon": "IconData",
+      "type": "node"
+    },
+    {
+      "id": "alert_box",
+      "label": "IDS Alert",
+      "position": {
+        "x": 554.5454545454545,
+        "y": 5.454545454545458
+      },
+      "icon": "IconAlert",
+      "type": "text_box"
+    }
+  ],
+  "visibility": {
+    "internet_zone": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker_kali": {
+      "start": 0,
+      "end": 100
+    },
+    "c2_listener": {
+      "start": 0,
+      "end": 100
+    },
+    "target_cloud": {
+      "start": 0,
+      "end": 100
+    },
+    "mongo_server": {
+      "start": 0,
+      "end": 100
+    },
+    "mongo_service": {
+      "start": 0,
+      "end": 100
+    },
+    "process_memory": {
+      "start": 0,
+      "end": 100
+    },
+    "admin_token": {
+      "start": 4,
+      "end": 100
+    },
+    "customer_db": {
+      "start": 0,
+      "end": 100
+    },
+    "alert_box": {
+      "start": 8,
+      "end": 9
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Port Scan (27017)",
+      "mitre": {
+        "id": "T1595.001",
+        "tactic": "Reconnaissance",
+        "technique": "Scanning IP Blocks"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "mongo_service",
+      "icon": "IconSearch",
+      "tooltip": "Attacker scans public IP ranges for exposed MongoDB instances"
+    },
+    {
+      "id": 2,
+      "name": "Identify Version",
+      "mitre": {
+        "id": "T1592.002",
+        "tactic": "Reconnaissance",
+        "technique": "Gather Victim Host Information: Software"
+      },
+      "type": "edge",
+      "from": "mongo_service",
+      "to": "attacker_kali",
+      "icon": "IconServer",
+      "tooltip": "Server responds with version banner indicating vulnerable MongoDB build"
+    },
+    {
+      "id": 3,
+      "name": "Send MongoBleed Payload",
+      "mitre": {
+        "id": "T1190",
+        "tactic": "Initial Access",
+        "technique": "Exploit Public-Facing Application"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "mongo_service",
+      "icon": "IconExploit",
+      "tooltip": "Sends malformed wire protocol packet to trigger memory leakage (CVE-2025-14847)"
+    },
+    {
+      "id": 4,
+      "name": "Leak Memory Content",
+      "mitre": {
+        "id": "T1003",
+        "tactic": "Credential Access",
+        "technique": "OS Credential Dumping"
+      },
+      "type": "edge",
+      "from": "process_memory",
+      "to": "mongo_service",
+      "icon": "IconMemory",
+      "tooltip": "Vulnerability causes process to read out-of-bounds heap memory containing active session tokens"
+    },
+    {
+      "id": 5,
+      "name": "Return Admin Token",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials"
+      },
+      "type": "edge",
+      "from": "mongo_service",
+      "to": "attacker_kali",
+      "icon": "IconCredential",
+      "tooltip": "Attacker receives raw memory dump containing a valid admin session ID"
+    },
+    {
+      "id": 6,
+      "name": "Hijack Session",
+      "mitre": {
+        "id": "T1550.002",
+        "tactic": "Defense Evasion",
+        "technique": "Use Alternate Authentication Material"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "mongo_service",
+      "icon": "IconUser",
+      "tooltip": "Attacker connects using the stolen session ID, bypassing authentication"
+    },
+    {
+      "id": 7,
+      "name": "Query Collections",
+      "mitre": {
+        "id": "T1083",
+        "tactic": "Discovery",
+        "technique": "File and Directory Discovery"
+      },
+      "type": "edge",
+      "from": "attacker_kali",
+      "to": "customer_db",
+      "icon": "IconSearch",
+      "tooltip": "Enumerate available databases and collections (e.g., db.customers.find())"
+    },
+    {
+      "id": 8,
+      "name": "Anomalous Query Alert",
+      "mitre": {
+        "id": "T1083",
+        "tactic": "Discovery",
+        "technique": "File and Directory Discovery"
+      },
+      "type": "show_text",
+      "target_entity": "alert_box",
+      "content": "Alert: Full table scan on sensitive collection from external IP",
+      "style": "warning_alert"
+    },
+    {
+      "id": 9,
+      "name": "Exfiltrate Data",
+      "mitre": {
+        "id": "T1041",
+        "tactic": "Exfiltration",
+        "technique": "Exfiltration Over C2 Channel"
+      },
+      "type": "edge",
+      "from": "customer_db",
+      "to": "c2_listener",
+      "icon": "IconData",
+      "tooltip": "Streaming JSON documents to attacker-controlled infrastructure"
+    }
+  ]
+}

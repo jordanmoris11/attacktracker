@@ -1,122 +1,65 @@
 # Spec 7: Animation Specification
 
-**Status:** Draft
-**Related:** `docs/specs/4_rendering_with_cytoscape.md`
-**Legacy Source:** `Old_Code/js/animation/CytoscapeAnimator.js`, `Old_Code/js/ui/ControlPanel.js`
+**Status:** Updated for Scenario-Timeline Architecture
+**Related:** `src/core/parser/ScenarioAdapter.ts`, `src/ui/features/GraphCanvas/GraphCanvas.tsx`
 
 ## 1. Overview
-The **Animation System** transforms the static attack graph into a dynamic "Replay" of the cyber incident. It allows users to step through the attack timeline, revealing edges and nodes sequentially.
+The **Animation System** transforms the static attack graph into a dynamic "Movie".
+It allows users to step through the `steps` array defined in the JSON.
 
-**Core Concept:** "Declarative State." The current `step` index determines the visual state of the graph. We move away from imperative `.animate()` calls where possible.
+**Difference from v1**: Edges are **Cumulative**. They persist to show the history of the attack path, unless explicitly hidden (future). Active step is highlighted.
 
-## 2. Architecture (`src/core/animation/`)
+## 2. Architecture (`src/core/store/useScenarioStore`)
 
-We manage the timeline state globally using **Zustand**.
+We manage the timeline state globally using the centralized `useScenarioStore`.
 
-### 2.1 The Store (`useAnimationStore`)
+### 2.1 State
 ```typescript
-interface AnimationState {
-  currentStep: number;  // 0 = Start (No edges), 1 = First edge visible
-  totalSteps: number;
+interface ScenarioState {
+  currentStep: number;  // 0-indexed pointer to steps array
+  timeline: TimelineStep[]; 
   isPlaying: boolean;
-  speed: number;        // 1x, 2x, etc.
   
   // Actions
-  setTotalSteps: (n: number) => void;
-  goToStep: (n: number) => void;
-  play: () => void;
-  pause: () => void;
-  setSpeed: (s: number) => void;
+  setStep: (n: number) => void;
+  nextStep: () => void;
+  prevStep: () => void;
+  togglePlay: () => void;
 }
 ```
 
-### 2.2 The Logic Hook (`useAnimationLoop`)
-A standard React hook that handles the `setInterval` logic when `isPlaying` is true.
-*   **Interval**: `2000ms / speed` (Legacy compatibility).
-*   **Logic**: Increments `currentStep` until `totalSteps`. Pauses at end.
+## 3. Visual Synchronization (The "GraphCanvas" Loop)
 
-## 3. Visual Synchronization
-How do we update the graph?
+Inside `GraphCanvas.tsx`, we react to `currentStep` changes.
 
-### 3.1 The `AnimationSyncer` (in `GraphCanvas`)
-Inside the Cytoscape component, we listen to `currentStep` changes.
+### 3.1 Node Visibility (The Cast)
+We check the `visibility` map for every node.
+*   **Visible**: `start <= currentStep <= end`.
+*   **Hidden**: Node is removed or hidden via CSS class (`display: none`).
+*   **Optimization**: Use `cy.batch()` to apply these updates efficiently.
 
-**Logic Rules:**
-1.  **Step 0 is Empty**: When `currentStep === 0`, ALL edges are hidden (`display: none`).
-2.  **Fallback Sizing**: If edge data lacks explicit `step` fields, we assume sequential index 1-based order (Index 0 = Step 1).
-3.  **Strict State**: Visibility classes must be stripped before applying new ones to avoid CSS state leakage.
+### 3.2 Polymorphic Steps (The Action)
 
-```typescript
-// Conceptual Implementation
-useEffect(() => {
-  if (!cy) return;
-  
-  cy.batch(() => {
-    // 1. Get all edges sorted by sequence (defined in Spec 1/2)
-    const allEdges = cy.edges().sort((a, b) => a.data('stepIndex') - b.data('stepIndex'));
-    
-    // 2. Apply Visibility
-    // Edges: Show if Step <= Current.
-    allEdges.forEach((edge, idx) => {
-        // ... (edge logc) ...
-    });
+We look at `steps[currentStep]`.
 
-    // Nodes: Show/Hide based on 'step' data (Spec 12 Refinement)
-    // Strategy: "Ghost Node" (Opacity 0.15) for future nodes to maintain layout.
-    const allNodes = cy.nodes();
-    allNodes.forEach(node => {
-        const appearStep = node.data('step') || 0;
-        const isVisible = appearStep <= currentStep;
-        
-        if (isVisible) {
-            node.removeClass('pending').addClass('visible');
-        } else {
-            node.removeClass('visible').addClass('pending');
-        }
-    });
-        
-        // Highlight logic
-        if (idx === currentStep - 1) {
-           edge.addClass('active-edge'); // The "Action" happening now
-           edge.target().addClass('active-node');
-        } else {
-           edge.removeClass('active-edge');
-           edge.target().removeClass('active-node');
-        }
-      } else {
-        edge.addClass('hidden');
-        edge.removeClass('visible active-edge');
-      }
-    });
-  });
-}, [currentStep, cy]);
-```
+#### Type: `edge`
+1.  **Cumulative Rebuild**: Iterate from step 0 to `currentStep`.
+2.  **Add Edges**: Add all edges found in this range.
+3.  **Styling**:
+    *   **Active Step**: Amber color, thicker line.
+    *   **History**: Slate color, thinner line.
 
-## 4. Visual Styles (Cytoscape Theme)
-We define specific classes in `cytoscape-theme.ts` (Spec 6 extension):
-*   `.hidden`: `opacity: 0`, `events: no` (User can't click unseen edges).
-*   `.pending`: `opacity: 0.15`, `filter: grayscale(100%)` (Ghost mode for future nodes).
-*   `.visible`: `opacity: 1`, `transition-property: opacity`, `transition-duration: 500ms`.
-*   `.active-edge`: 
-    *   `width`: 6px (Thicker)
-    *   `line-color`: (Inherits data color but brighter)
-    *   `target-arrow-color`: (Inherits data color)
-    *   `shadow-blur`: 10px (Glow effect)
+#### Type: `show_text`
+1.  **Clear All Edges**: Text steps usually pause the action, so edges are removed.
+2.  **Highlight Target**: Find `step.target_entity` and add a `.highlighted` class.
+3.  **Show Overlay**: (Future) Render a React Overlay component on top of the canvas with the text content.
 
-## 5. UI Controls (`src/ui/features/Animation/AnimationControls.tsx`)
-A "Glass Panel" containing:
-1.  **Scrubber**: Simple progress bar.
-2.  **Playback**: `Prev`, `Play/Pause`, `Next` buttons. (Reset/Refresh is optional/contextual).
-3.  **Positioning**: Absolute floating panel at the **bottom-center**, scaled (110%) for visibility.
-4.  **Z-Index**: High z-index to sit above the Matrix Explorer or Canvas.
+## 4. UI Controls
+A floating control bar (currently inline in App.tsx, to be refactored to `AnimationControls.tsx`) provides:
+*   **Prev / Next**: Single step navigation.
+*   **Scrubber**: Slider mapped to `0..totalSteps`.
+*   **Play/Pause**: Automates `nextStep()` with a delay.
 
-## 6. Camera Movement
-Legacy code hinted at camera following. We will implement an optional **Auto-Focus** feature.
--   When stepping, use `cy.animate({ fit: { eles: activeNode }, duration: 300 })` to center the action.
--   This needs a "Camera Follow" toggle in the UI (default: Off).
-
-## 7. Implementation Plan
-1.  Setup `useAnimationStore`.
-2.  Create `AnimationControls` UI component.
-3.  Implement `AnimationSyncer` hook in `GraphCanvas`.
-4.  Add `.hidden` / `.visible` / `.active` styles to Cytoscape theme.
+## 5. Camera Movement
+*   **Auto-Focus**: Optionally, the camera can pan to the `step.to` node or `step.target_entity` when the step changes.
+*   **Viewport Locking**: The JSON defines an initial viewport. Users can pan/zoom freely unless "Camera Follow" is enabled.
