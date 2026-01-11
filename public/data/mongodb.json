@@ -14,8 +14,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 117.80600377946853,
-        "y": 177.0783807065513
+        "x": 242.07922026834314,
+        "y": 194.31859571078823
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -61,8 +61,8 @@
       "id": "victim_network",
       "label": "Corporate Network",
       "position": {
-        "x": 611.6945590495069,
-        "y": 20.339790856481414
+        "x": 696.4589494870052,
+        "y": 16.74807939726537
       },
       "icon": "IconRouter",
       "type": "container",
@@ -77,8 +77,8 @@
       "id": "victim_laptop",
       "label": "Developer Workstation",
       "position": {
-        "x": 611.6945590495069,
-        "y": 20.339790856481407
+        "x": 696.4589494870052,
+        "y": 16.74807939726537
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -95,8 +95,8 @@
       "id": "compass_app",
       "label": "MongoDB Compass",
       "position": {
-        "x": 361.7517417226117,
-        "y": 28.82010734860399
+        "x": 531.2805225976083,
+        "y": 62.58219506523467
       },
       "icon": "IconProcess",
       "type": "node"
@@ -105,8 +105,8 @@
       "id": "local_listener",
       "label": "OIDC Listener (Port 27017)",
       "position": {
-        "x": 587.5509782075653,
-        "y": -42.980086398994175
+        "x": 629.2148311344713,
+        "y": -50.16350931742624
       },
       "icon": "IconAPI",
       "type": "node"

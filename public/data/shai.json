@@ -3,10 +3,10 @@
   "description": "Attack flow showing the Shai Hulud 2.0 NPM worm using the 'bun' runtime to evade detection, harvesting GitHub and AWS credentials, and validating them against public APIs.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.3300434527948959,
+    "zoom": 1.3202787531772928,
     "pan": {
-      "x": -255.9860997012313,
-      "y": 11.053312045517487
+      "x": -278.93976480430587,
+      "y": 6.672348946344368
     }
   },
   "entities": [
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 907.2414485130719,
-        "y": 108.69550327537078
+        "x": 855.3380638383082,
+        "y": 136.35750501223382
       },
       "icon": "IconCloud",
       "type": "container",
@@ -34,15 +34,15 @@
       "style": "dashed_border",
       "members": [
         "npm_registry",
-        "github_platform"
+        "attacker_infra"
       ]
     },
     {
       "id": "npm_registry",
       "label": "NPM Registry",
       "position": {
-        "x": 762.5717188305586,
-        "y": 100.92209174796592
+        "x": 649.3152306011706,
+        "y": 87.22187909887
       },
       "icon": "IconNpm",
       "type": "node"
@@ -51,18 +51,18 @@
       "id": "github_platform",
       "label": "GitHub API",
       "position": {
-        "x": 1058.9111781955853,
-        "y": 95.46891480277567
+        "x": 1056.360897075446,
+        "y": 152.49313092559763
       },
       "icon": "IconGitHub",
       "type": "node"
     },
     {
       "id": "attacker_infra",
-      "label": "Attacker Infrastructure",
+      "label": "C2 INFRA via Github",
       "position": {
-        "x": 1069.5387107511299,
-        "y": 388.2855466769756
+        "x": 974.2493270541671,
+        "y": 159.09067150024435
       },
       "icon": "IconServer",
       "type": "container",
@@ -70,15 +70,16 @@
       "height": 180,
       "style": "dashed_border",
       "members": [
-        "c2_server"
+        "c2_server",
+        "github_platform"
       ]
     },
     {
       "id": "c2_server",
       "label": "C2 / Webhook",
       "position": {
-        "x": 1069.5387107511299,
-        "y": 377.7855466769756
+        "x": 896.3506779876734,
+        "y": 148.47529112010582
       },
       "icon": "IconC2",
       "type": "node"
@@ -87,8 +88,8 @@
       "id": "victim_workstation",
       "label": "Developer Workstation",
       "position": {
-        "x": 596.9684650705289,
-        "y": 499.5263086080505
+        "x": 506.0109541562973,
+        "y": 510.0522805006086
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -106,8 +107,8 @@
       "id": "user_terminal",
       "label": "Terminal",
       "position": {
-        "x": 304.2515045540284,
-        "y": 432.20481955892683
+        "x": 361.3924948279152,
+        "y": 453.256763344043
       },
       "icon": "IconTerminal",
       "type": "node"
@@ -126,8 +127,8 @@
       "id": "bun_runtime",
       "label": "bun process",
       "position": {
-        "x": 878.6854255870293,
-        "y": 482.22739996328824
+        "x": 847.8593650445376,
+        "y": 480.7236896929228
       },
       "icon": "IconProcess",
       "type": "node"

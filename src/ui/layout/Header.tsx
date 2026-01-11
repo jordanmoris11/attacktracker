@@ -1,13 +1,14 @@
 import React from 'react';
 import { Shield, Upload, Download, Settings } from 'lucide-react';
-import { useGraphStore } from '../../core/store/useGraphStore';
+import { useScenarioStore } from '../../core/store/useScenarioStore';
 
 /**
  * Top Header Bar (Spec 6)
  * Glassmorphic strip at the top.
  */
 export const Header: React.FC = () => {
-    const { title } = useGraphStore();
+    const { scenario } = useScenarioStore();
+    const title = scenario?.title;
 
     return (
         <header className="h-16 flex-none border-b border-white/10 bg-background-secondary/80 backdrop-blur-md flex items-center px-6 justify-between z-20 relative">
@@ -17,14 +18,14 @@ export const Header: React.FC = () => {
                     <Shield size={20} />
                 </div>
                 <div>
-                    <h1 className="font-bold text-slate-100 text-sm tracking-wide">CYBERVIEWER <span className="text-brand-blue">CYTO</span></h1>
-                    <p className="text-[10px] text-slate-400 font-mono tracking-tighter uppercase">Mission Critical Viz</p>
+                    <h1 className="font-bold text-slate-100 text-sm tracking-wide">ATTACKVIEWER <span className="text-brand-blue">CYTO</span></h1>
+                    <p className="text-[10px] text-slate-400 font-mono tracking-tighter uppercase">v3-2026 @m@d$res</p>
                 </div>
             </div>
 
             {/* Center: Graph Title */}
             <div className="hidden md:block">
-                <div className="px-4 py-1 rounded-full bg-white/5 border border-white/5 text-xs text-slate-300 font-mono">
+                <div className="px-4 py-1 rounded-full bg-white/5 border border-white/5 text-sm font-medium text-slate-200 font-mono">
                     {title}
                 </div>
             </div>

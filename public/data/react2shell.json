@@ -5,8 +5,8 @@
   "viewport": {
     "zoom": 1,
     "pan": {
-      "x": 0,
-      "y": 0
+      "x": -9,
+      "y": -136
     }
   },
   "entities": [
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet Zone",
       "position": {
-        "x": 883,
-        "y": 95.5
+        "x": 846,
+        "y": 199.5
       },
       "icon": "IconCloud",
       "type": "container",
@@ -40,8 +40,8 @@
       "id": "attacker_listener",
       "label": "C2 Listener (Netcat)",
       "position": {
-        "x": 883,
-        "y": 85
+        "x": 890,
+        "y": 190
       },
       "icon": "IconC2",
       "type": "node"
@@ -50,8 +50,8 @@
       "id": "corporate_network",
       "label": "Corporate Network / Cloud",
       "position": {
-        "x": 800.25,
-        "y": 548
+        "x": 750.25,
+        "y": 597.5
       },
       "icon": "IconCloud",
       "type": "container",
@@ -66,8 +66,8 @@
       "id": "target_server",
       "label": "Vulnerable Server",
       "position": {
-        "x": 800.25,
-        "y": 548
+        "x": 731.25,
+        "y": 647
       },
       "icon": "IconServer",
       "type": "container",
@@ -84,7 +84,7 @@
       "id": "nextjs_service",
       "label": "Next.js Process (Port 3000)",
       "position": {
-        "x": 465,
+        "x": 434,
         "y": 445
       },
       "icon": "IconProcess",
@@ -94,8 +94,8 @@
       "id": "inspector_service",
       "label": "Node Inspector (Port 9229)",
       "position": {
-        "x": 1136,
-        "y": 630
+        "x": 1067,
+        "y": 729
       },
       "icon": "IconService",
       "type": "node"
@@ -104,8 +104,8 @@
       "id": "reverse_shell_process",
       "label": "/bin/sh (Reverse Shell)",
       "position": {
-        "x": 665,
-        "y": 583
+        "x": 596,
+        "y": 682
       },
       "icon": "IconTerminal",
       "type": "node"
