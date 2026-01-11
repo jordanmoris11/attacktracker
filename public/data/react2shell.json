@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet Zone",
       "position": {
-        "x": 846,
-        "y": 199.5
+        "x": 890,
+        "y": 200.5
       },
       "icon": "IconCloud",
       "type": "container",
@@ -66,8 +66,8 @@
       "id": "target_server",
       "label": "Vulnerable Server",
       "position": {
-        "x": 731.25,
-        "y": 647
+        "x": 750.25,
+        "y": 597.5
       },
       "icon": "IconServer",
       "type": "container",

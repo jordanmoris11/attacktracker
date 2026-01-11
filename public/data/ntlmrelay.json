@@ -24,8 +24,8 @@
       "id": "attacker_infra",
       "label": "Attacker Infrastructure",
       "position": {
-        "x": 186.2846741254245,
-        "y": 389.86672325789175
+        "x": 181.09476376078027,
+        "y": 329.3177690037095
       },
       "icon": "IconKali",
       "type": "container",
@@ -83,8 +83,8 @@
       "id": "corporate_network",
       "label": "Corporate Network (10.0.2.0/24)",
       "position": {
-        "x": 781.8369293986948,
-        "y": 313.8372403408456
+        "x": 799.1366306141754,
+        "y": 382.6035526723811
       },
       "icon": "IconCloud",
       "type": "container",

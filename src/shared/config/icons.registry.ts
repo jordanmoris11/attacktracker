@@ -59,6 +59,7 @@ export const ICON_REGISTRY = {
     // SYSTEM INTERNALS
     // ═══════════════════════════════════════════════════════════════
     'IconProcess': { file: 'process.svg', color: '#A855F7', category: 'generic', keywords: ['exe', 'bin', 'running'] },
+    'IconInfectedProcess': { file: 'infected_process.svg', color: '#EF4444', category: 'generic', keywords: ['virus', 'infected', 'process'] },
     'IconTerminal': { file: 'terminal.svg', color: '#7C3AED', category: 'generic', keywords: ['cmd', 'bash', 'shell'] },
     'IconService': { file: 'service.svg', color: '#A855F7', category: 'generic', keywords: ['svc', 'daemon'] },
     'IconMemory': { file: 'memory.svg', color: '#A855F7', category: 'generic', keywords: ['ram', 'heap'] },
@@ -68,6 +69,7 @@ export const ICON_REGISTRY = {
     'IconDatabase': { file: 'db.svg', color: '#3B82F6', category: 'generic', keywords: ['db', 'sql', 'mysql'] },
     'IconData': { file: 'db.svg', color: '#10B981', category: 'generic', keywords: ['data', 'file'] },
     'IconCode': { file: 'code.svg', color: '#F59E0B', category: 'generic', keywords: ['code', 'script', 'source'] },
+    'IconInfectedCode': { file: 'infected_code.svg', color: '#EF4444', category: 'generic', keywords: ['malware', 'script', 'infected'] },
     'IconFolder': { file: 'default.svg', color: '#F59E0B', category: 'generic', keywords: ['folder', 'directory'] },
     'IconEnv': { file: 'env.svg', color: '#10B981', category: 'generic', keywords: ['env', 'environment', 'variable', 'dotenv'] },
     'IconVariable': { file: 'variable.svg', color: '#10B981', category: 'generic', keywords: ['var', 'env', 'config', 'dollar'] },

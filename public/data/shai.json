@@ -3,10 +3,10 @@
   "description": "Attack flow showing the Shai Hulud 2.0 NPM worm using the 'bun' runtime to evade detection, harvesting GitHub and AWS credentials, and validating them against public APIs.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.3202787531772928,
+    "zoom": 1.7328865326737282,
     "pan": {
-      "x": -278.93976480430587,
-      "y": 6.672348946344368
+      "x": -539.2879603299472,
+      "y": -240.01942538667382
     }
   },
   "entities": [
@@ -14,8 +14,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 318.21875286152334,
-        "y": 178.3265547142313
+        "x": 375.6309438818988,
+        "y": 258.0657089091972
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 893.2088542904554,
-        "y": 203.76751201705656
+        "x": 799.3292968261012,
+        "y": 254.24069993708406
       },
       "icon": "IconCloud",
       "type": "container",
@@ -41,8 +41,8 @@
       "id": "npm_registry",
       "label": "NPM Registry",
       "position": {
-        "x": 687.1860210533182,
-        "y": 154.63188610369278
+        "x": 636.3451170454612,
+        "y": 207.5644256498055
       },
       "icon": "IconNpm",
       "type": "node"
@@ -51,8 +51,8 @@
       "id": "github_platform",
       "label": "GitHub API",
       "position": {
-        "x": 1094.2316875275926,
-        "y": 219.9031379304204
+        "x": 957.3134766067412,
+        "y": 267.9169742243626
       },
       "icon": "IconGitHub",
       "type": "node"
@@ -61,8 +61,8 @@
       "id": "attacker_infra",
       "label": "C2 INFRA via Github",
       "position": {
-        "x": 1010.2265779837069,
-        "y": 228.39421802767447
+        "x": 858.0159636074993,
+        "y": 270.6373360365766
       },
       "icon": "IconServer",
       "type": "container",
@@ -78,8 +78,8 @@
       "id": "c2_server",
       "label": "C2 / Webhook",
       "position": {
-        "x": 934.221468439821,
-        "y": 215.8852981249286
+        "x": 766.7184506082573,
+        "y": 252.3576978487906
       },
       "icon": "IconC2",
       "type": "node"
@@ -88,10 +88,10 @@
       "id": "victim_workstation",
       "label": "Developer Workstation",
       "position": {
-        "x": 573.0125552931217,
-        "y": 538.0766654351978
+        "x": 627.99927484503,
+        "y": 562.1961042927015
       },
-      "icon": "IconWorkstation",
+      "icon": "IconWindows",
       "type": "container",
       "width": 450,
       "height": 350,
@@ -107,8 +107,8 @@
       "id": "user_terminal",
       "label": "Terminal",
       "position": {
-        "x": 324.27912018481055,
-        "y": 481.2811482786322
+        "x": 397.0961390258389,
+        "y": 505.70800608939663
       },
       "icon": "IconTerminal",
       "type": "node"
@@ -117,28 +117,28 @@
       "id": "malware_script",
       "label": "install script",
       "position": {
-        "x": 569.8220665086133,
-        "y": 484.76850074687195
+        "x": 613.126865836615,
+        "y": 507.9656827445936
       },
-      "icon": "IconCode",
+      "icon": "IconInfectedCode",
       "type": "node"
     },
     {
       "id": "bun_runtime",
       "label": "bun process",
       "position": {
-        "x": 810.745990401433,
-        "y": 508.748074627512
+        "x": 832.8985431231167,
+        "y": 536.8261937993873
       },
-      "icon": "IconProcess",
+      "icon": "IconInfectedProcess",
       "type": "node"
     },
     {
       "id": "cred_store",
       "label": "Secrets (~/.ssh, tokens)",
       "position": {
-        "x": 572.5160388415749,
-        "y": 573.8721825917634
+        "x": 606.5982695717558,
+        "y": 597.6842024960065
       },
       "icon": "IconKey",
       "type": "node"
@@ -221,7 +221,7 @@
     },
     {
       "id": 3,
-      "name": "Download package",
+      "name": "Download infected package",
       "mitre": {
         "id": "T1195.001",
         "tactic": "Initial Access",

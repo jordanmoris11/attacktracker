@@ -174,39 +174,43 @@ newestEdge.animate({
 ### 4.4 Seamless Multi-Edge Handling (Smart Arcs)
 
 **Problem:**
-Default `bezier` curves shift from straight to curved when a parallel edge is added, creating a jarring "jump" in the visualization (one straight line suddenly splitting into two arcs).
+Default `bezier` curves shifts from straight to curved when a parallel edge is added, creating a jarring "jump" in the visualization (one straight line suddenly splitting into two arcs). Furthermore, simply using offsets based on index can cause overlaps if edges run in opposite directions.
 
 **Solution:**
-Predictive rendering using `unbundled-bezier`. We analyze the full scenario timeline to pre-calculate the final "slot" for every edge.
+Predictive rendering using `unbundled-bezier` with stable slot assignment and direction normalization. We pre-calculate geometric slots for all edges in the timeline before rendering.
 
 **Algorithm:**
-1.  **Preprocessing (Pre-render):**
-    - Iterate through the entire scenario timeline (all steps).
-    - Group edges by node pair (unordered: pair `A-B` is equivalent to `B-A`).
-    - Assign a stable `index` (0..N-1) to each edge in the pair group based on appearance order.
-    - Store `total_count` and `index` for each edge ID.
+
+1.  **Preprocessing (Pre-render Scan):**
+    - Iterate through the entire scenario timeline.
+    - Group edges by **normalized node pair** (Pair `A-B` is identical to `B-A`).
+    - Assign a stable `index` (0 to N-1) to each edge in that group based on appearance order.
+    - Store `{ index, total_count }` metadata for each edge.
 
 2.  **Rendering Check:**
-    - For each edge being rendered, check its group's `total_count`.
+    - When rendering an edge, lookup its metadata.
 
 3.  **Style Application:**
-    - **Case A: Single Edge (`total_count == 1`)**
-        - `curve-style: bezier`
-        - Result: Straight line (default behavior).
 
-    - **Case B: Multiple Edges (`total_count > 1`)**
-        - `curve-style: unbundled-bezier`
-        - `control-point-weights`: `0.5` (Midpoint)
-        - `control-point-distances`: Calculated offset.
-        - **Formula:**
-            - `SPEED_OF_LIGHT_SEPARATION = 50` (px)
-            - `offset = (index - (total_count - 1) / 2) * SPEED_OF_LIGHT_SEPARATION`
-        - **Example (2 Edges):**
-            - Edge 1 (Index 0): `(0 - 0.5) * 50 = -25`
-            - Edge 2 (Index 1): `(1 - 0.5) * 50 = +25`
+    **Case A: Single Edge (`total_count == 1`)**
+    - `curve-style: bezier`
+    - Result: Straight line (default behavior).
+
+    **Case B: Multiple Edges (`total_count > 1`)**
+    - `curve-style: unbundled-bezier`
+    - `control-point-weights`: `0.5` (Midpoint)
+    - **Step 1: Calculate Base Offset**
+        - `SPEED_OF_LIGHT = 50` (px)
+        - `offset = (index - (total_count - 1) / 2) * SPEED_OF_LIGHT`
+    - **Step 2: Direction Normalization (CRITICAL)**
+        - If an edge runs from A -> B, the offset shifts the curve "Left".
+        - If an edge runs from B -> A, the *same* positive offset shifts the curve "Right" (relative to viewer).
+        - **Fix:** If `edge.from > edge.to` (lexicographical check to detect "reverse" direction relative to the canonical pair), we **flip the sign** of the offset (`offset *= -1`).
+        - This ensures that Slot 0 is always "top/left" and Slot 1 is always "bottom/right", regardless of edge direction.
 
 **Benefit:**
-The first edge of a future pair renders as a curved arc (offset -25) immediately. When the second edge (offset +25) appears later, the first edge remains stationary, and the second edge simply fills the empty slot. This eliminates the visual "jump."
+1.  **Zero Jumps:** The first edge of a future pair renders as a curved arc immediately.
+2.  **Zero Overlaps:** Edges flowing A->B and B->A are strictly separated into distinct visual slots.
 
 ---
 
