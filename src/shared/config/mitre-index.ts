@@ -10,6 +10,7 @@ export interface MitreTechnique {
     url: string;
     tactics: string[];
     isSubTechnique: boolean;
+    color: string;
 }
 
 export const TACTIC_SLUGS: Record<string, string> = {
@@ -37,7 +38,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1589.001": {
         "id": "T1589.001",
@@ -46,7 +48,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1589.002": {
         "id": "T1589.002",
@@ -55,7 +58,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1589.003": {
         "id": "T1589.003",
@@ -64,7 +68,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1590": {
         "id": "T1590",
@@ -73,7 +78,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1590.001": {
         "id": "T1590.001",
@@ -82,7 +88,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1590.002": {
         "id": "T1590.002",
@@ -91,7 +98,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1590.003": {
         "id": "T1590.003",
@@ -100,7 +108,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1590.004": {
         "id": "T1590.004",
@@ -109,7 +118,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1590.005": {
         "id": "T1590.005",
@@ -118,7 +128,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1590.006": {
         "id": "T1590.006",
@@ -127,7 +138,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1591": {
         "id": "T1591",
@@ -136,7 +148,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1591.001": {
         "id": "T1591.001",
@@ -145,7 +158,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1591.002": {
         "id": "T1591.002",
@@ -154,7 +168,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1591.003": {
         "id": "T1591.003",
@@ -163,7 +178,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1591.004": {
         "id": "T1591.004",
@@ -172,7 +188,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1592": {
         "id": "T1592",
@@ -181,7 +198,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1592.001": {
         "id": "T1592.001",
@@ -190,7 +208,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1592.002": {
         "id": "T1592.002",
@@ -199,7 +218,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1592.003": {
         "id": "T1592.003",
@@ -208,7 +228,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1592.004": {
         "id": "T1592.004",
@@ -217,7 +238,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1593": {
         "id": "T1593",
@@ -226,7 +248,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1593.001": {
         "id": "T1593.001",
@@ -235,7 +258,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1593.002": {
         "id": "T1593.002",
@@ -244,7 +268,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1593.003": {
         "id": "T1593.003",
@@ -253,7 +278,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1594": {
         "id": "T1594",
@@ -262,7 +288,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1595": {
         "id": "T1595",
@@ -271,7 +298,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1595.001": {
         "id": "T1595.001",
@@ -280,7 +308,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1595.002": {
         "id": "T1595.002",
@@ -289,7 +318,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1595.003": {
         "id": "T1595.003",
@@ -298,7 +328,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1596": {
         "id": "T1596",
@@ -307,7 +338,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1596.001": {
         "id": "T1596.001",
@@ -316,7 +348,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1596.002": {
         "id": "T1596.002",
@@ -325,7 +358,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1596.003": {
         "id": "T1596.003",
@@ -334,7 +368,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1596.004": {
         "id": "T1596.004",
@@ -343,7 +378,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1596.005": {
         "id": "T1596.005",
@@ -352,7 +388,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1597": {
         "id": "T1597",
@@ -361,7 +398,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1597.001": {
         "id": "T1597.001",
@@ -370,7 +408,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1597.002": {
         "id": "T1597.002",
@@ -379,7 +418,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1598": {
         "id": "T1598",
@@ -388,7 +428,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1598.001": {
         "id": "T1598.001",
@@ -397,7 +438,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1598.002": {
         "id": "T1598.002",
@@ -406,7 +448,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1598.003": {
         "id": "T1598.003",
@@ -415,7 +458,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1598.004": {
         "id": "T1598.004",
@@ -424,7 +468,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#2dd4bf"
     },
     "T1681": {
         "id": "T1681",
@@ -433,7 +478,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "reconnaissance"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#2dd4bf"
     },
     "T1583": {
         "id": "T1583",
@@ -442,7 +488,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1583.001": {
         "id": "T1583.001",
@@ -451,7 +498,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.002": {
         "id": "T1583.002",
@@ -460,7 +508,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.003": {
         "id": "T1583.003",
@@ -469,7 +518,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.004": {
         "id": "T1583.004",
@@ -478,7 +528,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.005": {
         "id": "T1583.005",
@@ -487,7 +538,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.006": {
         "id": "T1583.006",
@@ -496,7 +548,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.007": {
         "id": "T1583.007",
@@ -505,7 +558,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1583.008": {
         "id": "T1583.008",
@@ -514,7 +568,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584": {
         "id": "T1584",
@@ -523,7 +578,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1584.001": {
         "id": "T1584.001",
@@ -532,7 +588,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.002": {
         "id": "T1584.002",
@@ -541,7 +598,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.003": {
         "id": "T1584.003",
@@ -550,7 +608,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.004": {
         "id": "T1584.004",
@@ -559,7 +618,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.005": {
         "id": "T1584.005",
@@ -568,7 +628,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.006": {
         "id": "T1584.006",
@@ -577,7 +638,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.007": {
         "id": "T1584.007",
@@ -586,7 +648,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1584.008": {
         "id": "T1584.008",
@@ -595,7 +658,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1585": {
         "id": "T1585",
@@ -604,7 +668,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1585.001": {
         "id": "T1585.001",
@@ -613,7 +678,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1585.002": {
         "id": "T1585.002",
@@ -622,7 +688,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1585.003": {
         "id": "T1585.003",
@@ -631,7 +698,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1586": {
         "id": "T1586",
@@ -640,7 +708,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1586.001": {
         "id": "T1586.001",
@@ -649,7 +718,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1586.002": {
         "id": "T1586.002",
@@ -658,7 +728,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1586.003": {
         "id": "T1586.003",
@@ -667,7 +738,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1587": {
         "id": "T1587",
@@ -676,7 +748,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1587.001": {
         "id": "T1587.001",
@@ -685,7 +758,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1587.002": {
         "id": "T1587.002",
@@ -694,7 +768,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1587.003": {
         "id": "T1587.003",
@@ -703,7 +778,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1587.004": {
         "id": "T1587.004",
@@ -712,7 +788,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588": {
         "id": "T1588",
@@ -721,7 +798,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1588.001": {
         "id": "T1588.001",
@@ -730,7 +808,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588.002": {
         "id": "T1588.002",
@@ -739,7 +818,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588.003": {
         "id": "T1588.003",
@@ -748,7 +828,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588.004": {
         "id": "T1588.004",
@@ -757,7 +838,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588.005": {
         "id": "T1588.005",
@@ -766,7 +848,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588.006": {
         "id": "T1588.006",
@@ -775,7 +858,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1588.007": {
         "id": "T1588.007",
@@ -784,7 +868,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1608": {
         "id": "T1608",
@@ -793,7 +878,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1608.001": {
         "id": "T1608.001",
@@ -802,7 +888,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1608.002": {
         "id": "T1608.002",
@@ -811,7 +898,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1608.003": {
         "id": "T1608.003",
@@ -820,7 +908,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1608.004": {
         "id": "T1608.004",
@@ -829,7 +918,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1608.005": {
         "id": "T1608.005",
@@ -838,7 +928,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1608.006": {
         "id": "T1608.006",
@@ -847,7 +938,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#a3e635"
     },
     "T1650": {
         "id": "T1650",
@@ -856,7 +948,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "resource-development"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#a3e635"
     },
     "T1078": {
         "id": "T1078",
@@ -868,7 +961,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1078.001": {
         "id": "T1078.001",
@@ -880,7 +974,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1078.002": {
         "id": "T1078.002",
@@ -892,7 +987,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1078.003": {
         "id": "T1078.003",
@@ -904,7 +1000,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1078.004": {
         "id": "T1078.004",
@@ -916,7 +1013,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1091": {
         "id": "T1091",
@@ -926,7 +1024,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "initial-access",
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1133": {
         "id": "T1133",
@@ -936,7 +1035,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "initial-access",
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1189": {
         "id": "T1189",
@@ -945,7 +1045,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1190": {
         "id": "T1190",
@@ -954,7 +1055,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1195": {
         "id": "T1195",
@@ -963,7 +1065,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1195.001": {
         "id": "T1195.001",
@@ -972,7 +1075,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1195.002": {
         "id": "T1195.002",
@@ -981,7 +1085,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1195.003": {
         "id": "T1195.003",
@@ -990,7 +1095,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1199": {
         "id": "T1199",
@@ -999,7 +1105,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1200": {
         "id": "T1200",
@@ -1008,7 +1115,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1566": {
         "id": "T1566",
@@ -1017,7 +1125,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1566.001": {
         "id": "T1566.001",
@@ -1026,7 +1135,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1566.002": {
         "id": "T1566.002",
@@ -1035,7 +1145,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1566.003": {
         "id": "T1566.003",
@@ -1044,7 +1155,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1566.004": {
         "id": "T1566.004",
@@ -1053,7 +1165,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#facc15"
     },
     "T1659": {
         "id": "T1659",
@@ -1063,7 +1176,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "initial-access",
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1669": {
         "id": "T1669",
@@ -1072,7 +1186,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "initial-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#facc15"
     },
     "T1047": {
         "id": "T1047",
@@ -1081,7 +1196,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1053": {
         "id": "T1053",
@@ -1092,7 +1208,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1053.002": {
         "id": "T1053.002",
@@ -1103,7 +1220,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1053.003": {
         "id": "T1053.003",
@@ -1114,7 +1232,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1053.005": {
         "id": "T1053.005",
@@ -1125,7 +1244,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1053.006": {
         "id": "T1053.006",
@@ -1136,7 +1256,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1053.007": {
         "id": "T1053.007",
@@ -1147,7 +1268,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059": {
         "id": "T1059",
@@ -1156,7 +1278,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1059.001": {
         "id": "T1059.001",
@@ -1165,7 +1288,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.002": {
         "id": "T1059.002",
@@ -1174,7 +1298,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.003": {
         "id": "T1059.003",
@@ -1183,7 +1308,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.004": {
         "id": "T1059.004",
@@ -1192,7 +1318,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.005": {
         "id": "T1059.005",
@@ -1201,7 +1328,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.006": {
         "id": "T1059.006",
@@ -1210,7 +1338,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.007": {
         "id": "T1059.007",
@@ -1219,7 +1348,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.008": {
         "id": "T1059.008",
@@ -1228,7 +1358,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.009": {
         "id": "T1059.009",
@@ -1237,7 +1368,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.010": {
         "id": "T1059.010",
@@ -1246,7 +1378,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.011": {
         "id": "T1059.011",
@@ -1255,7 +1388,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.012": {
         "id": "T1059.012",
@@ -1264,7 +1398,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1059.013": {
         "id": "T1059.013",
@@ -1273,7 +1408,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1072": {
         "id": "T1072",
@@ -1283,7 +1419,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "execution",
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1106": {
         "id": "T1106",
@@ -1292,7 +1429,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1129": {
         "id": "T1129",
@@ -1301,7 +1439,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1203": {
         "id": "T1203",
@@ -1310,7 +1449,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1204": {
         "id": "T1204",
@@ -1319,7 +1459,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1204.001": {
         "id": "T1204.001",
@@ -1328,7 +1469,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1204.002": {
         "id": "T1204.002",
@@ -1337,7 +1479,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1204.003": {
         "id": "T1204.003",
@@ -1346,7 +1489,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1204.004": {
         "id": "T1204.004",
@@ -1355,7 +1499,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1204.005": {
         "id": "T1204.005",
@@ -1364,7 +1509,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1559": {
         "id": "T1559",
@@ -1373,7 +1519,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1559.001": {
         "id": "T1559.001",
@@ -1382,7 +1529,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1559.002": {
         "id": "T1559.002",
@@ -1391,7 +1539,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1559.003": {
         "id": "T1559.003",
@@ -1400,7 +1549,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1569": {
         "id": "T1569",
@@ -1409,7 +1559,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1569.001": {
         "id": "T1569.001",
@@ -1418,7 +1569,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1569.002": {
         "id": "T1569.002",
@@ -1427,7 +1579,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1569.003": {
         "id": "T1569.003",
@@ -1436,7 +1589,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb923c"
     },
     "T1609": {
         "id": "T1609",
@@ -1445,7 +1599,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1610": {
         "id": "T1610",
@@ -1455,7 +1610,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "execution",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1648": {
         "id": "T1648",
@@ -1464,7 +1620,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1651": {
         "id": "T1651",
@@ -1473,7 +1630,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1674": {
         "id": "T1674",
@@ -1482,7 +1640,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1675": {
         "id": "T1675",
@@ -1491,7 +1650,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1677": {
         "id": "T1677",
@@ -1500,7 +1660,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "execution"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb923c"
     },
     "T1037": {
         "id": "T1037",
@@ -1510,7 +1671,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1037.001": {
         "id": "T1037.001",
@@ -1520,7 +1682,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1037.002": {
         "id": "T1037.002",
@@ -1530,7 +1693,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1037.003": {
         "id": "T1037.003",
@@ -1540,7 +1704,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1037.004": {
         "id": "T1037.004",
@@ -1550,7 +1715,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1037.005": {
         "id": "T1037.005",
@@ -1560,7 +1726,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098": {
         "id": "T1098",
@@ -1570,7 +1737,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1098.001": {
         "id": "T1098.001",
@@ -1580,7 +1748,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098.002": {
         "id": "T1098.002",
@@ -1590,7 +1759,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098.003": {
         "id": "T1098.003",
@@ -1600,7 +1770,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098.004": {
         "id": "T1098.004",
@@ -1610,7 +1781,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098.005": {
         "id": "T1098.005",
@@ -1620,7 +1792,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098.006": {
         "id": "T1098.006",
@@ -1630,7 +1803,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1098.007": {
         "id": "T1098.007",
@@ -1640,7 +1814,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1112": {
         "id": "T1112",
@@ -1650,7 +1825,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1136": {
         "id": "T1136",
@@ -1659,7 +1835,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1136.001": {
         "id": "T1136.001",
@@ -1668,7 +1845,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1136.002": {
         "id": "T1136.002",
@@ -1677,7 +1855,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1136.003": {
         "id": "T1136.003",
@@ -1686,7 +1865,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1137": {
         "id": "T1137",
@@ -1695,7 +1875,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1137.001": {
         "id": "T1137.001",
@@ -1704,7 +1885,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1137.002": {
         "id": "T1137.002",
@@ -1713,7 +1895,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1137.003": {
         "id": "T1137.003",
@@ -1722,7 +1905,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1137.004": {
         "id": "T1137.004",
@@ -1731,7 +1915,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1137.005": {
         "id": "T1137.005",
@@ -1740,7 +1925,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1137.006": {
         "id": "T1137.006",
@@ -1749,7 +1935,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1176": {
         "id": "T1176",
@@ -1758,7 +1945,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1176.001": {
         "id": "T1176.001",
@@ -1767,7 +1955,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1176.002": {
         "id": "T1176.002",
@@ -1776,7 +1965,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1197": {
         "id": "T1197",
@@ -1786,7 +1976,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1205": {
         "id": "T1205",
@@ -1797,7 +1988,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1205.001": {
         "id": "T1205.001",
@@ -1808,7 +2000,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1205.002": {
         "id": "T1205.002",
@@ -1819,7 +2012,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1505": {
         "id": "T1505",
@@ -1828,7 +2022,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1505.001": {
         "id": "T1505.001",
@@ -1837,7 +2032,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1505.002": {
         "id": "T1505.002",
@@ -1846,7 +2042,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1505.003": {
         "id": "T1505.003",
@@ -1855,7 +2052,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1505.004": {
         "id": "T1505.004",
@@ -1864,7 +2062,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1505.005": {
         "id": "T1505.005",
@@ -1873,7 +2072,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1505.006": {
         "id": "T1505.006",
@@ -1882,7 +2082,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1525": {
         "id": "T1525",
@@ -1891,7 +2092,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1542": {
         "id": "T1542",
@@ -1901,7 +2103,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1542.001": {
         "id": "T1542.001",
@@ -1911,7 +2114,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1542.002": {
         "id": "T1542.002",
@@ -1921,7 +2125,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1542.003": {
         "id": "T1542.003",
@@ -1931,7 +2136,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1542.004": {
         "id": "T1542.004",
@@ -1941,7 +2147,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1542.005": {
         "id": "T1542.005",
@@ -1951,7 +2158,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1543": {
         "id": "T1543",
@@ -1961,7 +2169,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1543.001": {
         "id": "T1543.001",
@@ -1971,7 +2180,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1543.002": {
         "id": "T1543.002",
@@ -1981,7 +2191,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1543.003": {
         "id": "T1543.003",
@@ -1991,7 +2202,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1543.004": {
         "id": "T1543.004",
@@ -2001,7 +2213,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1543.005": {
         "id": "T1543.005",
@@ -2011,7 +2224,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546": {
         "id": "T1546",
@@ -2021,7 +2235,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1546.001": {
         "id": "T1546.001",
@@ -2031,7 +2246,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.002": {
         "id": "T1546.002",
@@ -2041,7 +2257,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.003": {
         "id": "T1546.003",
@@ -2051,7 +2268,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.004": {
         "id": "T1546.004",
@@ -2061,7 +2279,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.005": {
         "id": "T1546.005",
@@ -2071,7 +2290,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.006": {
         "id": "T1546.006",
@@ -2081,7 +2301,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.007": {
         "id": "T1546.007",
@@ -2091,7 +2312,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.008": {
         "id": "T1546.008",
@@ -2101,7 +2323,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.009": {
         "id": "T1546.009",
@@ -2111,7 +2334,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.010": {
         "id": "T1546.010",
@@ -2121,7 +2345,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.011": {
         "id": "T1546.011",
@@ -2131,7 +2356,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.012": {
         "id": "T1546.012",
@@ -2141,7 +2367,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.013": {
         "id": "T1546.013",
@@ -2151,7 +2378,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.014": {
         "id": "T1546.014",
@@ -2161,7 +2389,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.015": {
         "id": "T1546.015",
@@ -2171,7 +2400,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.016": {
         "id": "T1546.016",
@@ -2181,7 +2411,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.017": {
         "id": "T1546.017",
@@ -2191,7 +2422,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1546.018": {
         "id": "T1546.018",
@@ -2201,7 +2433,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547": {
         "id": "T1547",
@@ -2211,7 +2444,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1547.001": {
         "id": "T1547.001",
@@ -2221,7 +2455,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.002": {
         "id": "T1547.002",
@@ -2231,7 +2466,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.003": {
         "id": "T1547.003",
@@ -2241,7 +2477,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.004": {
         "id": "T1547.004",
@@ -2251,7 +2488,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.005": {
         "id": "T1547.005",
@@ -2261,7 +2499,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.006": {
         "id": "T1547.006",
@@ -2271,7 +2510,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.007": {
         "id": "T1547.007",
@@ -2281,7 +2521,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.008": {
         "id": "T1547.008",
@@ -2291,7 +2532,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.009": {
         "id": "T1547.009",
@@ -2301,7 +2543,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.010": {
         "id": "T1547.010",
@@ -2311,7 +2554,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.012": {
         "id": "T1547.012",
@@ -2321,7 +2565,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.013": {
         "id": "T1547.013",
@@ -2331,7 +2576,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.014": {
         "id": "T1547.014",
@@ -2341,7 +2587,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1547.015": {
         "id": "T1547.015",
@@ -2351,7 +2598,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "persistence",
             "privilege-escalation"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1554": {
         "id": "T1554",
@@ -2360,7 +2608,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1556": {
         "id": "T1556",
@@ -2371,7 +2620,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1556.001": {
         "id": "T1556.001",
@@ -2382,7 +2632,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.002": {
         "id": "T1556.002",
@@ -2393,7 +2644,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.003": {
         "id": "T1556.003",
@@ -2404,7 +2656,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.004": {
         "id": "T1556.004",
@@ -2415,7 +2668,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.005": {
         "id": "T1556.005",
@@ -2426,7 +2680,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.006": {
         "id": "T1556.006",
@@ -2437,7 +2692,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.007": {
         "id": "T1556.007",
@@ -2448,7 +2704,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.008": {
         "id": "T1556.008",
@@ -2459,7 +2716,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1556.009": {
         "id": "T1556.009",
@@ -2470,7 +2728,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574": {
         "id": "T1574",
@@ -2481,7 +2740,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1574.001": {
         "id": "T1574.001",
@@ -2492,7 +2752,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.004": {
         "id": "T1574.004",
@@ -2503,7 +2764,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.005": {
         "id": "T1574.005",
@@ -2514,7 +2776,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.006": {
         "id": "T1574.006",
@@ -2525,7 +2788,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.007": {
         "id": "T1574.007",
@@ -2536,7 +2800,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.008": {
         "id": "T1574.008",
@@ -2547,7 +2812,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.009": {
         "id": "T1574.009",
@@ -2558,7 +2824,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.010": {
         "id": "T1574.010",
@@ -2569,7 +2836,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.011": {
         "id": "T1574.011",
@@ -2580,7 +2848,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.012": {
         "id": "T1574.012",
@@ -2591,7 +2860,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.013": {
         "id": "T1574.013",
@@ -2602,7 +2872,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1574.014": {
         "id": "T1574.014",
@@ -2613,7 +2884,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#c084fc"
     },
     "T1653": {
         "id": "T1653",
@@ -2622,7 +2894,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1668": {
         "id": "T1668",
@@ -2631,7 +2904,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1671": {
         "id": "T1671",
@@ -2640,7 +2914,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "persistence"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#c084fc"
     },
     "T1055": {
         "id": "T1055",
@@ -2650,7 +2925,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f87171"
     },
     "T1055.001": {
         "id": "T1055.001",
@@ -2660,7 +2936,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.002": {
         "id": "T1055.002",
@@ -2670,7 +2947,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.003": {
         "id": "T1055.003",
@@ -2680,7 +2958,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.004": {
         "id": "T1055.004",
@@ -2690,7 +2969,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.005": {
         "id": "T1055.005",
@@ -2700,7 +2980,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.008": {
         "id": "T1055.008",
@@ -2710,7 +2991,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.009": {
         "id": "T1055.009",
@@ -2720,7 +3002,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.011": {
         "id": "T1055.011",
@@ -2730,7 +3013,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.012": {
         "id": "T1055.012",
@@ -2740,7 +3024,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.013": {
         "id": "T1055.013",
@@ -2750,7 +3035,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.014": {
         "id": "T1055.014",
@@ -2760,7 +3046,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1055.015": {
         "id": "T1055.015",
@@ -2770,7 +3057,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1068": {
         "id": "T1068",
@@ -2779,7 +3067,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f87171"
     },
     "T1134": {
         "id": "T1134",
@@ -2789,7 +3078,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f87171"
     },
     "T1134.001": {
         "id": "T1134.001",
@@ -2799,7 +3089,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1134.002": {
         "id": "T1134.002",
@@ -2809,7 +3100,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1134.003": {
         "id": "T1134.003",
@@ -2819,7 +3111,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1134.004": {
         "id": "T1134.004",
@@ -2829,7 +3122,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1134.005": {
         "id": "T1134.005",
@@ -2839,7 +3133,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1484": {
         "id": "T1484",
@@ -2849,7 +3144,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f87171"
     },
     "T1484.001": {
         "id": "T1484.001",
@@ -2859,7 +3155,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1484.002": {
         "id": "T1484.002",
@@ -2869,7 +3166,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1548": {
         "id": "T1548",
@@ -2879,7 +3177,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f87171"
     },
     "T1548.001": {
         "id": "T1548.001",
@@ -2889,7 +3188,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1548.002": {
         "id": "T1548.002",
@@ -2899,7 +3199,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1548.003": {
         "id": "T1548.003",
@@ -2909,7 +3210,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1548.004": {
         "id": "T1548.004",
@@ -2919,7 +3221,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1548.005": {
         "id": "T1548.005",
@@ -2929,7 +3232,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1548.006": {
         "id": "T1548.006",
@@ -2939,7 +3243,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "privilege-escalation",
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f87171"
     },
     "T1611": {
         "id": "T1611",
@@ -2948,7 +3253,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "privilege-escalation"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f87171"
     },
     "T1006": {
         "id": "T1006",
@@ -2957,7 +3263,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1014": {
         "id": "T1014",
@@ -2966,7 +3273,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1027": {
         "id": "T1027",
@@ -2975,7 +3283,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1027.001": {
         "id": "T1027.001",
@@ -2984,7 +3293,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.002": {
         "id": "T1027.002",
@@ -2993,7 +3303,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.003": {
         "id": "T1027.003",
@@ -3002,7 +3313,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.004": {
         "id": "T1027.004",
@@ -3011,7 +3323,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.005": {
         "id": "T1027.005",
@@ -3020,7 +3333,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.006": {
         "id": "T1027.006",
@@ -3029,7 +3343,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.007": {
         "id": "T1027.007",
@@ -3038,7 +3353,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.008": {
         "id": "T1027.008",
@@ -3047,7 +3363,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.009": {
         "id": "T1027.009",
@@ -3056,7 +3373,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.010": {
         "id": "T1027.010",
@@ -3065,7 +3383,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.011": {
         "id": "T1027.011",
@@ -3074,7 +3393,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.012": {
         "id": "T1027.012",
@@ -3083,7 +3403,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.013": {
         "id": "T1027.013",
@@ -3092,7 +3413,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.014": {
         "id": "T1027.014",
@@ -3101,7 +3423,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.015": {
         "id": "T1027.015",
@@ -3110,7 +3433,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.016": {
         "id": "T1027.016",
@@ -3119,7 +3443,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1027.017": {
         "id": "T1027.017",
@@ -3128,7 +3453,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036": {
         "id": "T1036",
@@ -3137,7 +3463,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1036.001": {
         "id": "T1036.001",
@@ -3146,7 +3473,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.002": {
         "id": "T1036.002",
@@ -3155,7 +3483,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.003": {
         "id": "T1036.003",
@@ -3164,7 +3493,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.004": {
         "id": "T1036.004",
@@ -3173,7 +3503,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.005": {
         "id": "T1036.005",
@@ -3182,7 +3513,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.006": {
         "id": "T1036.006",
@@ -3191,7 +3523,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.007": {
         "id": "T1036.007",
@@ -3200,7 +3533,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.008": {
         "id": "T1036.008",
@@ -3209,7 +3543,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.009": {
         "id": "T1036.009",
@@ -3218,7 +3553,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.010": {
         "id": "T1036.010",
@@ -3227,7 +3563,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.011": {
         "id": "T1036.011",
@@ -3236,7 +3573,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1036.012": {
         "id": "T1036.012",
@@ -3245,7 +3583,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070": {
         "id": "T1070",
@@ -3254,7 +3593,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1070.001": {
         "id": "T1070.001",
@@ -3263,7 +3603,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.002": {
         "id": "T1070.002",
@@ -3272,7 +3613,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.003": {
         "id": "T1070.003",
@@ -3281,7 +3623,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.004": {
         "id": "T1070.004",
@@ -3290,7 +3633,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.005": {
         "id": "T1070.005",
@@ -3299,7 +3643,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.006": {
         "id": "T1070.006",
@@ -3308,7 +3653,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.007": {
         "id": "T1070.007",
@@ -3317,7 +3663,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.008": {
         "id": "T1070.008",
@@ -3326,7 +3673,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.009": {
         "id": "T1070.009",
@@ -3335,7 +3683,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1070.010": {
         "id": "T1070.010",
@@ -3344,7 +3693,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1127": {
         "id": "T1127",
@@ -3353,7 +3703,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1127.001": {
         "id": "T1127.001",
@@ -3362,7 +3713,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1127.002": {
         "id": "T1127.002",
@@ -3371,7 +3723,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1127.003": {
         "id": "T1127.003",
@@ -3380,7 +3733,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1140": {
         "id": "T1140",
@@ -3389,7 +3743,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1202": {
         "id": "T1202",
@@ -3398,7 +3753,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1207": {
         "id": "T1207",
@@ -3407,7 +3763,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1211": {
         "id": "T1211",
@@ -3416,7 +3773,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1216": {
         "id": "T1216",
@@ -3425,7 +3783,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1216.001": {
         "id": "T1216.001",
@@ -3434,7 +3793,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1216.002": {
         "id": "T1216.002",
@@ -3443,7 +3803,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218": {
         "id": "T1218",
@@ -3452,7 +3813,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1218.001": {
         "id": "T1218.001",
@@ -3461,7 +3823,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.002": {
         "id": "T1218.002",
@@ -3470,7 +3833,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.003": {
         "id": "T1218.003",
@@ -3479,7 +3843,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.004": {
         "id": "T1218.004",
@@ -3488,7 +3853,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.005": {
         "id": "T1218.005",
@@ -3497,7 +3863,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.007": {
         "id": "T1218.007",
@@ -3506,7 +3873,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.008": {
         "id": "T1218.008",
@@ -3515,7 +3883,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.009": {
         "id": "T1218.009",
@@ -3524,7 +3893,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.010": {
         "id": "T1218.010",
@@ -3533,7 +3903,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.011": {
         "id": "T1218.011",
@@ -3542,7 +3913,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.012": {
         "id": "T1218.012",
@@ -3551,7 +3923,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.013": {
         "id": "T1218.013",
@@ -3560,7 +3933,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.014": {
         "id": "T1218.014",
@@ -3569,7 +3943,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1218.015": {
         "id": "T1218.015",
@@ -3578,7 +3953,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1220": {
         "id": "T1220",
@@ -3587,7 +3963,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1221": {
         "id": "T1221",
@@ -3596,7 +3973,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1222": {
         "id": "T1222",
@@ -3605,7 +3983,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1222.001": {
         "id": "T1222.001",
@@ -3614,7 +3993,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1222.002": {
         "id": "T1222.002",
@@ -3623,7 +4003,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1480": {
         "id": "T1480",
@@ -3632,7 +4013,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1480.001": {
         "id": "T1480.001",
@@ -3641,7 +4023,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1480.002": {
         "id": "T1480.002",
@@ -3650,7 +4033,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1497": {
         "id": "T1497",
@@ -3660,7 +4044,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1497.001": {
         "id": "T1497.001",
@@ -3670,7 +4055,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1497.002": {
         "id": "T1497.002",
@@ -3680,7 +4066,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1497.003": {
         "id": "T1497.003",
@@ -3690,7 +4077,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1535": {
         "id": "T1535",
@@ -3699,7 +4087,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1550": {
         "id": "T1550",
@@ -3709,7 +4098,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1550.001": {
         "id": "T1550.001",
@@ -3719,7 +4109,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1550.002": {
         "id": "T1550.002",
@@ -3729,7 +4120,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1550.003": {
         "id": "T1550.003",
@@ -3739,7 +4131,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1550.004": {
         "id": "T1550.004",
@@ -3749,7 +4142,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1553": {
         "id": "T1553",
@@ -3758,7 +4152,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1553.001": {
         "id": "T1553.001",
@@ -3767,7 +4162,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1553.002": {
         "id": "T1553.002",
@@ -3776,7 +4172,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1553.003": {
         "id": "T1553.003",
@@ -3785,7 +4182,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1553.004": {
         "id": "T1553.004",
@@ -3794,7 +4192,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1553.005": {
         "id": "T1553.005",
@@ -3803,7 +4202,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1553.006": {
         "id": "T1553.006",
@@ -3812,7 +4212,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562": {
         "id": "T1562",
@@ -3821,7 +4222,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1562.001": {
         "id": "T1562.001",
@@ -3830,7 +4232,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.002": {
         "id": "T1562.002",
@@ -3839,7 +4242,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.003": {
         "id": "T1562.003",
@@ -3848,7 +4252,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.004": {
         "id": "T1562.004",
@@ -3857,7 +4262,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.006": {
         "id": "T1562.006",
@@ -3866,7 +4272,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.007": {
         "id": "T1562.007",
@@ -3875,7 +4282,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.008": {
         "id": "T1562.008",
@@ -3884,7 +4292,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.009": {
         "id": "T1562.009",
@@ -3893,7 +4302,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.010": {
         "id": "T1562.010",
@@ -3902,7 +4312,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.011": {
         "id": "T1562.011",
@@ -3911,7 +4322,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.012": {
         "id": "T1562.012",
@@ -3920,7 +4332,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1562.013": {
         "id": "T1562.013",
@@ -3929,7 +4342,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564": {
         "id": "T1564",
@@ -3938,7 +4352,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1564.001": {
         "id": "T1564.001",
@@ -3947,7 +4362,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.002": {
         "id": "T1564.002",
@@ -3956,7 +4372,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.003": {
         "id": "T1564.003",
@@ -3965,7 +4382,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.004": {
         "id": "T1564.004",
@@ -3974,7 +4392,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.005": {
         "id": "T1564.005",
@@ -3983,7 +4402,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.006": {
         "id": "T1564.006",
@@ -3992,7 +4412,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.007": {
         "id": "T1564.007",
@@ -4001,7 +4422,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.008": {
         "id": "T1564.008",
@@ -4010,7 +4432,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.009": {
         "id": "T1564.009",
@@ -4019,7 +4442,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.010": {
         "id": "T1564.010",
@@ -4028,7 +4452,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.011": {
         "id": "T1564.011",
@@ -4037,7 +4462,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.012": {
         "id": "T1564.012",
@@ -4046,7 +4472,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.013": {
         "id": "T1564.013",
@@ -4055,7 +4482,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1564.014": {
         "id": "T1564.014",
@@ -4064,7 +4492,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1578": {
         "id": "T1578",
@@ -4073,7 +4502,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1578.001": {
         "id": "T1578.001",
@@ -4082,7 +4512,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1578.002": {
         "id": "T1578.002",
@@ -4091,7 +4522,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1578.003": {
         "id": "T1578.003",
@@ -4100,7 +4532,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1578.004": {
         "id": "T1578.004",
@@ -4109,7 +4542,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1578.005": {
         "id": "T1578.005",
@@ -4118,7 +4552,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1599": {
         "id": "T1599",
@@ -4127,7 +4562,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1599.001": {
         "id": "T1599.001",
@@ -4136,7 +4572,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1600": {
         "id": "T1600",
@@ -4145,7 +4582,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1600.001": {
         "id": "T1600.001",
@@ -4154,7 +4592,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1600.002": {
         "id": "T1600.002",
@@ -4163,7 +4602,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1601": {
         "id": "T1601",
@@ -4172,7 +4612,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1601.001": {
         "id": "T1601.001",
@@ -4181,7 +4622,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1601.002": {
         "id": "T1601.002",
@@ -4190,7 +4632,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#f472b6"
     },
     "T1612": {
         "id": "T1612",
@@ -4199,7 +4642,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1620": {
         "id": "T1620",
@@ -4208,7 +4652,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1622": {
         "id": "T1622",
@@ -4218,7 +4663,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "defense-evasion",
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1647": {
         "id": "T1647",
@@ -4227,7 +4673,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1656": {
         "id": "T1656",
@@ -4236,7 +4683,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1666": {
         "id": "T1666",
@@ -4245,7 +4693,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1672": {
         "id": "T1672",
@@ -4254,7 +4703,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1678": {
         "id": "T1678",
@@ -4263,7 +4713,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1679": {
         "id": "T1679",
@@ -4272,7 +4723,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "defense-evasion"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#f472b6"
     },
     "T1003": {
         "id": "T1003",
@@ -4281,7 +4733,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1003.001": {
         "id": "T1003.001",
@@ -4290,7 +4743,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.002": {
         "id": "T1003.002",
@@ -4299,7 +4753,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.003": {
         "id": "T1003.003",
@@ -4308,7 +4763,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.004": {
         "id": "T1003.004",
@@ -4317,7 +4773,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.005": {
         "id": "T1003.005",
@@ -4326,7 +4783,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.006": {
         "id": "T1003.006",
@@ -4335,7 +4793,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.007": {
         "id": "T1003.007",
@@ -4344,7 +4803,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1003.008": {
         "id": "T1003.008",
@@ -4353,7 +4813,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1040": {
         "id": "T1040",
@@ -4363,7 +4824,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1056": {
         "id": "T1056",
@@ -4373,7 +4835,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1056.001": {
         "id": "T1056.001",
@@ -4383,7 +4846,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1056.002": {
         "id": "T1056.002",
@@ -4393,7 +4857,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1056.003": {
         "id": "T1056.003",
@@ -4403,7 +4868,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1056.004": {
         "id": "T1056.004",
@@ -4413,7 +4879,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1110": {
         "id": "T1110",
@@ -4422,7 +4889,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1110.001": {
         "id": "T1110.001",
@@ -4431,7 +4899,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1110.002": {
         "id": "T1110.002",
@@ -4440,7 +4909,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1110.003": {
         "id": "T1110.003",
@@ -4449,7 +4919,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1110.004": {
         "id": "T1110.004",
@@ -4458,7 +4929,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1111": {
         "id": "T1111",
@@ -4467,7 +4939,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1187": {
         "id": "T1187",
@@ -4476,7 +4949,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1212": {
         "id": "T1212",
@@ -4485,7 +4959,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1528": {
         "id": "T1528",
@@ -4494,7 +4969,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1539": {
         "id": "T1539",
@@ -4503,7 +4979,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1552": {
         "id": "T1552",
@@ -4512,7 +4989,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1552.001": {
         "id": "T1552.001",
@@ -4521,7 +4999,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.002": {
         "id": "T1552.002",
@@ -4530,7 +5009,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.003": {
         "id": "T1552.003",
@@ -4539,7 +5019,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.004": {
         "id": "T1552.004",
@@ -4548,7 +5029,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.005": {
         "id": "T1552.005",
@@ -4557,7 +5039,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.006": {
         "id": "T1552.006",
@@ -4566,7 +5049,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.007": {
         "id": "T1552.007",
@@ -4575,7 +5059,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1552.008": {
         "id": "T1552.008",
@@ -4584,7 +5069,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1555": {
         "id": "T1555",
@@ -4593,7 +5079,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1555.001": {
         "id": "T1555.001",
@@ -4602,7 +5089,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1555.002": {
         "id": "T1555.002",
@@ -4611,7 +5099,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1555.003": {
         "id": "T1555.003",
@@ -4620,7 +5109,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1555.004": {
         "id": "T1555.004",
@@ -4629,7 +5119,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1555.005": {
         "id": "T1555.005",
@@ -4638,7 +5129,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1555.006": {
         "id": "T1555.006",
@@ -4647,7 +5139,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1557": {
         "id": "T1557",
@@ -4657,7 +5150,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1557.001": {
         "id": "T1557.001",
@@ -4667,7 +5161,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1557.002": {
         "id": "T1557.002",
@@ -4677,7 +5172,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1557.003": {
         "id": "T1557.003",
@@ -4687,7 +5183,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1557.004": {
         "id": "T1557.004",
@@ -4697,7 +5194,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
             "credential-access",
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1558": {
         "id": "T1558",
@@ -4706,7 +5204,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1558.001": {
         "id": "T1558.001",
@@ -4715,7 +5214,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1558.002": {
         "id": "T1558.002",
@@ -4724,7 +5224,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1558.003": {
         "id": "T1558.003",
@@ -4733,7 +5234,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1558.004": {
         "id": "T1558.004",
@@ -4742,7 +5244,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1558.005": {
         "id": "T1558.005",
@@ -4751,7 +5254,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1606": {
         "id": "T1606",
@@ -4760,7 +5264,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1606.001": {
         "id": "T1606.001",
@@ -4769,7 +5274,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1606.002": {
         "id": "T1606.002",
@@ -4778,7 +5284,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#e879f9"
     },
     "T1621": {
         "id": "T1621",
@@ -4787,7 +5294,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1649": {
         "id": "T1649",
@@ -4796,7 +5304,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "credential-access"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#e879f9"
     },
     "T1007": {
         "id": "T1007",
@@ -4805,7 +5314,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1010": {
         "id": "T1010",
@@ -4814,7 +5324,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1012": {
         "id": "T1012",
@@ -4823,7 +5334,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1016": {
         "id": "T1016",
@@ -4832,7 +5344,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1016.001": {
         "id": "T1016.001",
@@ -4841,7 +5354,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1016.002": {
         "id": "T1016.002",
@@ -4850,7 +5364,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1018": {
         "id": "T1018",
@@ -4859,7 +5374,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1033": {
         "id": "T1033",
@@ -4868,7 +5384,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1046": {
         "id": "T1046",
@@ -4877,7 +5394,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1049": {
         "id": "T1049",
@@ -4886,7 +5404,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1057": {
         "id": "T1057",
@@ -4895,7 +5414,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1069": {
         "id": "T1069",
@@ -4904,7 +5424,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1069.001": {
         "id": "T1069.001",
@@ -4913,7 +5434,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1069.002": {
         "id": "T1069.002",
@@ -4922,7 +5444,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1069.003": {
         "id": "T1069.003",
@@ -4931,7 +5454,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1082": {
         "id": "T1082",
@@ -4940,7 +5464,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1083": {
         "id": "T1083",
@@ -4949,7 +5474,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1087": {
         "id": "T1087",
@@ -4958,7 +5484,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1087.001": {
         "id": "T1087.001",
@@ -4967,7 +5494,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1087.002": {
         "id": "T1087.002",
@@ -4976,7 +5504,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1087.003": {
         "id": "T1087.003",
@@ -4985,7 +5514,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1087.004": {
         "id": "T1087.004",
@@ -4994,7 +5524,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1120": {
         "id": "T1120",
@@ -5003,7 +5534,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1124": {
         "id": "T1124",
@@ -5012,7 +5544,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1135": {
         "id": "T1135",
@@ -5021,7 +5554,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1201": {
         "id": "T1201",
@@ -5030,7 +5564,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1217": {
         "id": "T1217",
@@ -5039,7 +5574,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1482": {
         "id": "T1482",
@@ -5048,7 +5584,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1518": {
         "id": "T1518",
@@ -5057,7 +5594,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1518.001": {
         "id": "T1518.001",
@@ -5066,7 +5604,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1518.002": {
         "id": "T1518.002",
@@ -5075,7 +5614,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1526": {
         "id": "T1526",
@@ -5084,7 +5624,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1538": {
         "id": "T1538",
@@ -5093,7 +5634,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1580": {
         "id": "T1580",
@@ -5102,7 +5644,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1613": {
         "id": "T1613",
@@ -5111,7 +5654,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1614": {
         "id": "T1614",
@@ -5120,7 +5664,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1614.001": {
         "id": "T1614.001",
@@ -5129,7 +5674,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#818cf8"
     },
     "T1615": {
         "id": "T1615",
@@ -5138,7 +5684,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1619": {
         "id": "T1619",
@@ -5147,7 +5694,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1652": {
         "id": "T1652",
@@ -5156,7 +5704,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1654": {
         "id": "T1654",
@@ -5165,7 +5714,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1673": {
         "id": "T1673",
@@ -5174,7 +5724,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1680": {
         "id": "T1680",
@@ -5183,7 +5734,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "discovery"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#818cf8"
     },
     "T1021": {
         "id": "T1021",
@@ -5192,7 +5744,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#60a5fa"
     },
     "T1021.001": {
         "id": "T1021.001",
@@ -5201,7 +5754,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.002": {
         "id": "T1021.002",
@@ -5210,7 +5764,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.003": {
         "id": "T1021.003",
@@ -5219,7 +5774,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.004": {
         "id": "T1021.004",
@@ -5228,7 +5784,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.005": {
         "id": "T1021.005",
@@ -5237,7 +5794,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.006": {
         "id": "T1021.006",
@@ -5246,7 +5804,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.007": {
         "id": "T1021.007",
@@ -5255,7 +5814,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1021.008": {
         "id": "T1021.008",
@@ -5264,7 +5824,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1080": {
         "id": "T1080",
@@ -5273,7 +5834,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#60a5fa"
     },
     "T1210": {
         "id": "T1210",
@@ -5282,7 +5844,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#60a5fa"
     },
     "T1534": {
         "id": "T1534",
@@ -5291,7 +5854,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#60a5fa"
     },
     "T1563": {
         "id": "T1563",
@@ -5300,7 +5864,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#60a5fa"
     },
     "T1563.001": {
         "id": "T1563.001",
@@ -5309,7 +5874,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1563.002": {
         "id": "T1563.002",
@@ -5318,7 +5884,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#60a5fa"
     },
     "T1570": {
         "id": "T1570",
@@ -5327,7 +5894,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "lateral-movement"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#60a5fa"
     },
     "T1005": {
         "id": "T1005",
@@ -5336,7 +5904,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1025": {
         "id": "T1025",
@@ -5345,7 +5914,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1039": {
         "id": "T1039",
@@ -5354,7 +5924,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1074": {
         "id": "T1074",
@@ -5363,7 +5934,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1074.001": {
         "id": "T1074.001",
@@ -5372,7 +5944,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1074.002": {
         "id": "T1074.002",
@@ -5381,7 +5954,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1113": {
         "id": "T1113",
@@ -5390,7 +5964,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1114": {
         "id": "T1114",
@@ -5399,7 +5974,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1114.001": {
         "id": "T1114.001",
@@ -5408,7 +5984,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1114.002": {
         "id": "T1114.002",
@@ -5417,7 +5994,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1114.003": {
         "id": "T1114.003",
@@ -5426,7 +6004,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1115": {
         "id": "T1115",
@@ -5435,7 +6014,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1119": {
         "id": "T1119",
@@ -5444,7 +6024,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1123": {
         "id": "T1123",
@@ -5453,7 +6034,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1125": {
         "id": "T1125",
@@ -5462,7 +6044,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1185": {
         "id": "T1185",
@@ -5471,7 +6054,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1213": {
         "id": "T1213",
@@ -5480,7 +6064,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1213.001": {
         "id": "T1213.001",
@@ -5489,7 +6074,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1213.002": {
         "id": "T1213.002",
@@ -5498,7 +6084,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1213.003": {
         "id": "T1213.003",
@@ -5507,7 +6094,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1213.004": {
         "id": "T1213.004",
@@ -5516,7 +6104,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1213.005": {
         "id": "T1213.005",
@@ -5525,7 +6114,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1213.006": {
         "id": "T1213.006",
@@ -5534,7 +6124,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1530": {
         "id": "T1530",
@@ -5543,7 +6134,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1560": {
         "id": "T1560",
@@ -5552,7 +6144,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1560.001": {
         "id": "T1560.001",
@@ -5561,7 +6154,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1560.002": {
         "id": "T1560.002",
@@ -5570,7 +6164,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1560.003": {
         "id": "T1560.003",
@@ -5579,7 +6174,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1602": {
         "id": "T1602",
@@ -5588,7 +6184,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#22d3ee"
     },
     "T1602.001": {
         "id": "T1602.001",
@@ -5597,7 +6194,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1602.002": {
         "id": "T1602.002",
@@ -5606,7 +6204,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "collection"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#22d3ee"
     },
     "T1001": {
         "id": "T1001",
@@ -5615,7 +6214,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1001.001": {
         "id": "T1001.001",
@@ -5624,7 +6224,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1001.002": {
         "id": "T1001.002",
@@ -5633,7 +6234,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1001.003": {
         "id": "T1001.003",
@@ -5642,7 +6244,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1008": {
         "id": "T1008",
@@ -5651,7 +6254,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1071": {
         "id": "T1071",
@@ -5660,7 +6264,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1071.001": {
         "id": "T1071.001",
@@ -5669,7 +6274,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1071.002": {
         "id": "T1071.002",
@@ -5678,7 +6284,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1071.003": {
         "id": "T1071.003",
@@ -5687,7 +6294,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1071.004": {
         "id": "T1071.004",
@@ -5696,7 +6304,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1071.005": {
         "id": "T1071.005",
@@ -5705,7 +6314,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1090": {
         "id": "T1090",
@@ -5714,7 +6324,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1090.001": {
         "id": "T1090.001",
@@ -5723,7 +6334,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1090.002": {
         "id": "T1090.002",
@@ -5732,7 +6344,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1090.003": {
         "id": "T1090.003",
@@ -5741,7 +6354,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1090.004": {
         "id": "T1090.004",
@@ -5750,7 +6364,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1092": {
         "id": "T1092",
@@ -5759,7 +6374,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1095": {
         "id": "T1095",
@@ -5768,7 +6384,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1102": {
         "id": "T1102",
@@ -5777,7 +6394,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1102.001": {
         "id": "T1102.001",
@@ -5786,7 +6404,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1102.002": {
         "id": "T1102.002",
@@ -5795,7 +6414,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1102.003": {
         "id": "T1102.003",
@@ -5804,7 +6424,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1104": {
         "id": "T1104",
@@ -5813,7 +6434,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1105": {
         "id": "T1105",
@@ -5822,7 +6444,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1132": {
         "id": "T1132",
@@ -5831,7 +6454,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1132.001": {
         "id": "T1132.001",
@@ -5840,7 +6464,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1132.002": {
         "id": "T1132.002",
@@ -5849,7 +6474,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1219": {
         "id": "T1219",
@@ -5858,7 +6484,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1219.001": {
         "id": "T1219.001",
@@ -5867,7 +6494,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1219.002": {
         "id": "T1219.002",
@@ -5876,7 +6504,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1219.003": {
         "id": "T1219.003",
@@ -5885,7 +6514,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1568": {
         "id": "T1568",
@@ -5894,7 +6524,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1568.001": {
         "id": "T1568.001",
@@ -5903,7 +6534,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1568.002": {
         "id": "T1568.002",
@@ -5912,7 +6544,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1568.003": {
         "id": "T1568.003",
@@ -5921,7 +6554,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1571": {
         "id": "T1571",
@@ -5930,7 +6564,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1572": {
         "id": "T1572",
@@ -5939,7 +6574,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1573": {
         "id": "T1573",
@@ -5948,7 +6584,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1573.001": {
         "id": "T1573.001",
@@ -5957,7 +6594,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1573.002": {
         "id": "T1573.002",
@@ -5966,7 +6604,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#34d399"
     },
     "T1665": {
         "id": "T1665",
@@ -5975,7 +6614,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "command-and-control"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#34d399"
     },
     "T1011": {
         "id": "T1011",
@@ -5984,7 +6624,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1011.001": {
         "id": "T1011.001",
@@ -5993,7 +6634,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1020": {
         "id": "T1020",
@@ -6002,7 +6644,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1020.001": {
         "id": "T1020.001",
@@ -6011,7 +6654,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1029": {
         "id": "T1029",
@@ -6020,7 +6664,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1030": {
         "id": "T1030",
@@ -6029,7 +6674,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1041": {
         "id": "T1041",
@@ -6038,7 +6684,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1048": {
         "id": "T1048",
@@ -6047,7 +6694,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1048.001": {
         "id": "T1048.001",
@@ -6056,7 +6704,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1048.002": {
         "id": "T1048.002",
@@ -6065,7 +6714,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1048.003": {
         "id": "T1048.003",
@@ -6074,7 +6724,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1052": {
         "id": "T1052",
@@ -6083,7 +6734,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1052.001": {
         "id": "T1052.001",
@@ -6092,7 +6744,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1537": {
         "id": "T1537",
@@ -6101,7 +6754,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1567": {
         "id": "T1567",
@@ -6110,7 +6764,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#4ade80"
     },
     "T1567.001": {
         "id": "T1567.001",
@@ -6119,7 +6774,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1567.002": {
         "id": "T1567.002",
@@ -6128,7 +6784,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1567.003": {
         "id": "T1567.003",
@@ -6137,7 +6794,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1567.004": {
         "id": "T1567.004",
@@ -6146,7 +6804,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "exfiltration"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#4ade80"
     },
     "T1485": {
         "id": "T1485",
@@ -6155,7 +6814,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1485.001": {
         "id": "T1485.001",
@@ -6164,7 +6824,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1486": {
         "id": "T1486",
@@ -6173,7 +6834,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1489": {
         "id": "T1489",
@@ -6182,7 +6844,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1490": {
         "id": "T1490",
@@ -6191,7 +6854,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1491": {
         "id": "T1491",
@@ -6200,7 +6864,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1491.001": {
         "id": "T1491.001",
@@ -6209,7 +6874,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1491.002": {
         "id": "T1491.002",
@@ -6218,7 +6884,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1495": {
         "id": "T1495",
@@ -6227,7 +6894,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1496": {
         "id": "T1496",
@@ -6236,7 +6904,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1496.001": {
         "id": "T1496.001",
@@ -6245,7 +6914,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1496.002": {
         "id": "T1496.002",
@@ -6254,7 +6924,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1496.003": {
         "id": "T1496.003",
@@ -6263,7 +6934,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1496.004": {
         "id": "T1496.004",
@@ -6272,7 +6944,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1498": {
         "id": "T1498",
@@ -6281,7 +6954,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1498.001": {
         "id": "T1498.001",
@@ -6290,7 +6964,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1498.002": {
         "id": "T1498.002",
@@ -6299,7 +6974,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1499": {
         "id": "T1499",
@@ -6308,7 +6984,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1499.001": {
         "id": "T1499.001",
@@ -6317,7 +6994,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1499.002": {
         "id": "T1499.002",
@@ -6326,7 +7004,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1499.003": {
         "id": "T1499.003",
@@ -6335,7 +7014,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1499.004": {
         "id": "T1499.004",
@@ -6344,7 +7024,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1529": {
         "id": "T1529",
@@ -6353,7 +7034,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1531": {
         "id": "T1531",
@@ -6362,7 +7044,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1561": {
         "id": "T1561",
@@ -6371,7 +7054,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1561.001": {
         "id": "T1561.001",
@@ -6380,7 +7064,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1561.002": {
         "id": "T1561.002",
@@ -6389,7 +7074,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1565": {
         "id": "T1565",
@@ -6398,7 +7084,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1565.001": {
         "id": "T1565.001",
@@ -6407,7 +7094,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1565.002": {
         "id": "T1565.002",
@@ -6416,7 +7104,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1565.003": {
         "id": "T1565.003",
@@ -6425,7 +7114,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": true
+        "isSubTechnique": true,
+        "color": "#fb7185"
     },
     "T1657": {
         "id": "T1657",
@@ -6434,7 +7124,8 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     },
     "T1667": {
         "id": "T1667",
@@ -6443,6 +7134,7 @@ export const MITRE_INDEX: Record<string, MitreTechnique> = {
         "tactics": [
             "impact"
         ],
-        "isSubTechnique": false
+        "isSubTechnique": false,
+        "color": "#fb7185"
     }
 };

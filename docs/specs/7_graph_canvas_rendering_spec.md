@@ -129,14 +129,24 @@ On each step change, edges are **fully rebuilt**:
 **Implementation:**
 
 ```typescript
-// Current step edge starts amber
+// Current step edge: Ultra-Thin Laser
 style: {
-    'line-color': '#fbbf24',
-    'target-arrow-color': '#fbbf24',
-    'width': 2,
-    'text-rotation': 'autorotate'
+    'line-color': tacticColor,
+    'target-arrow-color': tacticColor,
+    'width': 1.5,
+    'arrow-scale': 1.2, 
+    'z-index': 999,
+    // Glow (Static padding)
+    'underlay-color': tacticColor,
+    'underlay-padding': 3,
+    'underlay-opacity': 0.4,
+    'underlay-shape': 'round'
 }
 
+// Pulse Animation:
+// Only animates opacity (0.1 <-> 0.5) to avoid "breathing" size which adds visual thickness.
+// Padding remains constant at 3px.
+```
 // Animate to gray over 1 second
 newestEdge.animate({
     style: {

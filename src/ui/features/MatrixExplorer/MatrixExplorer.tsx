@@ -143,15 +143,23 @@ export const MatrixExplorer: React.FC = () => {
                                             // Tri-State Styles
                                             let containerStyle = "bg-slate-800/20 border-white/5 opacity-50"; // Default (Inactive)
                                             let textStyle = "text-slate-500";
+                                            let inlineStyle = {};
 
                                             if (isScenarioActive) {
-                                                containerStyle = "bg-slate-800/80 border-white/20 hover:border-brand-purple/50 opacity-100"; // Scenario Active
+                                                containerStyle = "bg-slate-800/80 border-white/20 opacity-100";
                                                 textStyle = "text-slate-300 group-hover:text-white";
+                                                // Subtle colored border for persistent items
+                                                inlineStyle = { borderColor: `${t.color}40` }; // 25% opacity
                                             }
 
                                             if (isStepActive) {
-                                                containerStyle = "bg-brand-purple/20 animate-glow-pulse border border-brand-purple scale-105 opacity-100 z-10"; // Persisting Pulse
-                                                textStyle = "text-white";
+                                                containerStyle = "animate-glow-pulse scale-105 opacity-100 z-10 shadow-lg";
+                                                textStyle = "text-white font-bold";
+                                                inlineStyle = {
+                                                    borderColor: t.color,
+                                                    backgroundColor: `${t.color}33`, // 20% opacity bg
+                                                    boxShadow: `0 0 15px ${t.color}40`
+                                                };
                                             }
 
                                             return (
@@ -161,12 +169,13 @@ export const MatrixExplorer: React.FC = () => {
                                                         "flex items-center gap-2 text-xs p-2 rounded border transition-all duration-300 cursor-help group",
                                                         containerStyle
                                                     )}
+                                                    style={inlineStyle}
                                                     title={`${code}: ${t.name}`}
                                                 >
-                                                    <span className={clsx(
-                                                        "font-mono font-bold transition-colors",
-                                                        isStepActive ? "text-white" : (isScenarioActive ? "text-brand-purple" : "text-slate-600")
-                                                    )}>
+                                                    <span
+                                                        className="font-mono font-bold transition-colors"
+                                                        style={{ color: isStepActive || isScenarioActive ? t.color : undefined }}
+                                                    >
                                                         {code}
                                                     </span>
                                                     <span className={clsx(

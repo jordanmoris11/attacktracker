@@ -3,10 +3,10 @@
   "description": "Exploitation of a race condition in MongoDB Compass connection handling (CVE-2025-14847) to steal database credentials and exfiltrate sensitive data.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.2202967062846477,
+    "zoom": 1.514645999719424,
     "pan": {
-      "x": 55.690725093100525,
-      "y": 144.21337907743987
+      "x": -28.03310390382926,
+      "y": 136.62309581685253
     }
   },
   "entities": [
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Cloud Infrastructure",
       "position": {
-        "x": 420.4828452424514,
-        "y": 497.68559884377584
+        "x": 261.09537906450805,
+        "y": 471.4624681615435
       },
       "icon": "IconCloud",
       "type": "container",
@@ -41,8 +41,8 @@
       "id": "mongo_cluster",
       "label": "Production MongoDB",
       "position": {
-        "x": 272.6839365976893,
-        "y": 503.5350939440745
+        "x": 58.80152697073177,
+        "y": 455.18619674870865
       },
       "icon": "IconDatabase",
       "type": "node"
@@ -51,8 +51,8 @@
       "id": "customer_data",
       "label": "Customer Records",
       "position": {
-        "x": 576.2817538872135,
-        "y": 470.8361037434771
+        "x": 471.38923115828436,
+        "y": 466.7387395743783
       },
       "icon": "IconData",
       "type": "node"
@@ -61,8 +61,8 @@
       "id": "victim_network",
       "label": "Corporate Network",
       "position": {
-        "x": 713.1536481351179,
-        "y": 143.40975327799453
+        "x": 551.6162724268124,
+        "y": 103.58474108953467
       },
       "icon": "IconRouter",
       "type": "container",
@@ -77,8 +77,8 @@
       "id": "victim_laptop",
       "label": "Developer Workstation",
       "position": {
-        "x": 716.0210834524003,
-        "y": 125.79550775754691
+        "x": 551.6162724268124,
+        "y": 103.58474108953466
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -95,8 +95,8 @@
       "id": "compass_app",
       "label": "MongoDB Compass",
       "position": {
-        "x": 574.8740099367762,
-        "y": 267.76730312003133
+        "x": 422.2496079546752,
+        "y": 118.94887374637926
       },
       "icon": "IconProcess",
       "type": "node"
@@ -105,8 +105,8 @@
       "id": "local_listener",
       "label": "OIDC Listener (Port 27017)",
       "position": {
-        "x": 632.4642402270069,
-        "y": -1.9477965640422639
+        "x": 615.1849948280114,
+        "y": -10.799527422482662
       },
       "icon": "IconAPI",
       "type": "node"
@@ -115,8 +115,8 @@
       "id": "cached_creds",
       "label": "Connection String (Creds)",
       "position": {
-        "x": 836.9332863334597,
-        "y": 228.9284501205226
+        "x": 666.4829368989496,
+        "y": 196.969009601552
       },
       "icon": "IconKey",
       "type": "node"

@@ -3,6 +3,7 @@ import cytoscape from 'cytoscape';
 // import dagre from 'cytoscape-dagre'; // Removed: defaulting to preset
 import { useScenarioStore } from '../../../core/store/useScenarioStore';
 import { usePersistence } from '../../../core/store/usePersistence'; // Re-enabled
+import { MITRE_INDEX } from '../../../shared/config/mitre-index';
 import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
 
 // cytoscape.use(dagre);
@@ -215,6 +216,12 @@ export const GraphCanvas: React.FC = () => {
 
                 const isCurrentStepEdge = (i === currentStep - 1);
 
+                // C. Dynamic Color Lookup
+                let edgeColor = '#fbbf24'; // Default Amber
+                if (step.mitre && step.mitre.id && MITRE_INDEX[step.mitre.id]) {
+                    edgeColor = MITRE_INDEX[step.mitre.id].color || edgeColor;
+                }
+
                 if (step.type === 'edge') {
                     const edge = cy.add({
                         group: 'edges',
@@ -225,17 +232,29 @@ export const GraphCanvas: React.FC = () => {
                             label: step.name,
                         },
                         style: isCurrentStepEdge ? {
-                            // Current step edge: amber highlight
-                            'line-color': '#fbbf24',
-                            'target-arrow-color': '#fbbf24',
-                            'width': 2,
-                            'text-rotation': 'autorotate'
+                            // Current step edge: Ultra-Thin Laser ("Modern")
+                            'line-color': edgeColor,
+                            'target-arrow-color': edgeColor,
+                            'width': 1.5, // Ultra thin technical look
+                            'arrow-scale': 1.2, // Balanced arrow size
+                            'text-rotation': 'autorotate',
+                            'z-index': 100,
+                            'opacity': 1,
+
+                            // Diffuse Glow (Constant size, breathing opacity)
+                            'underlay-color': edgeColor,
+                            'underlay-padding': 3, // slightly wider but soft
+                            'underlay-opacity': 0.4, // Reduced base opacity
+                            'underlay-shape': 'round'
                         } : {
                             // Previous edges: normal gray
                             'line-color': '#94a3b8',
                             'target-arrow-color': '#94a3b8',
                             'width': 2,
-                            'text-rotation': 'autorotate'
+                            'arrow-scale': 1.0,
+                            'text-rotation': 'autorotate',
+                            'opacity': 0.4, // Dimmed further
+                            'underlay-opacity': 0
                         }
                     });
 
@@ -244,7 +263,7 @@ export const GraphCanvas: React.FC = () => {
                     }
                 }
 
-                // C. Text/Alert Handling (Highlight logic) - Only for CURRENT step
+                // D. Text/Alert Handling
                 if (isCurrentStepEdge && step.type === 'show_text') {
                     const target = cy.getElementById(step.target_entity);
                     if (target.nonempty()) {
@@ -253,16 +272,23 @@ export const GraphCanvas: React.FC = () => {
                 }
             }
 
-            // D. Animate newest edge: amber → gray over 1 second
+            // E. Pulse Animation (Opacity Only - More Transparent)
             if (newestEdge) {
-                newestEdge.animate({
-                    style: {
-                        'line-color': '#94a3b8',
-                        'target-arrow-color': '#94a3b8'
-                    },
-                    duration: 1000,
-                    easing: 'ease-out'
-                });
+                const runPulse = () => {
+                    if (!newestEdge || newestEdge.removed()) return;
+
+                    newestEdge.animate({
+                        style: { 'underlay-opacity': 0.1 }, // Fade out almost completely
+                        duration: 800,
+                        easing: 'ease-in-out-sine'
+                    }).delay(0).animate({
+                        style: { 'underlay-opacity': 0.5 }, // Peak at 0.5 (was 0.8) to avoid "thick rectangle" look
+                        duration: 800,
+                        easing: 'ease-in-out-sine',
+                        complete: runPulse
+                    });
+                };
+                runPulse();
             }
 
         });
