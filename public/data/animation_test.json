@@ -1,0 +1,63 @@
+{
+  "title": "Animation Ghost Test",
+  "description": "Verifying that nodes hide/ghost correctly based on step.",
+  "version": "2.0",
+  "viewport": {
+    "zoom": 2.080689100760338,
+    "pan": {
+      "x": 524.259296377461,
+      "y": 278.4006532137896
+    }
+  },
+  "nodes": [
+    {
+      "id": "net_corp",
+      "label": "Corporate Network",
+      "type": "container",
+      "state": "normal",
+      "step": 0,
+      "position": {
+        "x": 257.9378343773468,
+        "y": 73.59544837901194
+      },
+      "metadata": {
+        "boundary": "network"
+      }
+    },
+    {
+      "id": "server",
+      "label": "Server (Visible)",
+      "type": "device",
+      "parent": "net_corp",
+      "icon": "server",
+      "state": "normal",
+      "step": 0,
+      "position": {
+        "x": 257.9378343773468,
+        "y": 73.59544837901194
+      }
+    },
+    {
+      "id": "malware",
+      "label": "Malware (Hidden > 0)",
+      "type": "process",
+      "parent": "server",
+      "icon": "malware",
+      "state": "normal",
+      "step": 2,
+      "position": {
+        "x": 257.9378343773468,
+        "y": 57.095448379011934
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "server",
+      "target": "malware",
+      "label": "Infects",
+      "type": "illegal",
+      "step": 2
+    }
+  ]
+}

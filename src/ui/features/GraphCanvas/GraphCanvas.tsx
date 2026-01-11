@@ -65,7 +65,8 @@ export const GraphCanvas: React.FC = () => {
                     type: node.type,
                     iconPath: getIconPath(node.icon), // Spec 5: Icon Resolution (Enabled for Containers now)
                     boundary: node.metadata?.boundary,
-                    state: node.state
+                    state: node.state,
+                    step: node.step // Spec 12: Animation Step (Critical for Ghosting)
                 },
                 // LOAD POSITION FROM FILE (if available)
                 // This is crucial for cross-browser persistence
@@ -245,6 +246,22 @@ export const GraphCanvas: React.FC = () => {
                     edge.removeClass('hidden').addClass('visible');
                 } else {
                     edge.removeClass('visible').addClass('hidden');
+                }
+            });
+
+            // Node Visibility (Spec 12: Ghost Strategy)
+            const cyNodes = cy.nodes();
+            cyNodes.forEach(node => {
+                // Default: Step 0 (Always Visible / Infrastructure)
+                const appearStep = node.data('step') || 0;
+
+                // Visible if current step >= appearance step
+                const isVisible = appearStep <= currentStep;
+
+                if (isVisible) {
+                    node.removeClass('pending').addClass('visible');
+                } else {
+                    node.removeClass('visible').addClass('pending');
                 }
             });
         });

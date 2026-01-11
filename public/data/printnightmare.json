@@ -3,10 +3,10 @@
   "description": "Exploitation of the Windows Print Spooler service (spoolsv.exe) via malicious driver injection to achieve Local Privilege Escalation (LPE) to SYSTEM.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.3289379226789024,
+    "zoom": 1.3070870122482765,
     "pan": {
-      "x": -987.5388346068157,
-      "y": 229.5688533409853
+      "x": -957.9336798960915,
+      "y": 231.4449938295947
     }
   },
   "nodes": [

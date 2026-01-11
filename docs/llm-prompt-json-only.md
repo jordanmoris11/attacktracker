@@ -15,8 +15,9 @@ Before generating the JSON, perform these logical steps internally:
 3.  **Assign Types & Icons**: Map every entity to the **ALLOWED LISTS** below. Do not guess.
 4.  **Sequence Actions**: 
     *   Order edges chronologically using the `step` field (1, 2, 3...).
-    *   **Node Appearance**: If a node (e.g. dropped malware) appears mid-attack, set `"step": N` on the node.
-    *   **Infrastructure**: Static nodes (Networks, Servers) have NO step (default 0).
+    *   **Node Appearance (CRITICAL)**: Ask "Did this exist before the attack?"
+        *   **YES (Infrastructure)**: Networks, Servers, Users, Firewalls. -> NO `step` (default 0).
+        *   **NO (Artifacts)**: Malware, C2 Agents, Reverse Shells, Dropped Files. -> Set `step: N` matching the edge where they are created.
 5.  **Enrichment**: Add `mitre` T-Codes where possible. **CRITICAL**: Verify T-Codes against the provided `mitre-reference.md` attached.
     *   *Rule*: If a T-Code is not in the list, DO NOT invent it. Omit it or find the closest valid match.
 
@@ -125,8 +126,8 @@ For `type: "container"`, you MUST set `metadata.boundary`:
     { "id": "attacker", "label": "Attacker (Kali)", "type": "device", "parent": "net_dmz", "icon": "kali" },
     { "id": "target", "label": "Target Server", "type": "device", "parent": "net_dmz", "icon": "windows" },
     { "id": "victim", "label": "Victim User", "type": "actor", "parent": "net_dmz", "icon": "user" },
-    { "id": "relay_svc", "label": "ntlmrelayx", "type": "process", "parent": "attacker", "icon": "terminal" },
-    { "id": "socks_tunnel", "label": "SOCKS Proxy", "type": "service", "parent": "attacker", "icon": "socks" }
+    { "id": "relay_svc", "label": "ntlmrelayx", "type": "process", "parent": "attacker", "icon": "terminal", "step": 1 },
+    { "id": "socks_tunnel", "label": "SOCKS Proxy", "type": "service", "parent": "attacker", "icon": "socks", "step": 3 }
   ],
   "edges": [
     { "step": 1, "source": "victim", "target": "relay_svc", "label": "Auths (Poisoned)", "type": "illegal", "mitre": "T1557" },

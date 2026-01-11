@@ -1,125 +1,118 @@
 {
-  "title": "SMB Relay to SOCKS Tunnel",
-  "description": "Attacker leverages LLMNR/NBT-NS poisoning to relay NTLM authentication, creating a SOCKS proxy to dump local SAM hashes.",
+  "title": "SMB Relay Attack",
+  "description": "Using ntlmrelayx to intercept victim authentication and dump hashes from a target server.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.215505371482837,
+    "zoom": 1.2500291051900911,
     "pan": {
-      "x": 530.3627482468726,
-      "y": 98.81603058848327
+      "x": 313.2561538842783,
+      "y": 253.7325979713001
     }
   },
   "nodes": [
     {
-      "id": "dmz_network",
-      "label": "Corporate DMZ",
+      "id": "corp_net",
+      "label": "Corporate Network (10.0.2.x)",
       "type": "container",
       "icon": "server",
       "state": "normal",
+      "position": {
+        "x": 491.4438717538656,
+        "y": 200.39780202722213
+      },
       "metadata": {
         "boundary": "network"
       }
     },
     {
-      "id": "kali_vm",
+      "id": "attacker_kali",
       "label": "Attacker (Kali)",
       "type": "device",
-      "parent": "dmz_network",
+      "parent": "corp_net",
       "icon": "kali",
       "state": "normal",
+      "step": 0,
       "position": {
-        "x": 223.89976126750906,
-        "y": 227.30676113795312
+        "x": 303.9022724803299,
+        "y": 182.99846328174425
       }
     },
     {
       "id": "target_server",
-      "label": "Target Windows Server",
+      "label": "Target Server (10.0.2.73)",
       "type": "device",
-      "parent": "dmz_network",
+      "parent": "corp_net",
       "icon": "windows",
       "state": "normal",
+      "step": 0,
       "position": {
-        "x": 798.8236716456582,
-        "y": 133.8270568123279
+        "x": 663.2985843565164,
+        "y": 23.103594989373967
       }
     },
     {
       "id": "victim_user",
       "label": "Victim User",
       "type": "actor",
-      "parent": "dmz_network",
+      "parent": "corp_net",
       "icon": "user",
       "state": "normal",
+      "step": 0,
       "position": {
-        "x": 607.1019159901825,
-        "y": 306.077766879543
+        "x": 724.4854710274013,
+        "y": 368.0939090076412
       }
     },
     {
-      "id": "proc_nmap",
-      "label": "nmap (SMB Scan)",
+      "id": "nmap_scan",
+      "label": "nmap (SMB Check)",
       "type": "process",
-      "parent": "kali_vm",
+      "parent": "attacker_kali",
       "icon": "malware",
       "state": "normal",
+      "step": 1,
       "position": {
-        "x": 233.12416137115366,
-        "y": 84.44202987395
+        "x": 307.90217934589026,
+        "y": 149.89780202722213
       }
     },
     {
-      "id": "proc_ntlmrelayx",
-      "label": "ntlmrelayx.py",
+      "id": "impacket_relay",
+      "label": "impacket-ntlmrelayx",
       "type": "process",
-      "parent": "kali_vm",
+      "parent": "attacker_kali",
       "icon": "malware",
       "state": "normal",
+      "step": 2,
       "position": {
-        "x": 197.83140916947428,
-        "y": 212.64492531512394
+        "x": 303.9022724803299,
+        "y": 311.2952315166854
       }
     },
     {
-      "id": "svc_socks",
-      "label": "SOCKS4 Proxy",
-      "type": "service",
-      "parent": "kali_vm",
-      "icon": "socks",
-      "state": "normal",
-      "position": {
-        "x": 338.267152305324,
-        "y": 337.17149240195624
-      }
-    },
-    {
-      "id": "proc_secretsdump",
-      "label": "secretsdump.py",
-      "type": "process",
-      "parent": "kali_vm",
-      "icon": "malware",
-      "state": "normal",
-      "position": {
-        "x": 124.03237022969414,
-        "y": 320.99564764285316
-      }
-    },
-    {
-      "id": "data_sam",
-      "label": "SAM Database",
+      "id": "dumped_hashes",
+      "label": "SAM Hashes",
       "type": "credential",
-      "parent": "target_server",
+      "parent": "attacker_kali",
       "icon": "credential",
       "state": "normal",
+      "step": 5,
       "position": {
-        "x": 798.8236716456582,
-        "y": 117.32705681232791
+        "x": 309.1115114167522,
+        "y": 33.70169504680311
       }
     }
   ],
   "edges": [
     {
-      "source": "proc_nmap",
+      "source": "attacker_kali",
+      "target": "nmap_scan",
+      "label": "Executes",
+      "type": "normal",
+      "step": 1
+    },
+    {
+      "source": "nmap_scan",
       "target": "target_server",
       "label": "Checks SMB Signing",
       "type": "normal",
@@ -127,51 +120,34 @@
       "mitre": "T1046"
     },
     {
-      "source": "proc_ntlmrelayx",
-      "target": "dmz_network",
-      "label": "Poisons LLMNR/NBT-NS",
-      "type": "illegal",
-      "step": 2,
-      "mitre": "T1557.001"
+      "source": "attacker_kali",
+      "target": "impacket_relay",
+      "label": "Starts Listener",
+      "type": "normal",
+      "step": 2
     },
     {
       "source": "victim_user",
-      "target": "proc_ntlmrelayx",
-      "label": "Sends NTLM Auth",
+      "target": "impacket_relay",
+      "label": "Auths (Phished)",
       "type": "illegal",
       "step": 3,
-      "mitre": "T1187"
+      "mitre": "T1566"
     },
     {
-      "source": "proc_ntlmrelayx",
+      "source": "impacket_relay",
       "target": "target_server",
-      "label": "Relays Auth",
+      "label": "Relays NTLM Auth",
       "type": "illegal",
       "step": 4,
       "mitre": "T1557.001"
     },
     {
-      "source": "data_sam",
-      "target": "svc_socks",
-      "label": "Establishes Admin Session",
+      "source": "target_server",
+      "target": "dumped_hashes",
+      "label": "Exfiltrates Hashes",
       "type": "impact",
       "step": 5,
-      "mitre": "T1090"
-    },
-    {
-      "source": "proc_secretsdump",
-      "target": "svc_socks",
-      "label": "Connects via Proxy",
-      "type": "normal",
-      "step": 6,
-      "mitre": "T1090"
-    },
-    {
-      "source": "svc_socks",
-      "target": "data_sam",
-      "label": "Dumps Hashes",
-      "type": "impact",
-      "step": 7,
       "mitre": "T1003.002"
     }
   ]

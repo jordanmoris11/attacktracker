@@ -188,6 +188,18 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
         }
     },
     {
+        selector: '.pending',
+        style: {
+            'opacity': 0.15,
+            'background-opacity': 0.15, // Force background fade
+            'border-opacity': 0.15,     // Force border fade
+            'text-opacity': 0.15,       // Force label fade
+            'filter': 'grayscale(100%)', // Ghost mode
+            'transition-property': 'opacity, background-opacity, border-opacity, text-opacity, filter',
+            'transition-duration': 500
+        }
+    },
+    {
         selector: '.visible',
         style: {
             'display': 'element',

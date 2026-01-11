@@ -53,6 +53,9 @@ export const NodeSchema = z.object({
     icon: z.string().optional(), // Override icon name (e.g., "kali", "win10")
     state: EntityStateSchema.default('normal'),
 
+    // Animation Control (Spec 12)
+    step: z.number().int().min(0).optional(), // 0 = Always visible, N = Appears at Step N
+
     // Layout Persistence (New)
     position: z.object({
         x: z.number(),
@@ -62,9 +65,8 @@ export const NodeSchema = z.object({
     // Metadata for Containers (Spec 10)
     metadata: z.object({
         boundary: BoundaryTypeSchema.optional(),
-        description: z.string().optional(),
-        [z.string()]: z.any()
-    }).optional()
+        description: z.string().optional()
+    }).catchall(z.any()).optional()
 });
 
 // --- Edges ---
