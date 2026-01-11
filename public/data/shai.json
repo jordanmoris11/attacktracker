@@ -3,10 +3,10 @@
   "description": "Simulation of the Shai Hulud 2.0 supply chain attack, utilizing obfuscated payloads within npm packages to harvest sensitive environment variables and credentials.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.420175132816162,
+    "zoom": 0.8443956852823924,
     "pan": {
-      "x": 138.5772915109217,
-      "y": 216.50122350558684
+      "x": 148.56532664414573,
+      "y": 77.15951322971313
     }
   },
   "entities": [
@@ -15,7 +15,7 @@
       "label": "Internet / Public Zone",
       "position": {
         "x": 337.516852870927,
-        "y": 53.08395719553896
+        "y": 60.18963064292686
       },
       "icon": "IconCloud",
       "type": "container",
@@ -33,7 +33,7 @@
       "label": "NPM Registry",
       "position": {
         "x": 335.9773131459299,
-        "y": -21.588534951675307
+        "y": -14.482861504287413
       },
       "icon": "IconServer",
       "type": "node"
@@ -43,7 +43,7 @@
       "label": "Attacker C2 GitHub",
       "position": {
         "x": 656.5237855678067,
-        "y": -24.325140034605887
+        "y": -17.219466587217994
       },
       "icon": "IconGit",
       "type": "node"
@@ -53,7 +53,7 @@
       "label": "Adversary",
       "position": {
         "x": -6.990079825952819,
-        "y": 109.49305442568381
+        "y": 116.5987278730717
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -62,8 +62,8 @@
       "id": "victim_machine",
       "label": "Developer Workstation",
       "position": {
-        "x": 358.3542312011138,
-        "y": 426.557664001094
+        "x": 338.7669405479037,
+        "y": 477.4295698363843
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -83,8 +83,8 @@
       "id": "user_terminal",
       "label": "Terminal",
       "position": {
-        "x": 76.08150392838672,
-        "y": 388.28762345337833
+        "x": 56.49421327517666,
+        "y": 404.20229710911144
       },
       "icon": "IconTerminal",
       "type": "node"
@@ -93,8 +93,8 @@
       "id": "package_manager",
       "label": "npm Process",
       "position": {
-        "x": 286.54443058161297,
-        "y": 318.37315909426366
+        "x": 266.9571399284029,
+        "y": 334.28783274999677
       },
       "icon": "IconProcess",
       "type": "node"
@@ -103,8 +103,8 @@
       "id": "obfuscated_file",
       "label": "README.md (Payload)",
       "position": {
-        "x": 205.17241301929585,
-        "y": 421.92398708974207
+        "x": 185.58512236608578,
+        "y": 437.8386607454752
       },
       "icon": "IconCode",
       "type": "node"
@@ -113,8 +113,8 @@
       "id": "malware_process",
       "label": "Active Payload",
       "position": {
-        "x": 562.4451402920226,
-        "y": 327.3785325442875
+        "x": 542.8578496388125,
+        "y": 343.2932062000206
       },
       "icon": "IconMalware",
       "type": "node"
@@ -123,8 +123,8 @@
       "id": "env_vars",
       "label": "Environment Vars",
       "position": {
-        "x": 361.3640593629529,
-        "y": 471.546661701559
+        "x": 341.77676870974284,
+        "y": 487.4613353572921
       },
       "icon": "IconDefault",
       "type": "node"
@@ -133,8 +133,8 @@
       "id": "credentials",
       "label": "System Secrets",
       "position": {
-        "x": 620.6269584738409,
-        "y": 513.7421689079243
+        "x": 601.0396678206307,
+        "y": 529.6568425636572
       },
       "icon": "IconCredential",
       "type": "node"

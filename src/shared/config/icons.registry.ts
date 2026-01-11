@@ -34,51 +34,84 @@ export const ICON_REGISTRY = {
     'IconRouter': { file: 'router.svg', color: '#64748B', category: 'device', keywords: ['router', 'gateway'] },
 
     // ═══════════════════════════════════════════════════════════════
-    // DEVELOPER TOOLS & SUPPLY CHAIN (NEW)
+    // DEVELOPER TOOLS & SUPPLY CHAIN
     // ═══════════════════════════════════════════════════════════════
     'IconGit': { file: 'git.svg', color: '#F97316', category: 'devtools', keywords: ['git', 'repo', 'clone', 'commit'] },
     'IconGitHub': { file: 'github.svg', color: '#E2E8F0', category: 'devtools', keywords: ['github', 'actions', 'repository'] },
     'IconNpm': { file: 'npm.svg', color: '#CB3837', category: 'devtools', keywords: ['npm', 'package', 'registry', 'node'] },
+    'IconPackage': { file: 'package.svg', color: '#CB3837', category: 'devtools', keywords: ['pip', 'cargo', 'nuget', 'gem'] },
     'IconDocker': { file: 'docker.svg', color: '#2496ED', category: 'devtools', keywords: ['docker', 'container', 'whale'] },
+    'IconKubernetes': { file: 'kubernetes.svg', color: '#326CE5', category: 'devtools', keywords: ['k8s', 'pod', 'cluster'] },
     'IconPipeline': { file: 'pipeline.svg', color: '#8B5CF6', category: 'devtools', keywords: ['cicd', 'jenkins', 'actions', 'build'] },
     'IconAPI': { file: 'api.svg', color: '#22C55E', category: 'devtools', keywords: ['api', 'rest', 'endpoint'] },
     'IconBucket': { file: 'bucket.svg', color: '#14B8A6', category: 'devtools', keywords: ['s3', 'storage', 'blob', 'gcs'] },
 
     // ═══════════════════════════════════════════════════════════════
-    // SYSTEM COMPONENTS
+    // CLOUD SERVICES (NEW)
+    // ═══════════════════════════════════════════════════════════════
+    'IconAWS': { file: 'aws.svg', color: '#FF9900', category: 'device', keywords: ['aws', 'amazon', 'cloud'] },
+    'IconAzure': { file: 'azure.svg', color: '#007FFF', category: 'device', keywords: ['azure', 'microsoft', 'cloud'] },
+    'IconGoogle': { file: 'cloud.svg', color: '#4285F4', category: 'device', keywords: ['gcp', 'google'] }, // kept existing cloud.svg as generic/gcp
+    'IconLambda': { file: 'lambda.svg', color: '#FF9900', category: 'device', keywords: ['serverless', 'function', 'compute'] },
+    'IconMetadata': { file: 'metadata.svg', color: '#64748B', category: 'generic', keywords: ['imds', '169.254.169.254'] },
+
+    // ═══════════════════════════════════════════════════════════════
+    // SYSTEM INTERNALS
     // ═══════════════════════════════════════════════════════════════
     'IconProcess': { file: 'process.svg', color: '#A855F7', category: 'generic', keywords: ['exe', 'bin', 'running'] },
     'IconTerminal': { file: 'terminal.svg', color: '#7C3AED', category: 'generic', keywords: ['cmd', 'bash', 'shell'] },
     'IconService': { file: 'service.svg', color: '#A855F7', category: 'generic', keywords: ['svc', 'daemon'] },
     'IconMemory': { file: 'memory.svg', color: '#A855F7', category: 'generic', keywords: ['ram', 'heap'] },
+    'IconKernel': { file: 'kernel.svg', color: '#DC2626', category: 'generic', keywords: ['kernel', 'rootkit', 'driver'] },
+    'IconRegistry': { file: 'registry.svg', color: '#3B82F6', category: 'generic', keywords: ['reg', 'windows', 'persistence'] },
+    'IconScheduler': { file: 'scheduler.svg', color: '#F59E0B', category: 'generic', keywords: ['cron', 'task', 'schedule'] },
     'IconDatabase': { file: 'db.svg', color: '#3B82F6', category: 'generic', keywords: ['db', 'sql', 'mysql'] },
     'IconData': { file: 'db.svg', color: '#10B981', category: 'generic', keywords: ['data', 'file'] },
-    'IconCode': { file: 'process.svg', color: '#F59E0B', category: 'generic', keywords: ['code', 'script'] },
+    'IconCode': { file: 'code.svg', color: '#F59E0B', category: 'generic', keywords: ['code', 'script', 'source'] },
     'IconFolder': { file: 'default.svg', color: '#F59E0B', category: 'generic', keywords: ['folder', 'directory'] },
     'IconEnv': { file: 'env.svg', color: '#10B981', category: 'generic', keywords: ['env', 'environment', 'variable', 'dotenv'] },
+    'IconVariable': { file: 'variable.svg', color: '#10B981', category: 'generic', keywords: ['var', 'env', 'config', 'dollar'] },
+    'IconBrowser': { file: 'browser.svg', color: '#3B82F6', category: 'devtools', keywords: ['chrome', 'firefox', 'cookie', 'cache'] },
 
     // ═══════════════════════════════════════════════════════════════
-    // SECRETS & CREDENTIALS (NEW)
+    // SECRETS & CREDENTIALS
     // ═══════════════════════════════════════════════════════════════
     'IconCredential': { file: 'credential.svg', color: '#F59E0B', category: 'security', keywords: ['cred', 'password'] },
     'IconKey': { file: 'key.svg', color: '#F59E0B', category: 'security', keywords: ['ssh', 'apikey', 'privatekey'] },
     'IconToken': { file: 'token.svg', color: '#06B6D4', category: 'security', keywords: ['jwt', 'oauth', 'bearer', 'session'] },
+    'IconCertificate': { file: 'certificate.svg', color: '#10B981', category: 'security', keywords: ['cert', 'tls', 'ssl', 'signing'] },
+    'IconTicket': { file: 'ticket.svg', color: '#EAB308', category: 'security', keywords: ['kerberos', 'tgt', 'tgs'] },
+    'IconHash': { file: 'hash.svg', color: '#94A3B8', category: 'security', keywords: ['ntlm', 'md5', 'sha', 'password'] },
+
+    // ═══════════════════════════════════════════════════════════════
+    // NETWORK & COMMUNICATION (NEW)
+    // ═══════════════════════════════════════════════════════════════
+    'IconDNS': { file: 'dns.svg', color: '#8B5CF6', category: 'generic', keywords: ['dns', 'domain', 'lookup'] },
     'IconSocks': { file: 'socks.svg', color: '#F59E0B', category: 'generic', keywords: ['proxy', 'tunnel'] },
+    'IconEmail': { file: 'email.svg', color: '#3B82F6', category: 'generic', keywords: ['email', 'mail', 'phishing'] },
+    'IconSlack': { file: 'slack.svg', color: '#4A154B', category: 'generic', keywords: ['slack', 'chat'] },
+    'IconTeams': { file: 'teams.svg', color: '#6264A7', category: 'generic', keywords: ['teams', 'microsoft'] },
+    'IconDiscord': { file: 'discord.svg', color: '#5865F2', category: 'generic', keywords: ['discord', 'c2'] },
 
     // ═══════════════════════════════════════════════════════════════
     // ACTIONS & EVENTS
     // ═══════════════════════════════════════════════════════════════
     'IconSearch': { file: 'terminal.svg', color: '#60A5FA', category: 'generic', keywords: ['scan', 'recon'] },
+    'IconDownload': { file: 'download.svg', color: '#10B981', category: 'generic', keywords: ['download', 'pull'] },
+    'IconUpload': { file: 'upload.svg', color: '#EF4444', category: 'generic', keywords: ['upload', 'exfil', 'push'] },
+    'IconInject': { file: 'inject.svg', color: '#EF4444', category: 'security', keywords: ['inject', 'process', 'dll'] },
     'IconExploit': { file: 'malware.svg', color: '#EF4444', category: 'generic', keywords: ['exploit', 'attack'] },
     'IconLock': { file: 'default.svg', color: '#EF4444', category: 'generic', keywords: ['encrypt', 'lock'] },
-    'IconAlert': { file: 'default.svg', color: '#F59E0B', category: 'generic', keywords: ['alert', 'warning'] },
+    'IconAlert': { file: 'alert.svg', color: '#F59E0B', category: 'generic', keywords: ['alert', 'warning', 'siem'] },
     'IconCheck': { file: 'default.svg', color: '#10B981', category: 'generic', keywords: ['success', 'ok'] },
 
     // ═══════════════════════════════════════════════════════════════
-    // THREATS & MALWARE
+    // THREATS & DEFENSE
     // ═══════════════════════════════════════════════════════════════
     'IconMalware': { file: 'malware.svg', color: '#EF4444', category: 'security', keywords: ['virus', 'payload', 'trojan'] },
+    'IconBackdoor': { file: 'backdoor.svg', color: '#EF4444', category: 'security', keywords: ['backdoor', 'webshell', 'shell'] },
     'IconC2': { file: 'c2.svg', color: '#EF4444', category: 'security', keywords: ['beacon', 'callback', 'c2'] },
+    'IconEDR': { file: 'edr.svg', color: '#3B82F6', category: 'security', keywords: ['edr', 'av', 'defense', 'shield'] },
 
     // ═══════════════════════════════════════════════════════════════
     // FALLBACK
