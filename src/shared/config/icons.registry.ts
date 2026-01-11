@@ -37,7 +37,7 @@ export const ICON_REGISTRY = {
     // DEVELOPER TOOLS & SUPPLY CHAIN
     // ═══════════════════════════════════════════════════════════════
     'IconGit': { file: 'git.svg', color: '#F97316', category: 'devtools', keywords: ['git', 'repo', 'clone', 'commit'] },
-    'IconGitHub': { file: 'github.svg', color: '#E2E8F0', category: 'devtools', keywords: ['github', 'actions', 'repository'] },
+    'IconGitHub': { file: 'github.svg', color: '#2395e2ff', category: 'devtools', keywords: ['github', 'actions', 'repository'] },
     'IconNpm': { file: 'npm.svg', color: '#CB3837', category: 'devtools', keywords: ['npm', 'package', 'registry', 'node'] },
     'IconPackage': { file: 'package.svg', color: '#CB3837', category: 'devtools', keywords: ['pip', 'cargo', 'nuget', 'gem'] },
     'IconDocker': { file: 'docker.svg', color: '#2496ED', category: 'devtools', keywords: ['docker', 'container', 'whale'] },
@@ -100,7 +100,8 @@ export const ICON_REGISTRY = {
     'IconDownload': { file: 'download.svg', color: '#10B981', category: 'generic', keywords: ['download', 'pull'] },
     'IconUpload': { file: 'upload.svg', color: '#EF4444', category: 'generic', keywords: ['upload', 'exfil', 'push'] },
     'IconInject': { file: 'inject.svg', color: '#EF4444', category: 'security', keywords: ['inject', 'process', 'dll'] },
-    'IconExploit': { file: 'malware.svg', color: '#EF4444', category: 'generic', keywords: ['exploit', 'attack'] },
+    'IconExploit': { file: 'exploit.svg', color: '#EF4444', category: 'security', keywords: ['exploit', 'attack', 'script', 'winrm', 'bloodhound'] },
+    'IconPenetrationTool': { file: 'penetrationtool.svg', color: '#EF4444', category: 'security', keywords: ['pentest', 'tool', 'kali'] },
     'IconLock': { file: 'default.svg', color: '#EF4444', category: 'generic', keywords: ['encrypt', 'lock'] },
     'IconAlert': { file: 'alert.svg', color: '#F59E0B', category: 'generic', keywords: ['alert', 'warning', 'siem'] },
     'IconCheck': { file: 'default.svg', color: '#10B981', category: 'generic', keywords: ['success', 'ok'] },
@@ -112,6 +113,19 @@ export const ICON_REGISTRY = {
     'IconBackdoor': { file: 'backdoor.svg', color: '#EF4444', category: 'security', keywords: ['backdoor', 'webshell', 'shell'] },
     'IconC2': { file: 'c2.svg', color: '#EF4444', category: 'security', keywords: ['beacon', 'callback', 'c2'] },
     'IconEDR': { file: 'edr.svg', color: '#3B82F6', category: 'security', keywords: ['edr', 'av', 'defense', 'shield'] },
+    'IconVPN': { file: 'vpn.svg', color: '#F59E0B', category: 'device', keywords: ['vpn', 'tunnel'] },
+
+    // ═══════════════════════════════════════════════════════════════
+    // NEWLY DISCOVERED (Auto-Added)
+    // ═══════════════════════════════════════════════════════════════
+    'IconAttackerAlt': { file: 'attacker1.svg', color: '#EF4444', category: 'role', keywords: ['hacker', 'apt'] },
+    'IconCreds': { file: 'creds.svg', color: '#F59E0B', category: 'security', keywords: ['credentials', 'passwords'] },
+    'IconDC': { file: 'dc.svg', color: '#3B82F6', category: 'device', keywords: ['domain controller', 'ad', 'active directory'] },
+    'IconMachine': { file: 'machine.svg', color: '#64748B', category: 'device', keywords: ['computer', 'host'] },
+    'IconMail': { file: 'mail.svg', color: '#3B82F6', category: 'generic', keywords: ['smtp', 'outlook'] },
+    'IconVictim': { file: 'victim.svg', color: '#EF4444', category: 'role', keywords: ['target', 'compromised'] },
+    'IconWeb': { file: 'web.svg', color: '#3B82F6', category: 'generic', keywords: ['www', 'site', 'internet'] },
+    'IconWinServer': { file: 'winserver.svg', color: '#00ADEF', category: 'os', keywords: ['server', 'windows server'] },
 
     // ═══════════════════════════════════════════════════════════════
     // FALLBACK

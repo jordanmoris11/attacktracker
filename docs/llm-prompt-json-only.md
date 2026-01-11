@@ -36,8 +36,62 @@ The graph is **animated**. Entities appear when relevant. Edges show actions. Th
 2. **No explicit colors** — Never include `color`, `icon_color`, or `border_color`
 3. **Strict icon keys** — Use ONLY keys from the Icon Registry (Section 5)
 4. **No empty containers** — Every container MUST have `members[]` with at least one child
-5. **Bidirectional thinking** — Requests go OUT, responses come BACK (two edges)
+5. **Edge = Data flow** — Edge direction follows DATA, not who initiates (see Part 3)
 6. **Entity emergence** — Things appear WHEN they're created (use visibility)
+7. **Attacker separation** — NEVER put attackers inside "Internet / Public Services" container
+8. **No orphan entities** — Every node MUST be source OR target of at least one edge
+9. **Attacker perspective only** — No detection alerts, SIEM events, or defender artifacts unless explicitly requested
+
+## 1.3 Common Mistakes to Avoid
+
+### Mistake: Orphan Entities
+
+Creating nodes that look relevant but aren't connected to any edge.
+
+```
+WRONG:
+entities: [
+  { id: "malware_config", label: "Config File" },  ← No edge uses this!
+  { id: "payload_script", label: "payload.js" }    ← No edge uses this!
+]
+steps: [
+  { from: "npm", to: "victim" },
+  { from: "victim", to: "c2" }
+]
+```
+
+**Rule**: Before adding an entity, ask: "Which step will have an edge to/from this?"
+If no step uses it, don't create it.
+
+### Mistake: Defense/Detection Artifacts
+
+Adding alerts, SIEM events, or blue team perspective in attack visualizations.
+
+```
+WRONG:
+entities: [
+  { id: "siem_alert", type: "text_box", label: "Alert Triggered" }
+]
+steps: [
+  { type: "show_text", target: "siem_alert", content: "EDR detected suspicious activity" }
+]
+```
+
+**Rule**: Attack scenarios show the attacker's actions, not the defender's response.
+Only include detection elements if the user explicitly requests a "detection scenario" or "blue team view".
+
+### Mistake: Decorative Intermediate Nodes
+
+Creating nodes that represent concepts but don't participate in the flow.
+
+```
+WRONG: "obfuscated_file" node that exists but malware spawns directly from package_manager
+CORRECT: Either remove the node OR route the flow through it:
+  - package_manager → obfuscated_file (extract payload)
+  - obfuscated_file → malware_process (decode & execute)
+```
+
+**Rule**: If a concept is important enough to visualize, it must be part of the edge flow.
 
 ---
 
@@ -95,6 +149,32 @@ Creating an entity?
         with no internal detail? ─────► Node
 ```
 
+### Critical Rule: Attacker Placement
+
+**NEVER place attackers inside the "Internet / Public Services" container.**
+
+The Internet zone contains **legitimate public services** (npm, GitHub, cloud APIs). Attackers are **threat actors**, not services.
+
+| WRONG | CORRECT |
+|-------|---------|
+| `internet_zone.members: ["npm", "github", "attacker"]` | `attacker` as standalone node OR in `attacker_infra` container |
+
+**Correct patterns:**
+
+```
+Option A: Standalone attacker (simple scenarios)
+├── internet_zone (container) → ["npm_registry", "github"]
+├── attacker (node) → Positioned outside containers
+└── victim_workstation (container)
+
+Option B: Attacker infrastructure (sophisticated scenarios)
+├── internet_zone (container) → ["npm_registry", "github"]
+├── attacker_infra (container) → ["attacker", "c2_server", "phishing_server"]
+└── victim_workstation (container)
+```
+
+This separation makes attack flows clearer: edges from `attacker` cross into `internet_zone` to poison services.
+
 ## 2.2 Container JSON Structure
 
 ```json
@@ -115,22 +195,60 @@ Creating an entity?
 
 ---
 
-# Part 3: Bidirectional Flow Patterns (Critical)
+# Part 3: Edge Direction & Flow Patterns (Critical)
 
-## 3.1 The Problem with One-Way Thinking
+## 3.1 Core Principle: Edge Direction = Data Flow
 
-WRONG (what LLMs typically produce):
+**Edge direction represents DATA/PAYLOAD flow, NOT who initiates the action.**
+
+Ask: *"What is being transferred, and where does it GO?"* — that determines the `to` field.
+
 ```
-npm_registry ───package───► victim_machine
+WRONG thinking:  "Attacker retrieves data" → attacker initiates → from: attacker
+CORRECT thinking: "Data flows TO attacker" → data direction → from: github, to: attacker
 ```
 
-This hides the critical detail: the victim REQUESTED the package first.
+### Flow Types Reference
 
-## 3.2 Request → Response Pattern
+| Flow Type | Edge Direction | When to Use |
+|-----------|----------------|-------------|
+| **Request** | `client → server` | API calls, queries, install commands |
+| **Response/Download** | `server → client` | Package delivery, query results, file download |
+| **Push/Upload** | `sender → destination` | Exfiltration, git push, file upload |
+| **Pull/Receive** | `source → receiver` | Git pull, retrieve stolen data |
 
-For ANY client-server interaction, model BOTH directions:
+### Quick Reference by Verb
 
-### Pattern: Package Manager Install
+| Verb in Step Name | Data Flows TO | Edge Direction |
+|-------------------|---------------|----------------|
+| Request, Query, Ask | Server/Target | `client → server` |
+| Download, Receive, Pull, Retrieve, Get | Requester/Receiver | `source → receiver` |
+| Upload, Push, Send, Exfiltrate, Post | Destination/Server | `sender → destination` |
+| Execute, Trigger, Spawn | Target process | `caller → target` |
+
+## 3.2 Decision Guide: One-Way vs Bidirectional
+
+**Before creating an edge, ask:**
+
+1. **Is this a REQUEST that expects a RESPONSE with payload?**
+   → Create TWO edges (request out, response back)
+   → Example: `npm install` = request edge + download edge
+
+2. **Is this a one-way PUSH (fire and forget)?**
+   → Create ONE edge pointing to destination
+   → Example: `Exfiltrate to C2` = `malware → c2`
+
+3. **Is this a one-way PULL/RETRIEVE (get existing data)?**
+   → Create ONE edge pointing to receiver
+   → Example: `Attacker retrieves stolen creds` = `github → attacker`
+
+4. **Is this a simple command/trigger with no data transfer?**
+   → Direction follows the command target
+   → Example: `Execute payload` = `terminal → malware_process`
+
+## 3.3 Pattern Examples
+
+### Pattern: Package Manager Install (Request + Response)
 
 ```json
 {
@@ -140,22 +258,43 @@ For ANY client-server interaction, model BOTH directions:
   "from": "user_terminal",
   "to": "npm_registry",
   "icon": "IconTerminal",
-  "tooltip": "Developer runs 'npm install', requesting package from registry",
-  "mitre": { "id": "T1204", "tactic": "Execution", "technique": "User Execution" }
+  "tooltip": "Developer runs 'npm install', requesting package from registry"
 },
 {
   "id": 4,
   "type": "edge",
-  "name": "Deliver trojanized package",
+  "name": "Download malicious package",
   "from": "npm_registry",
   "to": "user_terminal",
   "icon": "IconMalware",
-  "tooltip": "Registry returns poisoned package with malicious preinstall hook",
-  "mitre": { "id": "T1195.001", "tactic": "Initial Access", "technique": "Supply Chain Compromise" }
+  "tooltip": "Registry returns trojanized package; preinstall hook triggers automatically"
 }
 ```
 
-### Pattern: C2 Communication
+### Pattern: Exfiltration + Retrieval (Two One-Way Flows)
+
+```json
+{
+  "id": 8,
+  "type": "edge",
+  "name": "Exfiltrate to GitHub",
+  "from": "malware_script",
+  "to": "github_platform",
+  "icon": "IconGit",
+  "tooltip": "Stolen credentials PUSHED to attacker-controlled repository"
+},
+{
+  "id": 9,
+  "type": "edge",
+  "name": "Retrieve exfiltrated data",
+  "from": "github_platform",
+  "to": "attacker",
+  "icon": "IconKey",
+  "tooltip": "Attacker PULLS harvested credentials from GitHub repo"
+}
+```
+
+### Pattern: C2 Communication (Bidirectional)
 
 ```json
 {
@@ -178,60 +317,29 @@ For ANY client-server interaction, model BOTH directions:
 }
 ```
 
-### Pattern: Credential Theft & Use
+### Pattern: One-Way Push (Exfiltration)
 
 ```json
 {
   "id": 7,
   "type": "edge",
-  "name": "Read AWS credentials",
-  "from": "malware_process",
-  "to": "credential_files",
-  "icon": "IconSearch",
-  "tooltip": "Malware reads ~/.aws/credentials file"
-},
-{
-  "id": 8,
-  "type": "edge",
-  "name": "Authenticate to AWS",
-  "from": "malware_process",
-  "to": "aws_api",
-  "icon": "IconCloud",
-  "tooltip": "Using stolen credentials to access AWS APIs"
-}
-```
-
-### Pattern: Data Query & Exfiltration
-
-```json
-{
-  "id": 12,
-  "type": "edge",
-  "name": "Query sensitive data",
-  "from": "attacker_shell",
-  "to": "database_server",
-  "icon": "IconDatabase",
-  "tooltip": "SELECT * FROM users WHERE role='admin'"
-},
-{
-  "id": 13,
-  "type": "edge",
-  "name": "Exfiltrate query results",
-  "from": "database_server",
-  "to": "attacker_shell",
+  "name": "Exfiltrate credentials",
+  "from": "malware",
+  "to": "attacker_c2",
   "icon": "IconData",
-  "tooltip": "Database returns 50,000 user records"
+  "tooltip": "Stolen data sent directly to C2 — no response needed"
 }
 ```
 
-## 3.3 Bidirectional Checklist
+## 3.4 Pre-Flight Checklist
 
-Before finalizing your JSON, ask for EACH edge:
+Before finalizing edges, verify:
 
-- [ ] Is this a REQUEST? → Is there a RESPONSE edge?
-- [ ] Is this a QUERY? → Is there a RESULT edge?
-- [ ] Is this SENDING data? → Where did the data COME FROM?
-- [ ] Is this a DOWNLOAD? → Who REQUESTED the download?
+- [ ] **Direction check**: Does the edge point where DATA flows, not who initiates?
+- [ ] **Request+Response?**: If expecting payload back, did I create both edges?
+- [ ] **One-way push?**: Exfiltration/upload only needs one edge TO destination
+- [ ] **One-way pull?**: Retrieval/download only needs one edge TO receiver
+- [ ] **Verb alignment**: Does edge direction match the verb (push→to dest, pull→to receiver)?
 
 ---
 
@@ -362,12 +470,14 @@ You MUST use a key from this list. Do NOT invent new keys.
 | `IconMalware` | Malware, virus, trojan, payload |
 | `IconC2` | Command & control server, beacon |
 
-## Actions (for edge icons)
+## Offensive Tools & Actions
 | Key | Use For |
 |-----|---------|
-| `IconSearch` | Scanning, enumeration, discovery |
-| `IconExploit` | Exploitation, attack |
-| `IconLock` | Encryption, locking |
+| `IconExploit` | Exploit scripts, attack tools (exploit.py, msfconsole payloads) |
+| `IconPenetrationTool` | Pentest CLI tools (nmap, bloodhound, evil-winrm, crackmapexec) |
+
+**Prefer `IconExploit` or `IconPenetrationTool` over `IconTerminal`** for offensive operations.
+Use `IconTerminal` only for generic shell access or victim-side commands (npm install, user actions).
 
 ## Fallback
 | Key | Use For |
@@ -383,6 +493,8 @@ You MUST use a key from this list. Do NOT invent new keys.
 **Cloud Attack?** Use: `IconCloud`, `IconBucket`, `IconAPI`
 
 **System Internals?** Use: `IconProcess`, `IconTerminal`, `IconMemory`, `IconEnv`
+
+**Offensive Tooling?** Use: `IconExploit`, `IconPenetrationTool` (not `IconTerminal`)
 
 ---
 
@@ -583,15 +695,22 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
 
   "entities": [
     {
+      "id": "attacker",
+      "type": "node",
+      "label": "Threat Actor",
+      "icon": "IconAttacker",
+      "position": { "x": 550, "y": 120 }
+    },
+    {
       "id": "internet_zone",
       "type": "container",
       "label": "Internet / Public Services",
       "icon": "IconCloud",
       "position": { "x": 50, "y": 50 },
-      "width": 500,
+      "width": 400,
       "height": 180,
       "style": "dashed_border",
-      "members": ["npm_registry", "github_platform", "attacker"]
+      "members": ["npm_registry", "github_platform"]
     },
     {
       "id": "npm_registry",
@@ -606,13 +725,6 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "label": "GitHub",
       "icon": "IconGitHub",
       "position": { "x": 280, "y": 100 }
-    },
-    {
-      "id": "attacker",
-      "type": "node",
-      "label": "Threat Actor",
-      "icon": "IconAttacker",
-      "position": { "x": 460, "y": 100 }
     },
 
     {
@@ -653,14 +765,6 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "label": "~/.ssh/*",
       "icon": "IconKey",
       "position": { "x": 330, "y": 480 }
-    },
-
-    {
-      "id": "alert_box",
-      "type": "text_box",
-      "label": "Security Alert",
-      "icon": "IconAlert",
-      "position": { "x": 550, "y": 400 }
     }
   ],
 
@@ -673,8 +777,7 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
     "user_terminal": { "start": 0, "end": 100 },
     "malware_script": { "start": 4, "end": 100 },
     "aws_credentials": { "start": 0, "end": 100 },
-    "ssh_keys": { "start": 0, "end": 100 },
-    "alert_box": { "start": 7, "end": 8 }
+    "ssh_keys": { "start": 0, "end": 100 }
   },
 
   "steps": [
@@ -778,19 +881,6 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
     },
     {
       "id": 8,
-      "type": "show_text",
-      "name": "Credential theft detected",
-      "target_entity": "alert_box",
-      "content": "Suspicious file access: Multiple credential files read by npm child process",
-      "style": "warning_alert",
-      "mitre": {
-        "id": "T1552",
-        "tactic": "Credential Access",
-        "technique": "Unsecured Credentials"
-      }
-    },
-    {
-      "id": 9,
       "type": "edge",
       "name": "Exfiltrate to GitHub",
       "from": "malware_script",
@@ -804,13 +894,13 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       }
     },
     {
-      "id": 10,
+      "id": 9,
       "type": "edge",
       "name": "Retrieve exfiltrated data",
-      "from": "attacker",
-      "to": "github_platform",
+      "from": "github_platform",
+      "to": "attacker",
       "icon": "IconKey",
-      "tooltip": "Attacker pulls harvested credentials from GitHub repo for further attacks",
+      "tooltip": "Attacker pulls harvested credentials — data flows TO attacker",
       "mitre": {
         "id": "T1530",
         "tactic": "Collection",
@@ -838,6 +928,7 @@ Before returning JSON, verify:
 - [ ] Width and height specified for all containers
 - [ ] Used Infrastructure containers for zones (Internet, DMZ, etc.)
 - [ ] Used System containers for machine internals (processes, files)
+- [ ] **Attacker is NOT inside "Internet / Public Services" container**
 
 ## Bidirectional Flows
 - [ ] Requests have corresponding response edges where applicable
@@ -858,6 +949,12 @@ Before returning JSON, verify:
 ## MITRE
 - [ ] All MITRE IDs are valid T-codes (T1xxx or T1xxx.xxx)
 - [ ] Tactic names match official MITRE ATT&CK taxonomy
+
+## Entity Hygiene
+- [ ] **Every node is used** — Each node appears as `from` or `to` in at least one edge
+- [ ] **No decorative nodes** — No entities that "look relevant" but aren't in the flow
+- [ ] **No defense artifacts** — No alert boxes, SIEM events, or detection elements (unless explicitly requested)
+- [ ] **Intermediate nodes are connected** — If showing a file/payload, edges flow through it
 
 ---
 
