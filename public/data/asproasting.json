@@ -1,0 +1,321 @@
+{
+  "title": "AS-REP Roasting (Kerberos)",
+  "description": "Exploiting users with 'Do not require Kerberos preauthentication' enabled to harvest and crack encrypted TGT components.",
+  "version": "3.0",
+  "viewport": {
+    "zoom": 1,
+    "pan": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "entities": [
+    {
+      "id": "attacker",
+      "label": "Threat Actor",
+      "position": {
+        "x": 215.95835169862164,
+        "y": 377.9553409780401
+      },
+      "icon": "IconAttacker",
+      "type": "node"
+    },
+    {
+      "id": "attacker_workstation",
+      "label": "Attacker Machine (Kali)",
+      "position": {
+        "x": 447.7081008052399,
+        "y": 409.47516155520213
+      },
+      "icon": "IconKali",
+      "type": "container",
+      "width": 400,
+      "height": 450,
+      "style": "dashed_border",
+      "members": [
+        "kali_terminal",
+        "impacket_tool",
+        "hashcat_process",
+        "hash_file",
+        "wordlist"
+      ]
+    },
+    {
+      "id": "kali_terminal",
+      "label": "Terminal",
+      "position": {
+        "x": 287.9779213824019,
+        "y": 403.9362730810235
+      },
+      "icon": "IconTerminal",
+      "type": "node"
+    },
+    {
+      "id": "impacket_tool",
+      "label": "GetNPUsers.py",
+      "position": {
+        "x": 516.9581008052398,
+        "y": 248.97516155520208
+      },
+      "icon": "IconPenetrationTool",
+      "type": "node"
+    },
+    {
+      "id": "hash_file",
+      "label": "hash.txt",
+      "position": {
+        "x": 494.9636204596394,
+        "y": 477.9553409780401
+      },
+      "icon": "IconData",
+      "type": "node"
+    },
+    {
+      "id": "hashcat_process",
+      "label": "hashcat",
+      "position": {
+        "x": 411.9468106030591,
+        "y": 304.998745533091
+      },
+      "icon": "IconPenetrationTool",
+      "type": "node"
+    },
+    {
+      "id": "wordlist",
+      "label": "rockyou.txt",
+      "position": {
+        "x": 366.95810080523995,
+        "y": 548.9751615552022
+      },
+      "icon": "IconData",
+      "type": "node"
+    },
+    {
+      "id": "corporate_network",
+      "label": "Corporate Network (spookysec.local)",
+      "position": {
+        "x": 903.9562191048765,
+        "y": 420.4598570589125
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 350,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "domain_controller"
+      ]
+    },
+    {
+      "id": "domain_controller",
+      "label": "Domain Controller (10.80.167.130)",
+      "position": {
+        "x": 902.9564699982582,
+        "y": 425.9584771453126
+      },
+      "icon": "IconServer",
+      "type": "container",
+      "width": 300,
+      "height": 250,
+      "style": "dashed_border",
+      "members": [
+        "kdc_service",
+        "active_directory_db"
+      ]
+    },
+    {
+      "id": "kdc_service",
+      "label": "Kerberos Service (KDC)",
+      "position": {
+        "x": 860.9520793640767,
+        "y": 245.9884589044373
+      },
+      "icon": "IconService",
+      "type": "node"
+    },
+    {
+      "id": "active_directory_db",
+      "label": "Active Directory DB",
+      "position": {
+        "x": 957.9603588456761,
+        "y": 573.9312552133878
+      },
+      "icon": "IconDatabase",
+      "type": "node"
+    }
+  ],
+  "visibility": {
+    "attacker": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker_workstation": {
+      "start": 0,
+      "end": 100
+    },
+    "kali_terminal": {
+      "start": 0,
+      "end": 100
+    },
+    "wordlist": {
+      "start": 0,
+      "end": 100
+    },
+    "corporate_network": {
+      "start": 0,
+      "end": 100
+    },
+    "domain_controller": {
+      "start": 0,
+      "end": 100
+    },
+    "kdc_service": {
+      "start": 0,
+      "end": 100
+    },
+    "active_directory_db": {
+      "start": 0,
+      "end": 100
+    },
+    "impacket_tool": {
+      "start": 1,
+      "end": 5
+    },
+    "hash_file": {
+      "start": 5,
+      "end": 100
+    },
+    "hashcat_process": {
+      "start": 6,
+      "end": 100
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Execute GetNPUsers",
+      "mitre": {
+        "id": "T1558.004",
+        "tactic": "Credential Access",
+        "technique": "AS-REP Roasting"
+      },
+      "type": "edge",
+      "from": "kali_terminal",
+      "to": "impacket_tool",
+      "icon": "IconTerminal",
+      "tooltip": "Attacker runs impacket-GetNPUsers to target accounts without Kerberos pre-authentication"
+    },
+    {
+      "id": 2,
+      "name": "Send AS-REQ (No Pre-Auth)",
+      "mitre": {
+        "id": "T1558.004",
+        "tactic": "Credential Access",
+        "technique": "AS-REP Roasting"
+      },
+      "type": "edge",
+      "from": "impacket_tool",
+      "to": "kdc_service",
+      "icon": "IconKey",
+      "tooltip": "Sends a Kerberos AS-REQ to the DC requesting a TGT for a specific user, deliberately omitting pre-authentication data"
+    },
+    {
+      "id": 3,
+      "name": "Check User Attributes",
+      "mitre": {
+        "id": "T1558.004",
+        "tactic": "Credential Access",
+        "technique": "AS-REP Roasting"
+      },
+      "type": "edge",
+      "from": "kdc_service",
+      "to": "active_directory_db",
+      "icon": "IconSearch",
+      "tooltip": "KDC verifies if the requested user has 'Do not require Kerberos preauthentication' (DONT_REQ_PREAUTH) set"
+    },
+    {
+      "id": 4,
+      "name": "Return AS-REP (Encrypted TGT)",
+      "mitre": {
+        "id": "T1558.004",
+        "tactic": "Credential Access",
+        "technique": "AS-REP Roasting"
+      },
+      "type": "edge",
+      "from": "kdc_service",
+      "to": "impacket_tool",
+      "icon": "IconCredential",
+      "tooltip": "DC responds with AS-REP containing the TGT component encrypted with the user's password hash"
+    },
+    {
+      "id": 5,
+      "name": "Save Hash to File",
+      "mitre": {
+        "id": "T1005",
+        "tactic": "Collection",
+        "technique": "Data from Local System"
+      },
+      "type": "edge",
+      "from": "impacket_tool",
+      "to": "hash_file",
+      "icon": "IconData",
+      "tooltip": "Saves the captured AS-REP hash to a file compatible with hashcat"
+    },
+    {
+      "id": 6,
+      "name": "Start Hashcat",
+      "mitre": {
+        "id": "T1110.002",
+        "tactic": "Credential Access",
+        "technique": "Password Cracking"
+      },
+      "type": "edge",
+      "from": "kali_terminal",
+      "to": "hashcat_process",
+      "icon": "IconTerminal",
+      "tooltip": "Attacker initiates offline cracking using hashcat mode 18200"
+    },
+    {
+      "id": 7,
+      "name": "Load Target Hash",
+      "mitre": {
+        "id": "T1110.002",
+        "tactic": "Credential Access",
+        "technique": "Password Cracking"
+      },
+      "type": "edge",
+      "from": "hashcat_process",
+      "to": "hash_file",
+      "icon": "IconSearch",
+      "tooltip": "Hashcat reads the captured Kerberos hash"
+    },
+    {
+      "id": 8,
+      "name": "Read Wordlist",
+      "mitre": {
+        "id": "T1110.002",
+        "tactic": "Credential Access",
+        "technique": "Password Cracking"
+      },
+      "type": "edge",
+      "from": "hashcat_process",
+      "to": "wordlist",
+      "icon": "IconData",
+      "tooltip": "Hashcat iterates through rockyou.txt to guess the password"
+    },
+    {
+      "id": 9,
+      "name": "Cracked Password Found",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials"
+      },
+      "type": "edge",
+      "from": "hashcat_process",
+      "to": "kali_terminal",
+      "icon": "IconCredential",
+      "tooltip": "Hashcat successfully cracks the hash and outputs the cleartext password"
+    }
+  ]
+}

@@ -1,110 +1,189 @@
 {
-  "title": "NTLM Relay Attack Chain",
-  "description": "Visualizing the sequence of an NTLM Relay attack: from Recon to Credential Dumping.",
+  "title": "SMB Relay via SOCKS Tunneling",
+  "description": "Attacker identifies a target with SMB signing disabled, relays NTLM authentication to establish a SOCKS tunnel, and dumps SAM secrets using proxychains.",
   "version": "2.0",
   "viewport": {
-    "zoom": 0.8935013537480553,
+    "zoom": 1.155799275566189,
     "pan": {
-      "x": 100.58128174883257,
-      "y": 29.721238375161477
+      "x": 94.31534032786178,
+      "y": 60.65096599444333
     }
   },
   "entities": [
     {
-      "id": "corp_net",
-      "label": "Corporate Network (10.0.2.0/24)",
+      "id": "attacker",
+      "label": "Threat Actor",
       "position": {
-        "x": 1058.2648663895716,
-        "y": 342.868713123833
+        "x": 296.47973903893677,
+        "y": 604.6879362305365
       },
-      "icon": "IconCloud",
-      "type": "container",
-      "width": 600,
-      "height": 400,
-      "style": "dashed_border",
-      "members": [
-        "attacker_kali",
-        "victim_ws",
-        "target_srv"
-      ]
-    },
-    {
-      "id": "attacker_kali",
-      "label": "Attacker (Kali)",
-      "position": {
-        "x": 622.4935785668224,
-        "y": 458.1853301627759
-      },
-      "icon": "IconKali",
+      "icon": "IconAttacker",
       "type": "node"
     },
     {
-      "id": "victim_ws",
-      "label": "Victim Workstation",
+      "id": "attacker_infra",
+      "label": "Attacker Infrastructure",
       "position": {
-        "x": 1481.036154212321,
-        "y": 419.79890123472734
+        "x": 186.2846741254245,
+        "y": 389.86672325789175
+      },
+      "icon": "IconKali",
+      "type": "container",
+      "width": 300,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "kali_terminal",
+        "ntlmrelayx_service",
+        "socks_proxy",
+        "secretsdump_tool"
+      ]
+    },
+    {
+      "id": "kali_terminal",
+      "label": "Kali Terminal",
+      "position": {
+        "x": 62.47832626179675,
+        "y": 357.14511355396326
+      },
+      "icon": "IconTerminal",
+      "type": "node"
+    },
+    {
+      "id": "ntlmrelayx_service",
+      "label": "impacket-ntlmrelayx",
+      "position": {
+        "x": 279.2112012597638,
+        "y": 151.41207781638033
+      },
+      "icon": "IconService",
+      "type": "node"
+    },
+    {
+      "id": "socks_proxy",
+      "label": "SOCKS :1080",
+      "position": {
+        "x": 295.1483566851436,
+        "y": 413.62907376798995
+      },
+      "icon": "IconAPI",
+      "type": "node"
+    },
+    {
+      "id": "secretsdump_tool",
+      "label": "impacket-secretsdump",
+      "position": {
+        "x": 96.75538259887797,
+        "y": 486.22346019103867
+      },
+      "icon": "IconPenetrationTool",
+      "type": "node"
+    },
+    {
+      "id": "corporate_network",
+      "label": "Corporate Network (10.0.2.0/24)",
+      "position": {
+        "x": 781.8369293986948,
+        "y": 313.8372403408456
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 300,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "victim_client",
+        "target_server",
+        "sam_database"
+      ]
+    },
+    {
+      "id": "victim_client",
+      "label": "Victim PC (Source)",
+      "position": {
+        "x": 714.3363021652402,
+        "y": 175.84413990884502
       },
       "icon": "IconWorkstation",
       "type": "node"
     },
     {
-      "id": "target_srv",
-      "label": "Target Server (10.0.2.73)",
+      "id": "target_server",
+      "label": "Target (10.0.2.73)",
       "position": {
-        "x": 1264.1541432205377,
-        "y": 206.55209608489014
+        "x": 731.4889011624864,
+        "y": 292.7709980987887
       },
       "icon": "IconServer",
       "type": "node"
     },
     {
-      "id": "info_panel",
-      "label": "Attack Status",
+      "id": "sam_database",
+      "label": "SAM Database",
       "position": {
-        "x": 219.84051304016432,
-        "y": 319.8405130401643
+        "x": 893.9369590631105,
+        "y": 568.3629654359172
       },
-      "icon": "IconTerminal",
-      "type": "text_box"
+      "icon": "IconDatabase",
+      "type": "node"
     }
   ],
   "visibility": {
-    "corp_net": {
-      "start": 0,
-      "end": 10
+    "attacker": {
+      "start": 1,
+      "end": 100
     },
-    "attacker_kali": {
+    "attacker_infra": {
       "start": 0,
-      "end": 10
+      "end": 100
     },
-    "victim_ws": {
+    "kali_terminal": {
       "start": 0,
-      "end": 10
+      "end": 100
     },
-    "target_srv": {
-      "start": 0,
-      "end": 10
-    },
-    "info_panel": {
+    "ntlmrelayx_service": {
       "start": 2,
-      "end": 10
+      "end": 100
+    },
+    "socks_proxy": {
+      "start": 5,
+      "end": 100
+    },
+    "secretsdump_tool": {
+      "start": 6,
+      "end": 100
+    },
+    "corporate_network": {
+      "start": 0,
+      "end": 100
+    },
+    "victim_client": {
+      "start": 0,
+      "end": 100
+    },
+    "target_server": {
+      "start": 0,
+      "end": 100
+    },
+    "sam_database": {
+      "start": 0,
+      "end": 100
     }
   },
   "steps": [
     {
       "id": 1,
-      "name": "Recon: SMB Signing Check",
+      "name": "Recon: Check SMB Signing",
       "mitre": {
-        "id": "T1046",
-        "tactic": "Discovery",
-        "technique": "Network Service Discovery"
+        "id": "T1595.002",
+        "tactic": "Reconnaissance",
+        "technique": "Vulnerability Scanning"
       },
       "type": "edge",
-      "from": "attacker_kali",
-      "to": "target_srv",
+      "from": "kali_terminal",
+      "to": "target_server",
       "icon": "IconSearch",
-      "tooltip": "nmap --script=smb2-security-mode.nse: Checking if SMB signing is 'not required'."
+      "tooltip": "nmap --script=smb2-security-mode.nse checks if Message Signing is required (false = vulnerable)"
     },
     {
       "id": 2,
@@ -114,52 +193,109 @@
         "tactic": "Credential Access",
         "technique": "LLMNR/NBT-NS Poisoning and SMB Relay"
       },
-      "type": "show_text",
-      "target_entity": "info_panel",
-      "content": "Attacker starts 'impacket-ntlmrelayx' targeting 10.0.2.73. Waiting for incoming connections...",
-      "style": "info_alert"
+      "type": "edge",
+      "from": "kali_terminal",
+      "to": "ntlmrelayx_service",
+      "icon": "IconTerminal",
+      "tooltip": "Starts impacket-ntlmrelayx with -socks support to catch incoming NTLM auth"
     },
     {
       "id": 3,
-      "name": "Coerced Auth (SMB)",
+      "name": "Incoming NTLM Auth",
       "mitre": {
         "id": "T1187",
         "tactic": "Credential Access",
         "technique": "Forced Authentication"
       },
       "type": "edge",
-      "from": "victim_ws",
-      "to": "attacker_kali",
+      "from": "victim_client",
+      "to": "ntlmrelayx_service",
       "icon": "IconUser",
-      "tooltip": "Victim connects to Attacker via malicious UNC path or coercion (PrinterBug)."
+      "tooltip": "Victim machine connects to attacker (via LLMNR poisoning or forced authentication)"
     },
     {
       "id": 4,
-      "name": "Relay Credentials",
+      "name": "Relay Auth to Target",
       "mitre": {
         "id": "T1557.001",
         "tactic": "Credential Access",
         "technique": "LLMNR/NBT-NS Poisoning and SMB Relay"
       },
       "type": "edge",
-      "from": "attacker_kali",
-      "to": "target_srv",
-      "icon": "IconCredential",
-      "tooltip": "ntlmrelayx forwards the Victim's NTLM challenge/response to the Target Server."
+      "from": "ntlmrelayx_service",
+      "to": "target_server",
+      "icon": "IconKey",
+      "tooltip": "Forwarding the stolen NTLM authentication to the target server (10.0.2.73)"
     },
     {
       "id": 5,
-      "name": "Dump Hashes (SAM)",
+      "name": "Establish SOCKS Session",
+      "mitre": {
+        "id": "T1090",
+        "tactic": "Command and Control",
+        "technique": "Proxy"
+      },
+      "type": "edge",
+      "from": "target_server",
+      "to": "socks_proxy",
+      "icon": "IconAPI",
+      "tooltip": "Successful authentication creates an active SMB session held open in the local SOCKS proxy"
+    },
+    {
+      "id": 6,
+      "name": "Proxychains Secretsdump",
       "mitre": {
         "id": "T1003.002",
         "tactic": "Credential Access",
-        "technique": "Security Account Manager"
+        "technique": "OS Credential Dumping: Security Account Manager"
       },
       "type": "edge",
-      "from": "attacker_kali",
-      "to": "target_srv",
-      "icon": "IconData",
-      "tooltip": "Post-Auth: impacket-secretsdump dumps the SAM database from the Target."
+      "from": "secretsdump_tool",
+      "to": "socks_proxy",
+      "icon": "IconPenetrationTool",
+      "tooltip": "Running secretsdump through the proxy tunnel (127.0.0.1:1080) to target 10.0.2.73"
+    },
+    {
+      "id": 7,
+      "name": "Tunnel Request to Target",
+      "mitre": {
+        "id": "T1090",
+        "tactic": "Command and Control",
+        "technique": "Proxy"
+      },
+      "type": "edge",
+      "from": "socks_proxy",
+      "to": "target_server",
+      "icon": "IconNetwork",
+      "tooltip": "Traffic is tunneled through the existing authenticated SMB session"
+    },
+    {
+      "id": 8,
+      "name": "Dump SAM Hashes",
+      "mitre": {
+        "id": "T1003.002",
+        "tactic": "Credential Access",
+        "technique": "OS Credential Dumping: Security Account Manager"
+      },
+      "type": "edge",
+      "from": "target_server",
+      "to": "sam_database",
+      "icon": "IconDatabase",
+      "tooltip": "Accessing the SAM database on the target system"
+    },
+    {
+      "id": 9,
+      "name": "Retrieve Hashes",
+      "mitre": {
+        "id": "T1041",
+        "tactic": "Exfiltration",
+        "technique": "Exfiltration Over C2 Channel"
+      },
+      "type": "edge",
+      "from": "sam_database",
+      "to": "attacker",
+      "icon": "IconKey",
+      "tooltip": "NTLM hashes returned to the attacker through the tunnel"
     }
   ]
 }

@@ -203,6 +203,9 @@ export const GraphCanvas: React.FC = () => {
             cy.edges().remove();
             cy.elements('.highlighted').removeClass('highlighted');
 
+            // Track the newest edge for animation (outside batch)
+            let newestEdge: cytoscape.EdgeSingular | null = null;
+
             // 2. Iterate from 0 to Current Step explicitly (1-based index adjustment)
             // If currentStep = 0 (Initial), loop doesn't run.
             // If currentStep = 1, loop runs for k=0 (timeline[0]).
@@ -210,11 +213,10 @@ export const GraphCanvas: React.FC = () => {
                 const step = timeline[i];
                 if (!step) continue;
 
+                const isCurrentStepEdge = (i === currentStep - 1);
+
                 if (step.type === 'edge') {
-                    // Check deduplication? Or just let them pile up? 
-                    // Cytoscape allows parallel edges. 
-                    // Let's assume unique step IDs make unique edges.
-                    cy.add({
+                    const edge = cy.add({
                         group: 'edges',
                         data: {
                             id: `edge_${step.id}`,
@@ -222,24 +224,45 @@ export const GraphCanvas: React.FC = () => {
                             target: step.to,
                             label: step.name,
                         },
-                        style: {
+                        style: isCurrentStepEdge ? {
+                            // Current step edge: amber highlight
+                            'line-color': '#fbbf24',
+                            'target-arrow-color': '#fbbf24',
+                            'width': 2,
+                            'text-rotation': 'autorotate'
+                        } : {
+                            // Previous edges: normal gray
                             'line-color': '#94a3b8',
                             'target-arrow-color': '#94a3b8',
                             'width': 2,
                             'text-rotation': 'autorotate'
                         }
                     });
+
+                    if (isCurrentStepEdge) {
+                        newestEdge = edge;
+                    }
                 }
 
-                // C. Text/Alert Handling (Highlight logic) - Only for CURRENT step (last one in loop)
-                const isLast = (i === currentStep - 1);
-
-                if (isLast && step.type === 'show_text') {
+                // C. Text/Alert Handling (Highlight logic) - Only for CURRENT step
+                if (isCurrentStepEdge && step.type === 'show_text') {
                     const target = cy.getElementById(step.target_entity);
                     if (target.nonempty()) {
                         target.addClass('highlighted');
                     }
                 }
+            }
+
+            // D. Animate newest edge: amber → gray over 1 second
+            if (newestEdge) {
+                newestEdge.animate({
+                    style: {
+                        'line-color': '#94a3b8',
+                        'target-arrow-color': '#94a3b8'
+                    },
+                    duration: 1000,
+                    easing: 'ease-out'
+                });
             }
 
         });
