@@ -53,6 +53,12 @@ export const NodeSchema = z.object({
     icon: z.string().optional(), // Override icon name (e.g., "kali", "win10")
     state: EntityStateSchema.default('normal'),
 
+    // Layout Persistence (New)
+    position: z.object({
+        x: z.number(),
+        y: z.number()
+    }).optional(),
+
     // Metadata for Containers (Spec 10)
     metadata: z.object({
         boundary: BoundaryTypeSchema.optional(),
@@ -88,6 +94,12 @@ export const AttackGraphSchema = z.object({
     title: z.string().default('Untitled Attack Graph'),
     description: z.string().optional(),
     version: z.literal('2.0').default('2.0'),
+
+    // Layout Persistence (New)
+    viewport: z.object({
+        zoom: z.number(),
+        pan: z.object({ x: z.number(), y: z.number() })
+    }).optional(),
 
     nodes: z.array(NodeSchema),
     edges: z.array(EdgeSchema)

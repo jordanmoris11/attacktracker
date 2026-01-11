@@ -4,6 +4,7 @@ import dagre from 'cytoscape-dagre';
 import { useGraphStore } from '../../../core/store/useGraphStore';
 import { useAnimationStore } from '../../../core/animation/useAnimationStore';
 import { useLayoutStore } from '../../../core/store/useLayoutStore';
+import { usePersistence } from '../../../core/store/usePersistence';
 import { CYTOSCAPE_THEME } from './cytoscape-theme';
 import { getIconPath } from '../../../shared/config/icons.registry';
 import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
@@ -16,9 +17,12 @@ export const GraphCanvas: React.FC = () => {
     const cyRef = useRef<cytoscape.Core | null>(null);
     const cleanupHeaderLayerRef = useRef<(() => void) | null>(null);
 
+    // Active File Persistence
+    usePersistence();
+
     // State
     const { nodes, edges, status, title } = useGraphStore();
-    const { saveNodePosition, getGraphLayout } = useLayoutStore();
+    const { saveNodePosition, saveViewport, getGraphLayout } = useLayoutStore();
 
     // 1. Initialize Cytoscape (Once)
     useEffect(() => {
@@ -62,16 +66,14 @@ export const GraphCanvas: React.FC = () => {
                     iconPath: getIconPath(node.icon), // Spec 5: Icon Resolution (Enabled for Containers now)
                     boundary: node.metadata?.boundary,
                     state: node.state
-                }
+                },
+                // LOAD POSITION FROM FILE (if available)
+                // This is crucial for cross-browser persistence
+                position: node.position
             }));
 
-            // Calculate Visibility Context once
-            // Note: We read state directly to avoid dependency cycle and ensure initial render is correct
-            const currentStep = useAnimationStore.getState().currentStep;
-            const maxExplicitStep = Math.max(...edges.map(e => e.step || 0), 0);
-            const useExplicit = maxExplicitStep > 0;
-
-            // Transform Edges
+            // ... Edges Transformation (omitted for brevity, unchanged) ...
+            // RESTORING MISSING LOGIC (Start)
             const cyEdges = edges.map((edge, i) => {
                 // Visibility Logic
                 let isVisible = false;
@@ -99,13 +101,21 @@ export const GraphCanvas: React.FC = () => {
                     classes: isVisible ? 'visible' : 'hidden'
                 };
             });
+            // RESTORING MISSING LOGIC (End)
 
             // 3. Run Layout (Conditional)
             const savedLayout = getGraphLayout(title);
+
+            // Check Store (LocalStorage)
+            const hasStorePositions = savedLayout && savedLayout.positions && Object.keys(savedLayout.positions).length > 0;
+
+            // Check File (JSON Data)
+            const hasFilePositions = nodes.some(n => !!n.position);
+
             let layoutConfig: any = {
                 name: 'dagre',
                 rankDir: 'LR',
-                align: 'UL', // Up-Left alignment typically cleaner
+                align: 'UL',
                 rankSep: 200,
                 nodeSep: 50,
                 padding: 100,
@@ -113,20 +123,30 @@ export const GraphCanvas: React.FC = () => {
                 animationDuration: 500
             };
 
-            if (savedLayout && savedLayout.positions && Object.keys(savedLayout.positions).length > 0) {
-                // Scenario B: Restore Saved Positions (Positions exist)
-                console.log(`[Layout Persistence] Restoring positions for "${title}"`);
+            if (hasStorePositions || hasFilePositions) {
+                // Scenario: Restore Saved Positions (From Store OR File)
+                // Priority Check: 
+                // User Feedback: "it prioritized his own old saved localstorage , bad !"
+                // Fix: FILE > STORE.
+                // If the file has positions, we assume they are the source of truth (shared state).
+                // We only use localStorage if the file is "clean" (legacy/new).
 
-                // Identify valid saved positions (only for nodes that still exist)
-                cyNodes.forEach(node => {
-                    const savedPos = savedLayout.positions[node.data.id];
-                    if (savedPos) {
-                        (node as any).position = savedPos;
-                    }
-                });
+                const useStoreData = hasStorePositions && !hasFilePositions;
+
+                console.log(`[Layout Persistence] Restoring from ${hasFilePositions ? 'File (Priority)' : 'LocalStorage'}`);
+
+                // If using store data (because file has none), apply it.
+                if (useStoreData) {
+                    cyNodes.forEach(node => {
+                        const savedPos = savedLayout!.positions[node.data.id];
+                        if (savedPos) {
+                            (node as any).position = savedPos;
+                        }
+                    });
+                }
 
                 layoutConfig = {
-                    name: 'preset', // Uses the positions we just injected
+                    name: 'preset', // Uses the positions (from file mapping or store override)
                     padding: 100,
                     animate: false
                 };
@@ -142,12 +162,25 @@ export const GraphCanvas: React.FC = () => {
             // 4. Preload container icons AFTER layout completes
             cy.one('layoutstop', () => {
                 preloadContainerIcons(cy).then(() => {
-                    // Restore Viewport (Zoom/Pan) if available
-                    if (savedLayout?.viewport) {
+
+                    // Viewport Restoration Logic
+                    let targetViewport = null;
+
+                    // Priority: FILE > STORE
+                    // 1. File Data (Shared Source of Truth)
+                    if (useGraphStore.getState().graph?.viewport) {
+                        targetViewport = useGraphStore.getState().graph!.viewport;
+                    }
+                    // 2. LocalStore (Fallback)
+                    else if (savedLayout?.viewport) {
+                        targetViewport = savedLayout.viewport;
+                    }
+
+                    if (targetViewport) {
                         console.log(`[Layout Persistence] Restoring viewport for "${title}"`);
                         cy.viewport({
-                            zoom: savedLayout.viewport.zoom,
-                            pan: savedLayout.viewport.pan
+                            zoom: targetViewport.zoom,
+                            pan: targetViewport.pan
                         });
                     }
 

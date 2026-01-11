@@ -24,7 +24,7 @@ export const GraphPage: React.FC = () => {
                     }
                     return res.text();
                 })
-                .then(data => loadData(data))
+                .then(data => loadData(data, path))
                 .catch(err => {
                     console.error(err);
                     useGraphStore.setState({ status: 'error', error: err.message });
