@@ -253,18 +253,27 @@ export const GraphCanvas: React.FC = () => {
                             'text-outline-width': 1, // Thin crisp outline
                             'text-outline-opacity': 0.4 // Base opacity
                         } : {
-                            // Previous edges: normal gray
-                            'line-color': '#94a3b8',
-                            'target-arrow-color': '#94a3b8',
-                            'width': 2,
+                            // Previous edges: Retain Tactic Color, No Glow
+                            'line-color': edgeColor,
+                            'target-arrow-color': edgeColor,
+                            'width': 1.5, // Match thin laser width
                             'arrow-scale': 1.0,
                             'text-rotation': 'autorotate',
 
                             // History Text Style
-                            'color': '#cbd5e1',
+                            'color': edgeColor,
                             'text-outline-width': 0, // No glow
+                            'text-background-opacity': 1, // Fully opaque to hide line
+                            'text-background-color': '#0f172a',
+                            'text-background-padding': '4px', // Increased padding
+                            'text-background-shape': 'roundrectangle',
 
-                            'opacity': 0.4, // Dimmed further
+                            // Granular Opacity (Fix: Don't use global opacity)
+                            'opacity': 1, // Element is opaque
+                            'line-opacity': 0.4, // Line is dimmed
+                            'target-arrow-opacity': 0.4,
+                            'text-opacity': 0.8, // Text is slightly brighter than line
+
                             'underlay-opacity': 0
                         }
                     });

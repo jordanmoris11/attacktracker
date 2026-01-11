@@ -1,0 +1,220 @@
+{
+  "title": "Next.js React2Shell (CVE-2025-55182) Exploitation",
+  "description": "Demonstrates the React2Shell vulnerability where an attacker leverages an SSRF in Next.js to communicate with the internal Node.js Inspector, leading to Remote Code Execution (RCE).",
+  "version": "3.0",
+  "viewport": {
+    "zoom": 1,
+    "pan": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "entities": [
+    {
+      "id": "attacker",
+      "label": "Threat Actor",
+      "position": {
+        "x": 78,
+        "y": 273
+      },
+      "icon": "IconAttacker",
+      "type": "node"
+    },
+    {
+      "id": "internet_zone",
+      "label": "Internet Zone",
+      "position": {
+        "x": 883,
+        "y": 95.5
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 250,
+      "height": 150,
+      "style": "dashed_border",
+      "members": [
+        "attacker_listener"
+      ]
+    },
+    {
+      "id": "attacker_listener",
+      "label": "C2 Listener (Netcat)",
+      "position": {
+        "x": 883,
+        "y": 85
+      },
+      "icon": "IconC2",
+      "type": "node"
+    },
+    {
+      "id": "corporate_network",
+      "label": "Corporate Network / Cloud",
+      "position": {
+        "x": 800.25,
+        "y": 548
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 550,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "target_server"
+      ]
+    },
+    {
+      "id": "target_server",
+      "label": "Vulnerable Server",
+      "position": {
+        "x": 800.25,
+        "y": 548
+      },
+      "icon": "IconServer",
+      "type": "container",
+      "width": 480,
+      "height": 280,
+      "style": "dashed_border",
+      "members": [
+        "nextjs_service",
+        "inspector_service",
+        "reverse_shell_process"
+      ]
+    },
+    {
+      "id": "nextjs_service",
+      "label": "Next.js Process (Port 3000)",
+      "position": {
+        "x": 465,
+        "y": 445
+      },
+      "icon": "IconProcess",
+      "type": "node"
+    },
+    {
+      "id": "inspector_service",
+      "label": "Node Inspector (Port 9229)",
+      "position": {
+        "x": 1136,
+        "y": 630
+      },
+      "icon": "IconService",
+      "type": "node"
+    },
+    {
+      "id": "reverse_shell_process",
+      "label": "/bin/sh (Reverse Shell)",
+      "position": {
+        "x": 665,
+        "y": 583
+      },
+      "icon": "IconTerminal",
+      "type": "node"
+    }
+  ],
+  "visibility": {
+    "attacker": {
+      "start": 1,
+      "end": 100
+    },
+    "internet_zone": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker_listener": {
+      "start": 0,
+      "end": 100
+    },
+    "corporate_network": {
+      "start": 0,
+      "end": 100
+    },
+    "target_server": {
+      "start": 0,
+      "end": 100
+    },
+    "nextjs_service": {
+      "start": 0,
+      "end": 100
+    },
+    "inspector_service": {
+      "start": 0,
+      "end": 100
+    },
+    "reverse_shell_process": {
+      "start": 4,
+      "end": 100
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Send Malicious Request",
+      "mitre": {
+        "id": "T1190",
+        "tactic": "Initial Access",
+        "technique": "Exploit Public-Facing Application"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "nextjs_service",
+      "icon": "IconExploit",
+      "tooltip": "Attacker sends HTTP request with crafted headers (e.g., Connection: Upgrade) to trigger SSRF"
+    },
+    {
+      "id": 2,
+      "name": "SSRF to Localhost",
+      "mitre": {
+        "id": "T1599",
+        "tactic": "Defense Evasion",
+        "technique": "Network Boundary Bridging"
+      },
+      "type": "edge",
+      "from": "nextjs_service",
+      "to": "inspector_service",
+      "icon": "IconNetwork",
+      "tooltip": "Next.js internally forwards the request to localhost:9229 (Node.js Inspector)"
+    },
+    {
+      "id": 3,
+      "name": "Inject JS Payload",
+      "mitre": {
+        "id": "T1059.007",
+        "tactic": "Execution",
+        "technique": "Command and Scripting Interpreter: JavaScript"
+      },
+      "type": "edge",
+      "from": "nextjs_service",
+      "to": "inspector_service",
+      "icon": "IconCode",
+      "tooltip": "Through the WebSocket tunnel, Next.js pushes the RCE payload to the Inspector"
+    },
+    {
+      "id": 4,
+      "name": "Spawn Shell",
+      "mitre": {
+        "id": "T1059.004",
+        "tactic": "Execution",
+        "technique": "Command and Scripting Interpreter: Unix Shell"
+      },
+      "type": "edge",
+      "from": "inspector_service",
+      "to": "reverse_shell_process",
+      "icon": "IconTerminal",
+      "tooltip": "Node.js Inspector executes 'child_process.exec()', spawning a shell"
+    },
+    {
+      "id": 5,
+      "name": "Connect Reverse Shell",
+      "mitre": {
+        "id": "T1095",
+        "tactic": "Command and Control",
+        "technique": "Non-Application Layer Protocol"
+      },
+      "type": "edge",
+      "from": "reverse_shell_process",
+      "to": "attacker_listener",
+      "icon": "IconC2",
+      "tooltip": "The spawned shell connects back to the attacker's listener, granting control"
+    }
+  ]
+}

@@ -3,10 +3,10 @@
   "description": "Attack flow showing the Shai Hulud 2.0 NPM worm using the 'bun' runtime to evade detection, harvesting GitHub and AWS credentials, and validating them against public APIs.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.1,
+    "zoom": 1.3300434527948959,
     "pan": {
-      "x": -97.96286777949359,
-      "y": 46.00100357352739
+      "x": -255.9860997012313,
+      "y": 11.053312045517487
     }
   },
   "entities": [
@@ -14,8 +14,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 120.13297349235245,
-        "y": 108.17976541778532
+        "x": 295.4962785902348,
+        "y": 179.8413863323172
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 884.5141757857991,
-        "y": 75.96823054809806
+        "x": 907.2414485130719,
+        "y": 108.69550327537078
       },
       "icon": "IconCloud",
       "type": "container",
@@ -41,8 +41,8 @@
       "id": "npm_registry",
       "label": "NPM Registry",
       "position": {
-        "x": 739.8444461032858,
-        "y": 68.19481902069319
+        "x": 762.5717188305586,
+        "y": 100.92209174796592
       },
       "icon": "IconNpm",
       "type": "node"
@@ -51,8 +51,8 @@
       "id": "github_platform",
       "label": "GitHub API",
       "position": {
-        "x": 1036.1839054683123,
-        "y": 62.74164207550294
+        "x": 1058.9111781955853,
+        "y": 95.46891480277567
       },
       "icon": "IconGitHub",
       "type": "node"
@@ -61,8 +61,8 @@
       "id": "attacker_infra",
       "label": "Attacker Infrastructure",
       "position": {
-        "x": 595.468230548098,
-        "y": 134.20068357606078
+        "x": 1069.5387107511299,
+        "y": 388.2855466769756
       },
       "icon": "IconServer",
       "type": "container",
@@ -77,8 +77,8 @@
       "id": "c2_server",
       "label": "C2 / Webhook",
       "position": {
-        "x": 595.468230548098,
-        "y": 123.70068357606078
+        "x": 1069.5387107511299,
+        "y": 377.7855466769756
       },
       "icon": "IconC2",
       "type": "node"
@@ -87,8 +87,8 @@
       "id": "victim_workstation",
       "label": "Developer Workstation",
       "position": {
-        "x": 496.3197956736607,
-        "y": 476.8545129679346
+        "x": 596.9684650705289,
+        "y": 499.5263086080505
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -106,8 +106,8 @@
       "id": "user_terminal",
       "label": "Terminal",
       "position": {
-        "x": 311.7700559058556,
-        "y": 425.4381233422823
+        "x": 304.2515045540284,
+        "y": 432.20481955892683
       },
       "icon": "IconTerminal",
       "type": "node"
@@ -116,8 +116,8 @@
       "id": "malware_script",
       "label": "install script",
       "position": {
-        "x": 614.4539925035451,
-        "y": 449.97741959563825
+        "x": 606.9354411517179,
+        "y": 456.74411581228276
       },
       "icon": "IconCode",
       "type": "node"
@@ -126,8 +126,8 @@
       "id": "bun_runtime",
       "label": "bun process",
       "position": {
-        "x": 886.2039769388565,
-        "y": 475.46070374664373
+        "x": 878.6854255870293,
+        "y": 482.22739996328824
       },
       "icon": "IconProcess",
       "type": "node"
@@ -136,8 +136,8 @@
       "id": "cred_store",
       "label": "Secrets (~/.ssh, tokens)",
       "position": {
-        "x": 617.1479648365067,
-        "y": 539.0811014405297
+        "x": 609.6294134846795,
+        "y": 545.8477976571742
       },
       "icon": "IconKey",
       "type": "node"

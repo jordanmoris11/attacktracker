@@ -20,7 +20,9 @@ export const MatrixExplorer: React.FC = () => {
 
     // 1. Identify Active Techniques (Scenario & Current Step)
     const activeInScenario = new Set(timeline.map(s => s.mitre?.id).filter(Boolean) as string[]);
-    const activeInStep = timeline[currentStep]?.mitre?.id;
+    // Fix: currentStep is 1-based usually (0=start), so index is currentStep-1
+    // If currentStep=0, it's undefined (correct)
+    const activeInStep = timeline[currentStep - 1]?.mitre?.id;
 
     // 2. Determine Base Set of Techniques to Display
     const sourceKeys = viewMode === 'all'
@@ -158,19 +160,21 @@ export const MatrixExplorer: React.FC = () => {
                                                 inlineStyle = {
                                                     borderColor: t.color,
                                                     backgroundColor: `${t.color}33`, // 20% opacity bg
-                                                    boxShadow: `0 0 15px ${t.color}40`
-                                                };
+                                                    boxShadow: `0 0 15px ${t.color}40`,
+                                                    '--active-color': t.color
+                                                } as React.CSSProperties;
                                             }
 
                                             return (
                                                 <div
                                                     key={code}
+                                                    onClick={() => window.open(t.url, '_blank')}
                                                     className={clsx(
-                                                        "flex items-center gap-2 text-xs p-2 rounded border transition-all duration-300 cursor-help group",
+                                                        "flex items-center gap-2 text-xs p-2 rounded border transition-all duration-300 cursor-pointer group", // cursor-pointer
                                                         containerStyle
                                                     )}
                                                     style={inlineStyle}
-                                                    title={`${code}: ${t.name}`}
+                                                    title={`Open ${code}: ${t.name} (MITRE ATT&CK)`}
                                                 >
                                                     <span
                                                         className="font-mono font-bold transition-colors"

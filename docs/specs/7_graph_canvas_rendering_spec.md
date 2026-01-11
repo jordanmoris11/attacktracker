@@ -156,9 +156,20 @@ newestEdge.animate({
     duration: 1000,
     easing: 'ease-out'
 });
+newestEdge.animate({
+    style: { 'underlay-opacity': 0.1 },
+    duration: 800,
+    easing: 'ease-in-out-sine'
+});
 ```
 
-**Previous edges:** Rendered immediately in gray (`#94a3b8`), no animation.
+**Previous edges:**
+- Global `opacity`: 1 (to preserve text background)
+- `line-opacity`: 0.4
+- `target-arrow-opacity`: 0.4
+- `text-opacity`: 0.8
+- `text-background-opacity`: 1 (Hides the line)
+- `underlay-opacity`: 0 (No glow)
 
 ---
 
