@@ -102,7 +102,7 @@ export const GraphCanvas: React.FC = () => {
             cy.add([...cyNodes, ...cyEdges]);
 
             // 3. Run Layout (Dagre)
-            cy.layout({
+            const layout = cy.layout({
                 name: 'dagre',
                 // @ts-ignore - dagre types
                 rankDir: 'LR',
@@ -112,11 +112,18 @@ export const GraphCanvas: React.FC = () => {
                 padding: 100,
                 animate: true,
                 animationDuration: 500
-            }).run();
-        });
+            });
 
-        // 4. Preload container icons for the custom header renderer
-        preloadContainerIcons(cy);
+            // 4. Preload container icons AFTER layout completes (not during animation)
+            cy.one('layoutstop', () => {
+                preloadContainerIcons(cy).then(() => {
+                    // Force a render to draw container headers with correct positions
+                    cy.emit('render');
+                });
+            });
+
+            layout.run();
+        });
 
     }, [nodes, edges, status]);
 

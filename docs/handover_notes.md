@@ -40,28 +40,45 @@ The Product Owner requires a specific visual layout for Container Headers:
 3.  **Emoji Injection**: Suggestion to replace SVGs with Emojis (e.g., 🐉) inside the text string.
     -   *Rejected*: User strictly requires specific SVG assets (`public/assets/icons/`), not generic emojis.
 
-## 3. Recommendations for the Next Engineer
-To solve this specific "Centered Icon + Text" requirement in Cytoscape, standard Stylesheets (`cytoscape-theme.ts`) are insufficient.
+## 3. Solution: Custom Canvas Rendering (IMPLEMENTED)
 
-### Recommended Solution: Custom Canvas Rendering
-You must bypass the standard stylesheet for this specific header rendering.
-1.  **Use `cytoscape-canvas`** or a custom `cy.on('render')` hook.
-2.  **Manual Draw**:
-    -   Get the Node's Bounding Box (`node.boundingBox()`).
-    -   Measure Text Width using Canvas 2D Context (`ctx.measureText(label)`).
-    -   Calculate exact X coordinates: `startX = centerX - (iconWidth + padding + textWidth) / 2`.
-    -   `ctx.drawImage(icon, startX, ...)`
-    -   `ctx.fillText(label, startX + iconWidth + padding, ...)`
+The "Centered Icon + Text" requirement has been **solved** using a custom canvas layer.
 
-This is the only mathematically robust way to guarantee the layout requirements are met for dynamic content.
+### Implementation Details
+
+**File:** `src/ui/features/GraphCanvas/ContainerHeaderRenderer.ts`
+
+The solution uses `cytoscape-canvas` to bypass Cytoscape's stylesheet limitations:
+
+1.  **Canvas Layer**: Creates a canvas layer above nodes (`zIndex: 1`) via `cy.cyCanvas()`.
+2.  **Icon Preloading**: Loads container SVG icons as `HTMLImageElement` objects with deduplication cache.
+3.  **Centering Algorithm**:
+    ```typescript
+    centerX = boundingBox.x1 + boundingBox.w / 2;
+    totalWidth = iconWidth + gap + textWidth;
+    startX = centerX - totalWidth / 2;
+    ```
+4.  **Position**: Headers render **above** the container (not inside), using `headerY = bb.y1 - HEADER_Y_OFFSET`.
+5.  **Theme Integration**: Colors imported from `THEME_COLORS` in `cytoscape-theme.ts` for consistency.
+
+### Key Files
+| File | Purpose |
+|------|---------|
+| `ContainerHeaderRenderer.ts` | Canvas layer, icon cache, draw logic |
+| `cytoscape-theme.ts` | Exports `THEME_COLORS`, disables native label/icon for `:parent[iconPath]` |
+| `GraphCanvas.tsx` | Initializes layer, triggers preload on `layoutstop` event |
+
+### Timing
+Icon preloading and initial render are triggered by the `layoutstop` event (not setTimeout), ensuring headers draw only after layout animation completes (500ms).
 
 ## 4. Successful Components (Keep these)
 -   **LLM Prompting**: The work in `docs/llm-prompt-json-only.md` is stable. It correctly generates valid JSON with strict T-Codes and Icon keys.
 -   **Graph State & Loading**: The JSON loading and store logic in `useGraphStore.ts` is working correctly.
 -   **Rendering**: The basic node/edge rendering (lines, arrows, colors) is style-compliant.
+-   **Container Headers**: Custom canvas rendering for centered icon + title (see Section 3).
 
 ---
-**Status**: The codebase is currently in a functional but incomplete state for this feature.
--   **Current Behavior**: Container icons are rendered in the **Top Left** corner (`6px`, `6px`).
--   **Current Layout**: The Title is pushed right (`text-margin-x: 32px`) to avoid overlap.
--   **Issue**: This does not satisfy the "Centered Title" requirement, but it is a stable starting point where the icon is visible and inside the box.
+**Status**: RESOLVED
+-   **Current Behavior**: Container icons and titles render **centered together above** the container box.
+-   **Implementation**: `ContainerHeaderRenderer.ts` using `cytoscape-canvas` extension.
+-   **Requirement Met**: Icon + Title are grouped, centered horizontally, and do not overlap regardless of text length.

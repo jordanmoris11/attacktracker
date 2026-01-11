@@ -10,6 +10,7 @@
 
 import cytoscape from 'cytoscape';
 import cytoscapeCanvas from 'cytoscape-canvas';
+import { THEME_COLORS } from './cytoscape-theme';
 
 // Register the extension
 cytoscape.use(cytoscapeCanvas);
@@ -20,7 +21,6 @@ const ICON_TEXT_GAP = 8;
 const HEADER_Y_OFFSET = 10; // Distance ABOVE the top edge of container
 const FONT_SIZE = 14;
 const FONT_FAMILY = 'Inter, system-ui, sans-serif';
-const TEXT_COLOR = '#cbd5e1'; // slate-300
 
 // --- Icon Cache ---
 const iconCache = new Map<string, HTMLImageElement>();
@@ -168,10 +168,8 @@ export function initContainerHeaderLayer(cy: cytoscape.Core): () => void {
     // Also trigger on specific events that might not fire 'render'
     cy.on('pan zoom resize', drawContainerHeaders);
 
-    // Initial draw after a short delay to ensure layout is complete
-    setTimeout(() => {
-        preloadContainerIcons(cy).then(drawContainerHeaders);
-    }, 100);
+    // NOTE: Initial draw is triggered by GraphCanvas.tsx via 'layoutstop' event
+    // after data is loaded and layout completes. No setTimeout needed here.
 
     // Return cleanup function
     return () => {
@@ -182,18 +180,19 @@ export function initContainerHeaderLayer(cy: cytoscape.Core): () => void {
 
 /**
  * Get the appropriate text color based on node boundary type.
+ * Uses shared THEME_COLORS from cytoscape-theme.ts for consistency.
  */
 function getTextColor(node: cytoscape.NodeSingular): string {
     const boundary = node.data('boundary');
 
     switch (boundary) {
         case 'protected':
-            return '#ef4444'; // red-500
+            return THEME_COLORS.b_protected;
         case 'kernel':
-            return '#8b5cf6'; // purple-500
+            return THEME_COLORS.b_kernel;
         case 'machine':
-            return '#64748b'; // slate-500
+            return THEME_COLORS.b_machine;
         default:
-            return TEXT_COLOR;
+            return THEME_COLORS.textMuted;
     }
 }

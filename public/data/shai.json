@@ -3,8 +3,14 @@
     "description": "A recursive supply chain attack leveraging poisoned NPM packages to harvest credentials, exfiltrate to GitHub, and wipe victim machines.",
     "nodes": [
         {
-            "id": "internet",
-            "label": "Public Internet",
+            "id": "attacker",
+            "label": "Threat Actor",
+            "type": "actor",
+            "icon": "attacker"
+        },
+        {
+            "id": "public_services",
+            "label": "Public Internet Services",
             "type": "container",
             "icon": "cloud",
             "metadata": {
@@ -15,22 +21,25 @@
             "id": "npm_registry",
             "label": "NPM Registry",
             "type": "service",
-            "parent": "internet",
+            "parent": "public_services",
             "icon": "server"
         },
         {
             "id": "github_cloud",
             "label": "GitHub",
             "type": "service",
-            "parent": "internet",
+            "parent": "public_services",
             "icon": "cloud"
         },
         {
-            "id": "attacker",
-            "label": "Threat Actor",
-            "type": "actor",
-            "icon": "attacker",
-            "parent": "internet"
+            "id": "target_cloud",
+            "label": "Target Cloud (AWS/Azure)",
+            "type": "container",
+            "parent": "public_services",
+            "icon": "cloud",
+            "metadata": {
+                "boundary": "network"
+            }
         },
         {
             "id": "victim_network",
@@ -44,19 +53,9 @@
         {
             "id": "dev_machine",
             "label": "Developer Workstation",
-            "type": "container",
+            "type": "device",
             "parent": "victim_network",
-            "icon": "workstation",
-            "metadata": {
-                "boundary": "machine"
-            }
-        },
-        {
-            "id": "victim_user",
-            "label": "Developer",
-            "type": "actor",
-            "parent": "dev_machine",
-            "icon": "user"
+            "icon": "workstation"
         },
         {
             "id": "malware_proc",
@@ -71,15 +70,6 @@
             "type": "data",
             "parent": "dev_machine",
             "icon": "credential"
-        },
-        {
-            "id": "target_cloud",
-            "label": "Target Cloud (AWS/Azure)",
-            "type": "container",
-            "icon": "cloud",
-            "metadata": {
-                "boundary": "network"
-            }
         }
     ],
     "edges": [
@@ -92,9 +82,9 @@
             "type": "illegal"
         },
         {
-            "source": "victim_user",
+            "source": "dev_machine",
             "target": "npm_registry",
-            "label": "Runs npm install",
+            "label": "npm install (Request)",
             "step": 2,
             "mitre": "T1204",
             "type": "normal"
@@ -102,16 +92,16 @@
         {
             "source": "npm_registry",
             "target": "malware_proc",
-            "label": "Downloads & Executes",
-            "step": 3,
-            "mitre": "T1204.002",
+            "label": "Delivers Payload (Response)",
+            "step": 2,
+            "mitre": "T1195.001",
             "type": "illegal"
         },
         {
             "source": "malware_proc",
             "target": "malware_proc",
             "label": "Forks Detached Process",
-            "step": 4,
+            "step": 3,
             "mitre": "T1059",
             "type": "illegal"
         },
@@ -119,7 +109,7 @@
             "source": "malware_proc",
             "target": "local_creds",
             "label": "Scans for Secrets",
-            "step": 5,
+            "step": 4,
             "mitre": "T1552.001",
             "type": "illegal"
         },
@@ -127,7 +117,7 @@
             "source": "malware_proc",
             "target": "github_cloud",
             "label": "Exfil via Git Push",
-            "step": 6,
+            "step": 5,
             "mitre": "T1567.001",
             "type": "illegal"
         },
@@ -135,7 +125,7 @@
             "source": "attacker",
             "target": "github_cloud",
             "label": "Registers Rogue Runner",
-            "step": 7,
+            "step": 6,
             "mitre": "T1098",
             "type": "illegal"
         },
@@ -143,7 +133,7 @@
             "source": "malware_proc",
             "target": "npm_registry",
             "label": "Propagates Worm",
-            "step": 8,
+            "step": 7,
             "mitre": "T1550",
             "type": "illegal"
         },
@@ -151,7 +141,7 @@
             "source": "attacker",
             "target": "target_cloud",
             "label": "Lateral Movement",
-            "step": 9,
+            "step": 8,
             "mitre": "T1078",
             "type": "illegal"
         },
@@ -159,7 +149,7 @@
             "source": "malware_proc",
             "target": "dev_machine",
             "label": "Wipes Disk",
-            "step": 10,
+            "step": 9,
             "mitre": "T1485",
             "type": "impact"
         }

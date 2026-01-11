@@ -1,9 +1,11 @@
 import cytoscape from 'cytoscape';
 
 // Spec 6 Design Tokens (matching tailwind.config.ts)
-const COLORS = {
+// Exported for use by ContainerHeaderRenderer and other graph components
+export const THEME_COLORS = {
     bg: '#1e293b', // slate-800
-    text: '#ffffff', // slate-200
+    text: '#ffffff', // white
+    textMuted: '#cbd5e1', // slate-300 (for container headers, secondary text)
     border: '#475569', // slate-600
 
     // Semantics
@@ -34,10 +36,10 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
             'width': 60,
             'height': 60,
             'label': 'data(label)',
-            'background-color': COLORS.bg,
+            'background-color': THEME_COLORS.bg,
             'border-width': 2,
-            'border-color': COLORS.border,
-            'color': COLORS.text,
+            'border-color': THEME_COLORS.border,
+            'color': THEME_COLORS.text,
             'font-size': 12,
             'text-valign': 'bottom',
             'text-margin-y': 8,
@@ -65,8 +67,8 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
         style: {
             'width': 2,
             'curve-style': 'bezier',
-            'line-color': COLORS.normal,
-            'target-arrow-color': COLORS.normal,
+            'line-color': THEME_COLORS.normal,
+            'target-arrow-color': THEME_COLORS.normal,
             'target-arrow-shape': 'triangle',
             'arrow-scale': 1.2,
             'label': 'data(label)',
@@ -83,8 +85,8 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
     {
         selector: 'edge[type="illegal"]',
         style: {
-            'line-color': COLORS.illegal,
-            'target-arrow-color': COLORS.illegal,
+            'line-color': THEME_COLORS.illegal,
+            'target-arrow-color': THEME_COLORS.illegal,
             'width': 3,
             'line-style': 'dashed',
             'line-dash-pattern': [6, 3]
@@ -93,8 +95,8 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
     {
         selector: 'edge[type="impact"]',
         style: {
-            'line-color': COLORS.impact,
-            'target-arrow-color': COLORS.impact,
+            'line-color': THEME_COLORS.impact,
+            'target-arrow-color': THEME_COLORS.impact,
             'width': 4
         }
     },
@@ -110,7 +112,7 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
             'background-image': 'none',
             'background-opacity': 0.03, // Very subtle fill
             'border-width': 2,
-            'border-color': COLORS.border,
+            'border-color': THEME_COLORS.border,
             'border-style': 'dashed',
             'shape': 'roundrectangle',
             'font-size': 14,
@@ -135,21 +137,21 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
     {
         selector: ':parent[boundary="protected"]',
         style: {
-            'border-color': COLORS.b_protected,
-            'color': COLORS.b_protected // Label color matches border
+            'border-color': THEME_COLORS.b_protected,
+            'color': THEME_COLORS.b_protected // Label color matches border
         }
     },
     {
         selector: ':parent[boundary="kernel"]',
         style: {
-            'border-color': COLORS.b_kernel,
-            'color': COLORS.b_kernel
+            'border-color': THEME_COLORS.b_kernel,
+            'color': THEME_COLORS.b_kernel
         }
     },
     {
         selector: ':parent[boundary="machine"]',
         style: {
-            'border-color': COLORS.b_machine,
+            'border-color': THEME_COLORS.b_machine,
             'border-style': 'solid', // Machines are solid boxes usually
             'background-color': '#0f172a', // Dark slate fill
             'background-opacity': 0.3
@@ -160,10 +162,10 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
     {
         selector: 'node[state="compromised"]',
         style: {
-            'border-color': COLORS.illegal,
+            'border-color': THEME_COLORS.illegal,
             'border-width': 4,
             'shadow-blur': 15,
-            'shadow-color': COLORS.illegal,
+            'shadow-color': THEME_COLORS.illegal,
             'shadow-opacity': 0.5
         }
     },
@@ -172,7 +174,7 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
     {
         selector: ':selected',
         style: {
-            'overlay-color': COLORS.selection,
+            'overlay-color': THEME_COLORS.selection,
             'overlay-opacity': 0.2, // Glow ring
             'overlay-padding': 5
         }
