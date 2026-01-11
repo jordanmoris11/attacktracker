@@ -1,0 +1,14 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Git branching icon -->
+    <circle cx="26" cy="22" r="8" fill="#27272a" stroke="#f97316" stroke-width="2"/>
+    <circle cx="26" cy="58" r="8" fill="#27272a" stroke="#f97316" stroke-width="2"/>
+    <circle cx="54" cy="40" r="8" fill="#27272a" stroke="#f97316" stroke-width="2"/>
+    <!-- Main branch line -->
+    <path d="M26 30 L26 50" stroke="#f97316" stroke-width="2"/>
+    <!-- Branch line -->
+    <path d="M26 30 C26 40, 46 40, 46 40" stroke="#f97316" stroke-width="2" fill="none"/>
+    <!-- Dots inside circles -->
+    <circle cx="26" cy="22" r="3" fill="#f97316"/>
+    <circle cx="26" cy="58" r="3" fill="#f97316"/>
+    <circle cx="54" cy="40" r="3" fill="#f97316"/>
+</svg>

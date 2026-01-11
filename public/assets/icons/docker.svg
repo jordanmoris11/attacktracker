@@ -1,0 +1,17 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Docker whale -->
+    <!-- Whale body -->
+    <path d="M14 44 C14 54, 24 62, 40 62 C56 62, 68 54, 68 44 C68 38, 62 34, 54 34 L20 34 C16 34, 14 38, 14 44 Z" fill="#27272a" stroke="#2496ed" stroke-width="2"/>
+    <!-- Containers on whale -->
+    <rect x="20" y="24" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <rect x="30" y="24" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <rect x="40" y="24" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <rect x="30" y="14" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <rect x="20" y="34" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <rect x="30" y="34" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <rect x="40" y="34" width="8" height="8" fill="#2496ed" stroke="#1e40af" stroke-width="1"/>
+    <!-- Whale eye -->
+    <circle cx="58" cy="44" r="2" fill="#2496ed"/>
+    <!-- Water splash -->
+    <path d="M66 50 C70 48, 72 52, 70 56" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>

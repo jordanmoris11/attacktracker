@@ -1,0 +1,15 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cloud Storage Bucket (S3-style) -->
+    <!-- Bucket body -->
+    <path d="M16 28 L20 62 C20 66, 28 70, 40 70 C52 70, 60 66, 60 62 L64 28" fill="#27272a" stroke="#14b8a6" stroke-width="2"/>
+    <!-- Bucket rim (ellipse top) -->
+    <ellipse cx="40" cy="28" rx="24" ry="8" fill="#27272a" stroke="#14b8a6" stroke-width="2"/>
+    <!-- Inner ellipse for depth -->
+    <ellipse cx="40" cy="28" rx="18" ry="5" fill="none" stroke="#0d9488" stroke-width="1" opacity="0.5"/>
+    <!-- Data blocks inside -->
+    <rect x="28" y="40" width="8" height="6" rx="1" fill="#14b8a6" opacity="0.7"/>
+    <rect x="38" y="38" width="8" height="8" rx="1" fill="#14b8a6" opacity="0.8"/>
+    <rect x="48" y="42" width="6" height="6" rx="1" fill="#14b8a6" opacity="0.6"/>
+    <rect x="32" y="50" width="10" height="6" rx="1" fill="#14b8a6" opacity="0.5"/>
+    <rect x="44" y="52" width="8" height="5" rx="1" fill="#14b8a6" opacity="0.6"/>
+</svg>

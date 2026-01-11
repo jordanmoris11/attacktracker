@@ -1,0 +1,23 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- CI/CD Pipeline icon -->
+    <!-- Stage 1 - Build -->
+    <circle cx="16" cy="40" r="10" fill="#27272a" stroke="#8b5cf6" stroke-width="2"/>
+    <rect x="12" y="36" width="8" height="8" rx="1" fill="#8b5cf6"/>
+    <!-- Arrow 1 -->
+    <path d="M28 40 L36 40" stroke="#8b5cf6" stroke-width="2"/>
+    <path d="M34 36 L38 40 L34 44" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+    <!-- Stage 2 - Test -->
+    <circle cx="48" cy="40" r="10" fill="#27272a" stroke="#a855f7" stroke-width="2"/>
+    <path d="M44 40 L47 43 L53 37" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Arrow 2 -->
+    <path d="M60 40 L68 40" stroke="#a855f7" stroke-width="2"/>
+    <path d="M66 36 L70 40 L66 44" stroke="#a855f7" stroke-width="2" fill="none"/>
+    <!-- Stage 3 - Deploy (partial, going off) -->
+    <circle cx="80" cy="40" r="10" fill="#27272a" stroke="#c084fc" stroke-width="2"/>
+    <!-- Labels -->
+    <text x="10" y="60" font-family="sans-serif" font-size="6" fill="#a855f7">BUILD</text>
+    <text x="42" y="60" font-family="sans-serif" font-size="6" fill="#a855f7">TEST</text>
+    <!-- Top connector line -->
+    <path d="M16 20 L16 28" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="2,2"/>
+    <path d="M48 20 L48 28" stroke="#a855f7" stroke-width="2" stroke-dasharray="2,2"/>
+</svg>

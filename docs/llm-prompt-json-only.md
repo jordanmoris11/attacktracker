@@ -310,19 +310,31 @@ You MUST use a key from this list. Do NOT invent new keys.
 | Key | Use For |
 |-----|---------|
 | `IconAttacker` | Threat actor, adversary |
+| `IconHacker` | Alias for IconAttacker |
 | `IconUser` | Victim, legitimate user, maintainer |
 | `IconKali` | Attacker using Kali Linux |
 
 ## Infrastructure & Devices
 | Key | Use For |
 |-----|---------|
-| `IconServer` | Generic server, registry, API endpoint |
+| `IconServer` | Generic server, registry server |
 | `IconWorkstation` | Desktop, laptop, developer machine |
-| `IconCloud` | Cloud service, SaaS, PaaS (AWS, Azure, GitHub) |
+| `IconCloud` | Cloud service, SaaS, PaaS (AWS, Azure, GCP) |
 | `IconFirewall` | Firewall, WAF, security appliance |
 | `IconRouter` | Router, gateway, network device |
 | `IconWindows` | Windows machine specifically |
 | `IconLinux` | Linux machine specifically |
+
+## Developer Tools & Supply Chain
+| Key | Use For |
+|-----|---------|
+| `IconGit` | Git operations, repo cloning, git config |
+| `IconGitHub` | GitHub platform, GitHub Actions, repositories |
+| `IconNpm` | npm registry, npm install, package manager |
+| `IconDocker` | Docker containers, Docker daemon, container escape |
+| `IconPipeline` | CI/CD pipeline, GitHub Actions, Jenkins, builds |
+| `IconAPI` | API endpoint, REST service, webhook |
+| `IconBucket` | Cloud storage (S3, GCS, Azure Blob) |
 
 ## System Components
 | Key | Use For |
@@ -332,16 +344,23 @@ You MUST use a key from this list. Do NOT invent new keys.
 | `IconTerminal` | Shell, CLI, command prompt |
 | `IconMemory` | RAM, memory-resident malware, heap |
 | `IconDatabase` | Database server, data store |
-| `IconAPI` | API endpoint, REST service |
+| `IconEnv` | Environment variables, .env files, $PATH |
+| `IconFolder` | Directory, file system path |
+| `IconCode` | Source code, scripts |
+| `IconData` | Data, files, exfiltrated content |
 
-## Security Artifacts
+## Secrets & Credentials
 | Key | Use For |
 |-----|---------|
-| `IconCredential` | Passwords, keys, tokens, secrets |
-| `IconData` | Data, files, exfiltrated content |
-| `IconCode` | Source code, scripts, payloads |
-| `IconMalware` | Malware, virus, trojan |
-| `IconC2` | Command & control server |
+| `IconCredential` | Generic credentials, passwords |
+| `IconKey` | SSH keys, API keys, private keys |
+| `IconToken` | JWT, OAuth tokens, session tokens, npm tokens |
+
+## Threats & Malware
+| Key | Use For |
+|-----|---------|
+| `IconMalware` | Malware, virus, trojan, payload |
+| `IconC2` | Command & control server, beacon |
 
 ## Actions (for edge icons)
 | Key | Use For |
@@ -354,6 +373,16 @@ You MUST use a key from this list. Do NOT invent new keys.
 | Key | Use For |
 |-----|---------|
 | `IconDefault` | When nothing else fits |
+
+## Quick Reference by Attack Type
+
+**Supply Chain Attack?** Use: `IconNpm`, `IconGitHub`, `IconPipeline`, `IconDocker`
+
+**Credential Theft?** Use: `IconKey`, `IconToken`, `IconCredential`, `IconEnv`
+
+**Cloud Attack?** Use: `IconCloud`, `IconBucket`, `IconAPI`
+
+**System Internals?** Use: `IconProcess`, `IconTerminal`, `IconMemory`, `IconEnv`
 
 ---
 
@@ -568,14 +597,14 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "id": "npm_registry",
       "type": "node",
       "label": "NPM Registry",
-      "icon": "IconServer",
+      "icon": "IconNpm",
       "position": { "x": 100, "y": 100 }
     },
     {
       "id": "github_platform",
       "type": "node",
       "label": "GitHub",
-      "icon": "IconCloud",
+      "icon": "IconGitHub",
       "position": { "x": 280, "y": 100 }
     },
     {
@@ -615,14 +644,14 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "id": "aws_credentials",
       "type": "node",
       "label": "~/.aws/credentials",
-      "icon": "IconCredential",
+      "icon": "IconKey",
       "position": { "x": 150, "y": 480 }
     },
     {
       "id": "ssh_keys",
       "type": "node",
       "label": "~/.ssh/*",
-      "icon": "IconCredential",
+      "icon": "IconKey",
       "position": { "x": 330, "y": 480 }
     },
 
@@ -669,7 +698,7 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "name": "Publish trojanized package",
       "from": "attacker",
       "to": "npm_registry",
-      "icon": "IconCode",
+      "icon": "IconNpm",
       "tooltip": "Uploads malicious package version with preinstall hook to npm registry",
       "mitre": {
         "id": "T1195.001",
@@ -766,7 +795,7 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "name": "Exfiltrate to GitHub",
       "from": "malware_script",
       "to": "github_platform",
-      "icon": "IconData",
+      "icon": "IconGit",
       "tooltip": "Stolen credentials pushed to attacker-controlled public GitHub repository",
       "mitre": {
         "id": "T1567.001",
@@ -780,7 +809,7 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "name": "Retrieve exfiltrated data",
       "from": "attacker",
       "to": "github_platform",
-      "icon": "IconCredential",
+      "icon": "IconKey",
       "tooltip": "Attacker pulls harvested credentials from GitHub repo for further attacks",
       "mitre": {
         "id": "T1530",

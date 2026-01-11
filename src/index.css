@@ -7,6 +7,24 @@
   }
 }
 
+@theme {
+  --animate-glow-pulse: glow-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes glow-pulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+      border-color: rgba(168, 85, 247, 1);
+    }
+
+    50% {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.7);
+      border-color: rgba(216, 180, 254, 1);
+    }
+  }
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
