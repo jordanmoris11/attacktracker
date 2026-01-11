@@ -3,10 +3,10 @@
   "description": "Exploitation of a race condition in MongoDB Compass connection handling (CVE-2025-14847) to steal database credentials and exfiltrate sensitive data.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.1,
+    "zoom": 1.2202967062846477,
     "pan": {
-      "x": 150,
-      "y": 100
+      "x": 55.690725093100525,
+      "y": 144.21337907743987
     }
   },
   "entities": [
@@ -14,8 +14,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 73.76842478914584,
-        "y": 185.43310547464628
+        "x": 91.94568127311315,
+        "y": 162.71153486968717
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Cloud Infrastructure",
       "position": {
-        "x": 665.4213763639111,
-        "y": 464.5121057605354
+        "x": 420.4828452424514,
+        "y": 497.68559884377584
       },
       "icon": "IconCloud",
       "type": "container",
@@ -61,8 +61,8 @@
       "id": "victim_network",
       "label": "Corporate Network",
       "position": {
-        "x": 658.954823626588,
-        "y": 106.95236138683546
+        "x": 713.1536481351179,
+        "y": 143.40975327799453
       },
       "icon": "IconRouter",
       "type": "container",
@@ -77,8 +77,8 @@
       "id": "victim_laptop",
       "label": "Developer Workstation",
       "position": {
-        "x": 658.954823626588,
-        "y": 106.95236138683546
+        "x": 716.0210834524003,
+        "y": 125.79550775754691
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -95,8 +95,8 @@
       "id": "compass_app",
       "label": "MongoDB Compass",
       "position": {
-        "x": 587.1630184394143,
-        "y": 213.69566570842466
+        "x": 574.8740099367762,
+        "y": 267.76730312003133
       },
       "icon": "IconProcess",
       "type": "node"
@@ -105,8 +105,8 @@
       "id": "local_listener",
       "label": "OIDC Listener (Port 27017)",
       "position": {
-        "x": 639.0183780950805,
-        "y": -20.790942934753716
+        "x": 632.4642402270069,
+        "y": -1.9477965640422639
       },
       "icon": "IconAPI",
       "type": "node"
@@ -115,8 +115,8 @@
       "id": "cached_creds",
       "label": "Connection String (Creds)",
       "position": {
-        "x": 716.2466288137618,
-        "y": 151.00922017691732
+        "x": 836.9332863334597,
+        "y": 228.9284501205226
       },
       "icon": "IconKey",
       "type": "node"

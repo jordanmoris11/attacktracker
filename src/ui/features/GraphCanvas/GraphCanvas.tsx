@@ -79,9 +79,10 @@ export const GraphCanvas: React.FC = () => {
                         'label': 'data(label)',
                         'text-background-opacity': 1,
                         'text-background-color': '#0f172a',
-                        'text-background-padding': '4px', // Fixed type
+                        'text-background-padding': '4px',
                         'color': '#cbd5e1',
-                        'font-size': 10
+                        'font-size': 10,
+                        'text-rotation': 'autorotate'
                     }
                 },
                 // Visibility Classes
@@ -222,10 +223,10 @@ export const GraphCanvas: React.FC = () => {
                             label: step.name,
                         },
                         style: {
-                            // Uniform styling for all edges (No active highlight)
                             'line-color': '#94a3b8',
                             'target-arrow-color': '#94a3b8',
-                            'width': 2
+                            'width': 2,
+                            'text-rotation': 'autorotate'
                         }
                     });
                 }
