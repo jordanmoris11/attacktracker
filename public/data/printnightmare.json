@@ -1,0 +1,105 @@
+{
+    "title": "PrintNightmare (CVE-2021-1675) Exploitation",
+    "description": "Exploitation of the Windows Print Spooler service (spoolsv.exe) via malicious driver injection to achieve Local Privilege Escalation (LPE) to SYSTEM.",
+    "nodes": [
+        {
+            "id": "network_zone",
+            "label": "Corporate LAN",
+            "type": "container",
+            "metadata": {
+                "boundary": "network"
+            }
+        },
+        {
+            "id": "attacker_kali",
+            "label": "Attacker (Kali)",
+            "type": "device",
+            "icon": "kali",
+            "parent": "network_zone"
+        },
+        {
+            "id": "target_server",
+            "label": "Target Server",
+            "type": "device",
+            "icon": "windows",
+            "parent": "network_zone"
+        },
+        {
+            "id": "rogue_smb",
+            "label": "Impacket SMB Server",
+            "type": "service",
+            "icon": "server",
+            "parent": "attacker_kali"
+        },
+        {
+            "id": "malicious_dll",
+            "label": "evil.dll",
+            "type": "data",
+            "icon": "data",
+            "parent": "rogue_smb"
+        },
+        {
+            "id": "exploit_script",
+            "label": "CVE-2021-1675.py",
+            "type": "process",
+            "icon": "terminal",
+            "parent": "attacker_kali"
+        },
+        {
+            "id": "spooler_service",
+            "label": "Print Spooler (spoolsv)",
+            "type": "service",
+            "icon": "service",
+            "parent": "target_server"
+        },
+        {
+            "id": "system_shell",
+            "label": "cmd.exe (SYSTEM)",
+            "type": "process",
+            "icon": "terminal",
+            "parent": "target_server"
+        }
+    ],
+    "edges": [
+        {
+            "source": "exploit_script",
+            "target": "spooler_service",
+            "label": "RPC AddPrinterDriver",
+            "step": 1,
+            "mitre": "T1210",
+            "type": "illegal"
+        },
+        {
+            "source": "spooler_service",
+            "target": "rogue_smb",
+            "label": "Connects to Share",
+            "step": 2,
+            "mitre": "T1021.002",
+            "type": "illegal"
+        },
+        {
+            "source": "rogue_smb",
+            "target": "spooler_service",
+            "label": "Transfers DLL",
+            "step": 3,
+            "mitre": "T1105",
+            "type": "illegal"
+        },
+        {
+            "source": "spooler_service",
+            "target": "malicious_dll",
+            "label": "Loads Library",
+            "step": 4,
+            "mitre": "T1574.001",
+            "type": "illegal"
+        },
+        {
+            "source": "spooler_service",
+            "target": "system_shell",
+            "label": "Spawns Shell",
+            "step": 5,
+            "mitre": "T1068",
+            "type": "impact"
+        }
+    ]
+}

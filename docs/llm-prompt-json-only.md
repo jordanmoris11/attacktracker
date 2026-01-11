@@ -14,7 +14,7 @@ Before generating the JSON, perform these logical steps internally:
     *   *Rule*: Use `container` nodes for boundaries. Use `parent` field to place nodes inside them.
 3.  **Assign Types & Icons**: Map every entity to the **ALLOWED LISTS** below. Do not guess.
 4.  **Sequence Actions**: Order the edges chronologically using the `step` field (1, 2, 3...).
-5.  **Enrichment**: Add `mitre` T-Codes where possible. **CRITICAL**: Verify T-Codes against the provided `docs/mitre-reference.md` list.
+5.  **Enrichment**: Add `mitre` T-Codes where possible. **CRITICAL**: Verify T-Codes against the provided `mitre-reference.md` attached.
     *   *Rule*: If a T-Code is not in the list, DO NOT invent it. Omit it or find the closest valid match.
 
 ---
@@ -41,6 +41,16 @@ You MUST use exactly one of these `icon` keys. If in doubt, use `server` or `pro
 | **Action** | `process` (Generic), `terminal` (CLI), `service` (Daemon), `socks` (Tunnel) |
 | **Data** | `data` (Files/DB), `credential` (Keys/Hashes), `memory` (RAM) |
 | **Default**| `default` |
+
+### 2.3 Container Identity (New Feature)
+Containers can now have icons. You MUST use this valid list for `type: "container"`:
+
+| Scenario | Icon Key (The Visual) | Boundary Type (The Border) |
+| :--- | :--- | :--- |
+| **Attacker Infrastructure** | `attacker` (Dragon) | `network` |
+| **Cloud Environment** | `cloud` | `network` |
+| **Corporate Network** | `server` | `network` |
+| **Victim Workstation** | `windows` or `workstation` | `machine` |
 
 ### 2.3 Container Boundaries
 For `type: "container"`, you MUST set `metadata.boundary`:

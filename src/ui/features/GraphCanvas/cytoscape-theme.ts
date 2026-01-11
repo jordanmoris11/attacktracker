@@ -120,6 +120,19 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
             'padding': 20
         }
     },
+    // Spec 10: Container Icon Placement
+    {
+        selector: ':parent[iconPath]',
+        style: {
+            'background-image': 'data(iconPath)',
+            'background-fit': 'none',
+            'background-width': '24px',
+            'background-height': '24px',
+            'background-position-x': '6px',
+            'background-position-y': '6px',
+            'text-margin-x': '32px' // Push label right to avoid overlap
+        }
+    },
 
     // --- TRUST BOUNDARIES (Spec 10) ---
     {

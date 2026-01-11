@@ -51,7 +51,7 @@ export const GraphCanvas: React.FC = () => {
                     label: node.label,
                     parent: node.parent, // Spec 10: Compound Parent
                     type: node.type,
-                    iconPath: node.type === 'container' ? undefined : getIconPath(node.icon), // Spec 5: Icon Resolution
+                    iconPath: getIconPath(node.icon), // Spec 5: Icon Resolution (Enabled for Containers now)
                     boundary: node.metadata?.boundary,
                     state: node.state
                 }
