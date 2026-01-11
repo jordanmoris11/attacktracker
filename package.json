@@ -13,6 +13,7 @@
     "@types/uuid": "^10.0.0",
     "clsx": "^2.1.1",
     "cytoscape": "^3.33.1",
+    "cytoscape-canvas": "^3.0.1",
     "cytoscape-dagre": "^2.5.0",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",

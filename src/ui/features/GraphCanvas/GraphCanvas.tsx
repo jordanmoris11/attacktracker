@@ -5,6 +5,7 @@ import { useGraphStore } from '../../../core/store/useGraphStore';
 import { useAnimationStore } from '../../../core/animation/useAnimationStore';
 import { CYTOSCAPE_THEME } from './cytoscape-theme';
 import { getIconPath } from '../../../shared/config/icons.registry';
+import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
 
 // Register Layout
 cytoscape.use(dagre);
@@ -12,6 +13,7 @@ cytoscape.use(dagre);
 export const GraphCanvas: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const cyRef = useRef<cytoscape.Core | null>(null);
+    const cleanupHeaderLayerRef = useRef<(() => void) | null>(null);
 
     // State
     const { nodes, edges, status } = useGraphStore();
@@ -28,7 +30,11 @@ export const GraphCanvas: React.FC = () => {
             minZoom: 0.2,
         });
 
+        // Initialize the custom container header canvas layer
+        cleanupHeaderLayerRef.current = initContainerHeaderLayer(cyRef.current);
+
         return () => {
+            cleanupHeaderLayerRef.current?.();
             cyRef.current?.destroy();
             cyRef.current = null;
         };
@@ -108,6 +114,9 @@ export const GraphCanvas: React.FC = () => {
                 animationDuration: 500
             }).run();
         });
+
+        // 4. Preload container icons for the custom header renderer
+        preloadContainerIcons(cy);
 
     }, [nodes, edges, status]);
 

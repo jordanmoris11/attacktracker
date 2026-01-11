@@ -121,16 +121,13 @@ export const CYTOSCAPE_THEME: cytoscape.Stylesheet[] = [
         }
     },
     // Spec 10: Container Icon Placement
+    // NOTE: Native icon/label rendering is DISABLED for containers with icons.
+    // The ContainerHeaderRenderer.ts handles drawing centered icon + text via canvas.
     {
         selector: ':parent[iconPath]',
         style: {
-            'background-image': 'data(iconPath)',
-            'background-fit': 'none',
-            'background-width': '24px',
-            'background-height': '24px',
-            'background-position-x': '6px',
-            'background-position-y': '6px',
-            'text-margin-x': '32px' // Push label right to avoid overlap
+            'background-image': 'none', // Disabled - drawn by ContainerHeaderRenderer
+            'label': ''                  // Disabled - drawn by ContainerHeaderRenderer
         }
     },
 

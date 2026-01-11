@@ -4,7 +4,9 @@
         {
             "id": "attacker_zone",
             "label": "Attacker Infrastructure",
-            "type": "container"
+            "type": "container",
+            "icon": "attacker",
+            "metadata": { "boundary": "network" }
         },
         {
             "id": "kali",
@@ -16,7 +18,9 @@
         {
             "id": "victim_zone",
             "label": "Corporate Network",
-            "type": "container"
+            "type": "container",
+            "icon": "server",
+            "metadata": { "boundary": "protected" }
         },
         {
             "id": "dc",

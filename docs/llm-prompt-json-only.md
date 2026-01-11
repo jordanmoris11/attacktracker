@@ -39,8 +39,22 @@ You MUST use exactly one of these `icon` keys. If in doubt, use `server` or `pro
 | **Roles** | `kali`, `attacker`, `user` |
 | **Infra** | `windows`, `linux`, `server`, `workstation`, `cloud`, `firewall` |
 | **Action** | `process` (Generic), `terminal` (CLI), `service` (Daemon), `socks` (Tunnel) |
+| **Threat** | `malware` (Tools/Malware), `c2` (C2 Agents/Beacons) |
 | **Data** | `data` (Files/DB), `credential` (Keys/Hashes), `memory` (RAM) |
 | **Default**| `default` |
+
+### 2.3 Offensive Tool Mapping (Strict)
+You MUST use these specific icons for the following tools/binaries:
+
+| Keywords (Include Partial Matches) | Icon Key |
+| :--- | :--- |
+| `nmap`, `masscan`, `sqlmap`, `recon-ng` | `malware` |
+| `impacket`, `ntlmrelay`, `secretsdump`, `psexec` | `malware` |
+| `mimikatz`, `rubeus`, `lsassy`, `safetykatz` | `malware` |
+| `netcat`, `socat`, `chisel` | `malware` |
+| `malware`, `virus`, `trojan`, `backdoor`, `payload` | `malware` |
+| `cobalt strike`, `sliver`, `havoc`, `brc4` | `c2` |
+| `beacon`, `agent`, `grunt` | `c2` |
 
 ### 2.3 Container Identity (New Feature)
 Containers can now have icons. You MUST use this valid list for `type: "container"`:
