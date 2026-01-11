@@ -56,11 +56,24 @@ useEffect(() => {
     const allEdges = cy.edges().sort((a, b) => a.data('stepIndex') - b.data('stepIndex'));
     
     // 2. Apply Visibility
+    // Edges: Show if Step <= Current.
     allEdges.forEach((edge, idx) => {
-      // Step Index is 1-based (Step 1 shows Edge 0)
-      if (idx < currentStep) {
-        edge.addClass('visible');
-        edge.removeClass('hidden');
+        // ... (edge logc) ...
+    });
+
+    // Nodes: Show/Hide based on 'step' data (Spec 12 Refinement)
+    // Strategy: "Ghost Node" (Opacity 0.15) for future nodes to maintain layout.
+    const allNodes = cy.nodes();
+    allNodes.forEach(node => {
+        const appearStep = node.data('step') || 0;
+        const isVisible = appearStep <= currentStep;
+        
+        if (isVisible) {
+            node.removeClass('pending').addClass('visible');
+        } else {
+            node.removeClass('visible').addClass('pending');
+        }
+    });
         
         // Highlight logic
         if (idx === currentStep - 1) {
@@ -82,6 +95,7 @@ useEffect(() => {
 ## 4. Visual Styles (Cytoscape Theme)
 We define specific classes in `cytoscape-theme.ts` (Spec 6 extension):
 *   `.hidden`: `opacity: 0`, `events: no` (User can't click unseen edges).
+*   `.pending`: `opacity: 0.15`, `filter: grayscale(100%)` (Ghost mode for future nodes).
 *   `.visible`: `opacity: 1`, `transition-property: opacity`, `transition-duration: 500ms`.
 *   `.active-edge`: 
     *   `width`: 6px (Thicker)

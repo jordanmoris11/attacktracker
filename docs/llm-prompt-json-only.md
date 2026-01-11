@@ -13,7 +13,10 @@ Before generating the JSON, perform these logical steps internally:
 2.  **Define Hierarchy**: Group entities. Is the process *inside* the Windows Host? Is the Host *inside* the Corporate Network?
     *   *Rule*: Use `container` nodes for boundaries. Use `parent` field to place nodes inside them.
 3.  **Assign Types & Icons**: Map every entity to the **ALLOWED LISTS** below. Do not guess.
-4.  **Sequence Actions**: Order the edges chronologically using the `step` field (1, 2, 3...).
+4.  **Sequence Actions**: 
+    *   Order edges chronologically using the `step` field (1, 2, 3...).
+    *   **Node Appearance**: If a node (e.g. dropped malware) appears mid-attack, set `"step": N` on the node.
+    *   **Infrastructure**: Static nodes (Networks, Servers) have NO step (default 0).
 5.  **Enrichment**: Add `mitre` T-Codes where possible. **CRITICAL**: Verify T-Codes against the provided `mitre-reference.md` attached.
     *   *Rule*: If a T-Code is not in the list, DO NOT invent it. Omit it or find the closest valid match.
 
@@ -87,6 +90,7 @@ For `type: "container"`, you MUST set `metadata.boundary`:
       "label": "Human Readable Name",
       "type": "SEE_LIST_ABOVE",
       "icon": "SEE_LIST_ABOVE",
+      "step": 0, // Optional: 0 = Infra, N = Appears at Step N
       "parent": "optional_container_id",
       "metadata": { "boundary": "optional_if_container" }
     }

@@ -91,6 +91,9 @@ export const NodeSchema = z.object({
   icon: z.string().optional(), // Override icon name (e.g. "kali", "win10")
   state: EntityStateSchema.default('normal'),
   
+  // Animation Control (Spec 12)
+  step: z.number().int().min(0).optional(), // 0 = Always visible, N = Appears at Step N
+  
   // Layout Persistence
   position: z.object({ x: z.number(), y: z.number() }).optional(),
   
