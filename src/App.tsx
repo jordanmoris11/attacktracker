@@ -6,6 +6,7 @@ import { AnimationControls } from './ui/features/Animation/AnimationControls';
 import { MatrixExplorer } from './ui/features/MatrixExplorer/MatrixExplorer';
 import { useGraphStore } from './core/store/useGraphStore';
 import { FileLoader } from './ui/pages/FileLoader';
+import { GraphPage } from './ui/pages/GraphPage';
 
 // Component that handles the default view logic
 const DefaultView: React.FC = () => {
@@ -41,6 +42,7 @@ const AppContent: React.FC = () => {
           <Routes>
             <Route path="/" element={<DefaultView />} />
             <Route path="/file" element={<FileLoader />} />
+            <Route path="/:id" element={<GraphPage />} />
           </Routes>
           <AnimationControls />
         </div>

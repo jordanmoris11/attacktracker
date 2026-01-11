@@ -19,7 +19,7 @@ export interface IconEntry {
 export const ICON_REGISTRY = {
     // Roles
     'kali': { file: 'kali.svg', color: '#2B79C2', category: 'os', keywords: ['kali', 'attacker'] },
-    'attacker': { file: 'kali.svg', color: '#EF4444', category: 'role', keywords: ['hacker'] },
+    'attacker': { file: 'attacker.svg', color: '#EF4444', category: 'role', keywords: ['hacker'] },
     'user': { file: 'user.svg', color: '#64748B', category: 'role', keywords: ['client', 'victim'] },
 
     // OS / Devices
