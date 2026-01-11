@@ -1,12 +1,12 @@
 {
-  "title": "NPM Supply Chain Attack",
-  "description": "Trojanized npm package harvests cloud credentials via malicious preinstall hook",
-  "version": "2.0",
+  "title": "Shai Hulud 2.0: GitHub & Cloud Credential Theft",
+  "description": "Attack flow showing the Shai Hulud 2.0 NPM worm using the 'bun' runtime to evade detection, harvesting GitHub and AWS credentials, and validating them against public APIs.",
+  "version": "3.0",
   "viewport": {
-    "zoom": 1.2665594569584355,
+    "zoom": 1.1,
     "pan": {
-      "x": 163.7225904736298,
-      "y": 189.29662981363637
+      "x": -97.96286777949359,
+      "y": 46.00100357352739
     }
   },
   "entities": [
@@ -14,8 +14,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 21.666666666666586,
-        "y": 156.66666666666669
+        "x": 120.13297349235245,
+        "y": 108.17976541778532
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -24,13 +24,13 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 561.8333333333336,
-        "y": 104.66666666666666
+        "x": 884.5141757857991,
+        "y": 75.96823054809806
       },
       "icon": "IconCloud",
       "type": "container",
-      "width": 400,
-      "height": 180,
+      "width": 450,
+      "height": 220,
       "style": "dashed_border",
       "members": [
         "npm_registry",
@@ -41,77 +41,103 @@
       "id": "npm_registry",
       "label": "NPM Registry",
       "position": {
-        "x": 303.33333333333354,
-        "y": -53.33333333333336
+        "x": 739.8444461032858,
+        "y": 68.19481902069319
       },
       "icon": "IconNpm",
       "type": "node"
     },
     {
       "id": "github_platform",
-      "label": "GitHub",
+      "label": "GitHub API",
       "position": {
-        "x": 680.8333333333337,
-        "y": -35.00000000000001
+        "x": 1036.1839054683123,
+        "y": 62.74164207550294
       },
       "icon": "IconGitHub",
       "type": "node"
     },
     {
-      "id": "victim_workstation",
-      "label": "Developer Laptop",
+      "id": "attacker_infra",
+      "label": "Attacker Infrastructure",
       "position": {
-        "x": 389.91666666666663,
-        "y": 401.3333333333333
+        "x": 595.468230548098,
+        "y": 134.20068357606078
+      },
+      "icon": "IconServer",
+      "type": "container",
+      "width": 250,
+      "height": 180,
+      "style": "dashed_border",
+      "members": [
+        "c2_server"
+      ]
+    },
+    {
+      "id": "c2_server",
+      "label": "C2 / Webhook",
+      "position": {
+        "x": 595.468230548098,
+        "y": 123.70068357606078
+      },
+      "icon": "IconC2",
+      "type": "node"
+    },
+    {
+      "id": "victim_workstation",
+      "label": "Developer Workstation",
+      "position": {
+        "x": 496.3197956736607,
+        "y": 476.8545129679346
       },
       "icon": "IconWorkstation",
       "type": "container",
-      "width": 380,
-      "height": 280,
+      "width": 450,
+      "height": 350,
       "style": "dashed_border",
       "members": [
         "user_terminal",
         "malware_script",
-        "aws_credentials",
-        "ssh_keys"
+        "bun_runtime",
+        "cred_store"
       ]
     },
     {
       "id": "user_terminal",
-      "label": "Terminal (npm)",
+      "label": "Terminal",
       "position": {
-        "x": 314.16666666666663,
-        "y": 315.8333333333333
+        "x": 311.7700559058556,
+        "y": 425.4381233422823
       },
       "icon": "IconTerminal",
       "type": "node"
     },
     {
       "id": "malware_script",
-      "label": "preinstall.js",
+      "label": "install script",
       "position": {
-        "x": 494.16666666666663,
-        "y": 315.8333333333333
+        "x": 614.4539925035451,
+        "y": 449.97741959563825
       },
-      "icon": "IconMalware",
+      "icon": "IconCode",
       "type": "node"
     },
     {
-      "id": "aws_credentials",
-      "label": "~/.aws/credentials",
+      "id": "bun_runtime",
+      "label": "bun process",
       "position": {
-        "x": 314.16666666666663,
-        "y": 465.8333333333333
+        "x": 886.2039769388565,
+        "y": 475.46070374664373
       },
-      "icon": "IconKey",
+      "icon": "IconProcess",
       "type": "node"
     },
     {
-      "id": "ssh_keys",
-      "label": "~/.ssh/*",
+      "id": "cred_store",
+      "label": "Secrets (~/.ssh, tokens)",
       "position": {
-        "x": 494.16666666666663,
-        "y": 465.8333333333333
+        "x": 617.1479648365067,
+        "y": 539.0811014405297
       },
       "icon": "IconKey",
       "type": "node"
@@ -134,6 +160,14 @@
       "start": 1,
       "end": 100
     },
+    "attacker_infra": {
+      "start": 0,
+      "end": 100
+    },
+    "c2_server": {
+      "start": 0,
+      "end": 100
+    },
     "victim_workstation": {
       "start": 0,
       "end": 100
@@ -142,37 +176,23 @@
       "start": 0,
       "end": 100
     },
+    "cred_store": {
+      "start": 0,
+      "end": 100
+    },
     "malware_script": {
       "start": 4,
       "end": 100
     },
-    "aws_credentials": {
-      "start": 0,
-      "end": 100
-    },
-    "ssh_keys": {
-      "start": 0,
+    "bun_runtime": {
+      "start": 5,
       "end": 100
     }
   },
   "steps": [
     {
       "id": 1,
-      "name": "Compromise maintainer",
-      "mitre": {
-        "id": "T1566",
-        "tactic": "Initial Access",
-        "technique": "Phishing"
-      },
-      "type": "edge",
-      "from": "attacker",
-      "to": "npm_registry",
-      "icon": "IconUser",
-      "tooltip": "Attacker gains access to legitimate maintainer's npm publishing credentials via phishing"
-    },
-    {
-      "id": 2,
-      "name": "Publish trojanized package",
+      "name": "Publish malicious package",
       "mitre": {
         "id": "T1195.001",
         "tactic": "Initial Access",
@@ -182,10 +202,10 @@
       "from": "attacker",
       "to": "npm_registry",
       "icon": "IconNpm",
-      "tooltip": "Uploads malicious package version with preinstall hook to npm registry"
+      "tooltip": "Attacker publishes a poisoned package to NPM targeting developers."
     },
     {
-      "id": 3,
+      "id": 2,
       "name": "npm install (request)",
       "mitre": {
         "id": "T1204.002",
@@ -196,11 +216,11 @@
       "from": "user_terminal",
       "to": "npm_registry",
       "icon": "IconTerminal",
-      "tooltip": "Developer runs 'npm install' which requests the compromised package"
+      "tooltip": "Victim runs 'npm install', requesting the package from the registry."
     },
     {
-      "id": 4,
-      "name": "Download malicious package",
+      "id": 3,
+      "name": "Download package",
       "mitre": {
         "id": "T1195.001",
         "tactic": "Initial Access",
@@ -210,11 +230,11 @@
       "from": "npm_registry",
       "to": "user_terminal",
       "icon": "IconMalware",
-      "tooltip": "Registry returns trojanized package; preinstall hook triggers automatically"
+      "tooltip": "NPM Registry delivers the package containing the malicious script."
     },
     {
-      "id": 5,
-      "name": "Execute preinstall hook",
+      "id": 4,
+      "name": "Execute install script",
       "mitre": {
         "id": "T1059.007",
         "tactic": "Execution",
@@ -224,63 +244,77 @@
       "from": "user_terminal",
       "to": "malware_script",
       "icon": "IconProcess",
-      "tooltip": "npm automatically executes preinstall.js which spawns credential harvester"
+      "tooltip": "NPM executes the 'postinstall' hook automatically."
+    },
+    {
+      "id": 5,
+      "name": "Spawn bun runtime",
+      "mitre": {
+        "id": "T1059",
+        "tactic": "Defense Evasion",
+        "technique": "Command and Scripting Interpreter"
+      },
+      "type": "edge",
+      "from": "malware_script",
+      "to": "bun_runtime",
+      "icon": "IconProcess",
+      "tooltip": "Script invokes 'bun' (installing it if missing) to run the payload and evade node-based defenses."
     },
     {
       "id": 6,
-      "name": "Read AWS credentials",
+      "name": "Harvest credentials",
       "mitre": {
         "id": "T1552.001",
         "tactic": "Credential Access",
         "technique": "Unsecured Credentials: Credentials In Files"
       },
       "type": "edge",
-      "from": "malware_script",
-      "to": "aws_credentials",
+      "from": "cred_store",
+      "to": "bun_runtime",
       "icon": "IconSearch",
-      "tooltip": "Malware reads ~/.aws/credentials and extracts access keys"
+      "tooltip": "Malware reads ~/.ssh keys, AWS credentials, and GitHub tokens from files/env."
     },
     {
       "id": 7,
-      "name": "Read SSH keys",
+      "name": "Validate tokens",
       "mitre": {
-        "id": "T1552.004",
-        "tactic": "Credential Access",
-        "technique": "Unsecured Credentials: Private Keys"
+        "id": "T1087.004",
+        "tactic": "Discovery",
+        "technique": "Account Discovery: Cloud Account"
       },
       "type": "edge",
-      "from": "malware_script",
-      "to": "ssh_keys",
-      "icon": "IconSearch",
-      "tooltip": "Malware harvests SSH private keys from ~/.ssh/"
+      "from": "bun_runtime",
+      "to": "github_platform",
+      "icon": "IconGitHub",
+      "tooltip": "Malware connects to GitHub API to verify if stolen tokens have valid access."
     },
     {
       "id": 8,
-      "name": "Exfiltrate to GitHub",
+      "name": "Exfiltrate to C2",
       "mitre": {
-        "id": "T1567.001",
+        "id": "T1567.004",
         "tactic": "Exfiltration",
-        "technique": "Exfiltration Over Web Service: Exfiltration to Code Repository"
+        "technique": "Exfiltration Over Web Service: Exfiltration Over Webhook"
       },
       "type": "edge",
-      "from": "malware_script",
-      "to": "github_platform",
-      "icon": "IconGit",
-      "tooltip": "Stolen credentials pushed to attacker-controlled public GitHub repository"
+      "from": "bun_runtime",
+      "to": "c2_server",
+      "icon": "IconData",
+      "tooltip": "Valid tokens and secrets are POSTed to the attacker's webhook."
     },
     {
       "id": 9,
-      "name": "Retrieve exfiltrated data",
+      "name": "Worm / Republish",
       "mitre": {
-        "id": "T1530",
-        "tactic": "Collection",
-        "technique": "Data from Cloud Storage"
+        "id": "T1550.001",
+        "tactic": "Lateral Movement",
+        "technique": "Use Alternate Authentication Material: Application Access Token"
       },
       "type": "edge",
-      "from": "attacker",
-      "to": "github_platform",
-      "icon": "IconKey",
-      "tooltip": "Attacker pulls harvested credentials from GitHub repo for further attacks"
+      "from": "bun_runtime",
+      "to": "npm_registry",
+      "icon": "IconNpm",
+      "tooltip": "Using stolen NPM tokens, the malware attempts to publish new infected packages."
     }
   ]
 }

@@ -18,8 +18,8 @@ export const ICON_REGISTRY = {
     // ACTORS & ROLES
     // ═══════════════════════════════════════════════════════════════
     'IconKali': { file: 'kali.svg', color: '#2B79C2', category: 'os', keywords: ['kali', 'attacker'] },
-    'IconAttacker': { file: 'attacker.svg', color: '#EF4444', category: 'role', keywords: ['hacker', 'threat'] },
-    'IconHacker': { file: 'attacker.svg', color: '#EF4444', category: 'role', keywords: ['hacker'] }, // Alias
+    'IconAttacker': { file: 'attacker.svg', color: '#F97316', category: 'role', keywords: ['hacker', 'threat'] },
+    'IconHacker': { file: 'attacker.svg', color: '#F97316', category: 'role', keywords: ['hacker'] }, // Alias
     'IconUser': { file: 'user.svg', color: '#64748B', category: 'role', keywords: ['client', 'victim', 'maintainer'] },
 
     // ═══════════════════════════════════════════════════════════════
@@ -29,7 +29,7 @@ export const ICON_REGISTRY = {
     'IconLinux': { file: 'linux.svg', color: '#FCC624', category: 'os', keywords: ['ubuntu', 'centos'] },
     'IconServer': { file: 'server.svg', color: '#3B82F6', category: 'device', keywords: ['dc', 'srv'] },
     'IconWorkstation': { file: 'workstation.svg', color: '#64748B', category: 'device', keywords: ['pc', 'laptop'] },
-    'IconCloud': { file: 'cloud.svg', color: '#3B82F6', category: 'device', keywords: ['aws', 'azure', 'gcp'] },
+    'IconCloud': { file: 'cloud.svg', color: '#06B6D4', category: 'device', keywords: ['aws', 'azure', 'gcp'] },
     'IconFirewall': { file: 'firewall.svg', color: '#EF4444', category: 'device', keywords: ['fw', 'paloalto'] },
     'IconRouter': { file: 'router.svg', color: '#64748B', category: 'device', keywords: ['router', 'gateway'] },
 
@@ -37,7 +37,7 @@ export const ICON_REGISTRY = {
     // DEVELOPER TOOLS & SUPPLY CHAIN
     // ═══════════════════════════════════════════════════════════════
     'IconGit': { file: 'git.svg', color: '#F97316', category: 'devtools', keywords: ['git', 'repo', 'clone', 'commit'] },
-    'IconGitHub': { file: 'github.svg', color: '#2395e2ff', category: 'devtools', keywords: ['github', 'actions', 'repository'] },
+    'IconGitHub': { file: 'github.svg', color: '#E2E8F0', category: 'devtools', keywords: ['github', 'actions', 'repository'] },
     'IconNpm': { file: 'npm.svg', color: '#CB3837', category: 'devtools', keywords: ['npm', 'package', 'registry', 'node'] },
     'IconPackage': { file: 'package.svg', color: '#CB3837', category: 'devtools', keywords: ['pip', 'cargo', 'nuget', 'gem'] },
     'IconDocker': { file: 'docker.svg', color: '#2496ED', category: 'devtools', keywords: ['docker', 'container', 'whale'] },

@@ -38,7 +38,7 @@ The graph is **animated**. Entities appear when relevant. Edges show actions. Th
 4. **No empty containers** — Every container MUST have `members[]` with at least one child
 5. **Edge = Data flow** — Edge direction follows DATA, not who initiates (see Part 3)
 6. **Entity emergence** — Things appear WHEN they're created (use visibility)
-7. **Attacker separation** — NEVER put attackers inside "Internet / Public Services" container
+7. **Attacker separation** — The attacker (person) stays outside "Internet" container; C2/infra CAN be inside
 8. **No orphan entities** — Every node MUST be source OR target of at least one edge
 9. **Attacker perspective only** — No detection alerts, SIEM events, or defender artifacts unless explicitly requested
 
@@ -151,29 +151,37 @@ Creating an entity?
 
 ### Critical Rule: Attacker Placement
 
-**NEVER place attackers inside the "Internet / Public Services" container.**
+**The ATTACKER (threat actor) should NOT be inside the "Internet / Public Services" container.**
 
-The Internet zone contains **legitimate public services** (npm, GitHub, cloud APIs). Attackers are **threat actors**, not services.
+However, attacker **infrastructure** (C2 servers, phishing servers, exfil endpoints) CAN be in the internet zone — they ARE services on the internet.
 
-| WRONG | CORRECT |
-|-------|---------|
-| `internet_zone.members: ["npm", "github", "attacker"]` | `attacker` as standalone node OR in `attacker_infra` container |
+| Entity | Placement |
+|--------|-----------|
+| `attacker` (the person) | Standalone node OR in `attacker_infra` container |
+| `c2_server` | CAN be in `internet_zone` OR `attacker_infra` |
+| `phishing_server` | CAN be in `internet_zone` OR `attacker_infra` |
+| `exfil_endpoint` | CAN be in `internet_zone` OR `attacker_infra` |
 
 **Correct patterns:**
 
 ```
-Option A: Standalone attacker (simple scenarios)
-├── internet_zone (container) → ["npm_registry", "github"]
+Option A: Simple — attacker standalone, C2 in internet zone
+├── internet_zone (container) → ["npm_registry", "github", "c2_server"]
 ├── attacker (node) → Positioned outside containers
 └── victim_workstation (container)
 
-Option B: Attacker infrastructure (sophisticated scenarios)
+Option B: Grouped — all attacker assets in dedicated container
 ├── internet_zone (container) → ["npm_registry", "github"]
 ├── attacker_infra (container) → ["attacker", "c2_server", "phishing_server"]
 └── victim_workstation (container)
+
+Option C: Mixed — attacker separate, infra in internet
+├── internet_zone (container) → ["npm_registry", "github", "c2_server"]
+├── attacker (node) → Standalone
+└── victim_workstation (container)
 ```
 
-This separation makes attack flows clearer: edges from `attacker` cross into `internet_zone` to poison services.
+**Why?** The attacker is a PERSON, not a service. But C2/phishing servers are actual internet services that victims connect to.
 
 ## 2.2 Container JSON Structure
 
@@ -928,7 +936,7 @@ Before returning JSON, verify:
 - [ ] Width and height specified for all containers
 - [ ] Used Infrastructure containers for zones (Internet, DMZ, etc.)
 - [ ] Used System containers for machine internals (processes, files)
-- [ ] **Attacker is NOT inside "Internet / Public Services" container**
+- [ ] **Attacker (person) is NOT inside "Internet" container** — C2/infra CAN be inside
 
 ## Bidirectional Flows
 - [ ] Requests have corresponding response edges where applicable
