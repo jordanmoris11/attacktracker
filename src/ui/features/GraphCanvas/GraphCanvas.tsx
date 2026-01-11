@@ -3,6 +3,7 @@ import cytoscape from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import { useGraphStore } from '../../../core/store/useGraphStore';
 import { useAnimationStore } from '../../../core/animation/useAnimationStore';
+import { useLayoutStore } from '../../../core/store/useLayoutStore';
 import { CYTOSCAPE_THEME } from './cytoscape-theme';
 import { getIconPath } from '../../../shared/config/icons.registry';
 import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
@@ -16,7 +17,8 @@ export const GraphCanvas: React.FC = () => {
     const cleanupHeaderLayerRef = useRef<(() => void) | null>(null);
 
     // State
-    const { nodes, edges, status } = useGraphStore();
+    const { nodes, edges, status, title } = useGraphStore();
+    const { saveNodePosition, getGraphLayout } = useLayoutStore();
 
     // 1. Initialize Cytoscape (Once)
     useEffect(() => {
@@ -98,13 +100,10 @@ export const GraphCanvas: React.FC = () => {
                 };
             });
 
-            // @ts-ignore - cytoscape types logic
-            cy.add([...cyNodes, ...cyEdges]);
-
-            // 3. Run Layout (Dagre)
-            const layout = cy.layout({
+            // 3. Run Layout (Conditional)
+            const savedLayout = getGraphLayout(title);
+            let layoutConfig: any = {
                 name: 'dagre',
-                // @ts-ignore - dagre types
                 rankDir: 'LR',
                 align: 'UL', // Up-Left alignment typically cleaner
                 rankSep: 200,
@@ -112,20 +111,75 @@ export const GraphCanvas: React.FC = () => {
                 padding: 100,
                 animate: true,
                 animationDuration: 500
-            });
+            };
 
-            // 4. Preload container icons AFTER layout completes (not during animation)
+            if (savedLayout && savedLayout.positions && Object.keys(savedLayout.positions).length > 0) {
+                // Scenario B: Restore Saved Positions (Positions exist)
+                console.log(`[Layout Persistence] Restoring positions for "${title}"`);
+
+                // Identify valid saved positions (only for nodes that still exist)
+                cyNodes.forEach(node => {
+                    const savedPos = savedLayout.positions[node.data.id];
+                    if (savedPos) {
+                        (node as any).position = savedPos;
+                    }
+                });
+
+                layoutConfig = {
+                    name: 'preset', // Uses the positions we just injected
+                    padding: 100,
+                    animate: false
+                };
+            } else {
+                console.log(`[Layout Persistence] No saved positions for "${title}". Running Auto-Layout.`);
+            }
+
+            // @ts-ignore - cytoscape types logic
+            cy.add([...cyNodes, ...cyEdges]);
+
+            const layout = cy.layout(layoutConfig);
+
+            // 4. Preload container icons AFTER layout completes
             cy.one('layoutstop', () => {
                 preloadContainerIcons(cy).then(() => {
-                    // Force a render to draw container headers with correct positions
+                    // Restore Viewport (Zoom/Pan) if available
+                    if (savedLayout?.viewport) {
+                        console.log(`[Layout Persistence] Restoring viewport for "${title}"`);
+                        cy.viewport({
+                            zoom: savedLayout.viewport.zoom,
+                            pan: savedLayout.viewport.pan
+                        });
+                    }
+
                     cy.emit('render');
                 });
             });
 
             layout.run();
+
+            // 5. Layout Persistence: Capture Moves & Viewport
+            // Remove previous listeners to avoid duplicates if useEffect re-runs
+            cy.off('dragfree', 'node');
+            cy.off('pan zoom'); // Clear old listeners
+
+            const { saveNodePosition, saveViewport } = useLayoutStore.getState();
+
+            cy.on('dragfree', 'node', (evt) => {
+                const node = evt.target;
+                saveNodePosition(title, node.id(), node.position());
+            });
+
+            // Debounced Viewport Save (Pan/Zoom)
+            let viewportTimeout: any;
+            cy.on('pan zoom', () => {
+                clearTimeout(viewportTimeout);
+                viewportTimeout = setTimeout(() => {
+                    saveViewport(title, cy.zoom(), cy.pan());
+                }, 500); // Wait 500ms after last move
+            });
         });
 
-    }, [nodes, edges, status]);
+    }, [nodes, edges, status, title]); // Added title to deps
 
     // 4. Animation Syncer (Spec 7)
     // We import this hook inside here to avoid re-rendering the whole canvas, 
