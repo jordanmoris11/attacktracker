@@ -3,10 +3,10 @@
   "description": "Visualization of the Shai Hulud 2.0 campaign, where attackers publish malicious npm packages targeting Bun and Node.js environments to harvest credentials and exfiltrate them to a GitHub repository acting as C2.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.1349932300932166,
+    "zoom": 1.0478693683200129,
     "pan": {
-      "x": 132.1787747275822,
-      "y": 37.1813754629984
+      "x": 126.81181431264866,
+      "y": -139.55279566966968
     }
   },
   "entities": [
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 408.317700421905,
-        "y": 235.74309743009934
+        "x": 442.23860759492663,
+        "y": 241.02947257394683
       },
       "icon": "IconCloud",
       "type": "container",
