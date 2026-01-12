@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import cytoscape from 'cytoscape';
 import { X, FileText, Image, FileJson, Loader2, CheckCircle, AlertCircle, Crop, Maximize2 } from 'lucide-react';
 import { useScenarioStore } from '../../../core/store/useScenarioStore';
 import { exportScenarioToPDF } from '../../../core/export/PDFExporter';
@@ -83,36 +84,11 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
                     break;
 
                 case 'png':
-                    // Export with selection bounds
-                    const pngOptions: any = {
-                        output: 'blob',
-                        bg: '#0f172a',
-                        scale: 2,
-                    };
+                    // Apply clean export styles (remove glow/blur)
+                    applyCleanExportStyles(cyInstance);
 
                     if (selectionToUse && graphContainerRef) {
-                        // Convert screen coordinates to model coordinates
-                        const pan = cyInstance.pan();
-                        const zoom = cyInstance.zoom();
-
-                        // Calculate the model-space bounding box
-                        const x1 = (selectionToUse.x - pan.x) / zoom;
-                        const y1 = (selectionToUse.y - pan.y) / zoom;
-                        const x2 = (selectionToUse.x + selectionToUse.width - pan.x) / zoom;
-                        const y2 = (selectionToUse.y + selectionToUse.height - pan.y) / zoom;
-
-                        // Create a temporary element collection for the bounding box
-                        const bb = { x1, y1, x2, y2, w: x2 - x1, h: y2 - y1 };
-
-                        // Use clip option with the calculated bounds
-                        const pngData = cyInstance.png({
-                            output: 'blob',
-                            bg: '#0f172a',
-                            scale: 2,
-                            full: false,
-                        });
-
-                        // For selection, we need to capture and crop manually
+                        // For selection, capture and crop manually
                         const croppedBlob = await cropCanvasToSelection(
                             cyInstance,
                             selectionToUse,
@@ -120,9 +96,17 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
                         );
                         downloadBlob(croppedBlob, `${scenario.title.replace(/[^a-z0-9]/gi, '_')}.png`);
                     } else {
-                        const pngData = cyInstance.png(pngOptions);
+                        const pngData = cyInstance.png({
+                            output: 'blob',
+                            bg: '#0f172a',
+                            scale: 2,
+                            full: false,
+                        });
                         downloadBlob(pngData, `${scenario.title.replace(/[^a-z0-9]/gi, '_')}.png`);
                     }
+
+                    // Restore interactive styles
+                    restoreInteractiveStyles(cyInstance);
                     break;
 
                 case 'json':
@@ -250,15 +234,21 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
                             </button>
                         </div>
 
-                        {/* Selection info */}
+                        {/* Selection confirmed indicator */}
                         {exportSelection && regionMode === 'selection' && (
-                            <div className="flex items-center justify-between p-2 bg-brand-blue/10 border border-brand-blue/20 rounded-lg">
-                                <span className="text-xs text-brand-blue font-mono">
-                                    {Math.round(exportSelection.width)} x {Math.round(exportSelection.height)} px
-                                </span>
+                            <div className="flex items-center gap-3 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                                <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
+                                    <CheckCircle size={18} className="text-green-400" />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-sm font-medium text-green-400">Region Selected</p>
+                                    <p className="text-xs text-slate-400 font-mono">
+                                        {Math.round(exportSelection.width)} x {Math.round(exportSelection.height)} px
+                                    </p>
+                                </div>
                                 <button
                                     onClick={handleClearSelection}
-                                    className="text-xs text-slate-400 hover:text-white"
+                                    className="text-xs text-slate-400 hover:text-white px-2 py-1 hover:bg-white/10 rounded"
                                 >
                                     Clear
                                 </button>
@@ -376,6 +366,45 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
         </>
     );
 };
+
+/**
+ * Apply clean styles for export (remove glow/blur effects)
+ */
+function applyCleanExportStyles(cy: cytoscape.Core): void {
+    cy.edges().forEach(edge => {
+        edge.data('_exportBackup', {
+            'text-outline-width': edge.style('text-outline-width'),
+            'text-outline-opacity': edge.style('text-outline-opacity'),
+            'underlay-opacity': edge.style('underlay-opacity'),
+        });
+
+        edge.style({
+            'text-outline-width': 0,
+            'text-outline-opacity': 0,
+            'underlay-opacity': 0,
+            'text-background-opacity': 1,
+            'text-background-color': '#0f172a',
+            'text-background-padding': '4px',
+        });
+    });
+}
+
+/**
+ * Restore interactive styles after export
+ */
+function restoreInteractiveStyles(cy: cytoscape.Core): void {
+    cy.edges().forEach(edge => {
+        const backup = edge.data('_exportBackup');
+        if (backup) {
+            edge.style({
+                'text-outline-width': backup['text-outline-width'],
+                'text-outline-opacity': backup['text-outline-opacity'],
+                'underlay-opacity': backup['underlay-opacity'],
+            });
+            edge.removeData('_exportBackup');
+        }
+    });
+}
 
 /**
  * Crop the canvas to the selected region

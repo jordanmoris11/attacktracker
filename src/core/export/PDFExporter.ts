@@ -233,6 +233,9 @@ export class PDFExporter {
     private async captureCurrentGraph(): Promise<string> {
         const selection = this.options.selectionBounds;
 
+        // Apply clean export styles (remove glow/blur effects)
+        this.applyExportStyles();
+
         // Use Cytoscape's built-in PNG export
         const pngData = this.cy.png({
             output: 'base64uri',
@@ -243,12 +246,56 @@ export class PDFExporter {
             maxHeight: 850 * 2,
         });
 
+        // Restore interactive styles
+        this.restoreInteractiveStyles();
+
         // If selection bounds provided, crop the image
         if (selection) {
             return await this.cropImageToSelection(pngData, selection);
         }
 
         return pngData;
+    }
+
+    /**
+     * Apply clean styles for export (remove glow/blur effects)
+     */
+    private applyExportStyles(): void {
+        this.cy.edges().forEach(edge => {
+            // Store current styles for restoration
+            edge.data('_exportBackup', {
+                'text-outline-width': edge.style('text-outline-width'),
+                'text-outline-opacity': edge.style('text-outline-opacity'),
+                'underlay-opacity': edge.style('underlay-opacity'),
+            });
+
+            // Apply clean export styles - crisp text, no glow
+            edge.style({
+                'text-outline-width': 0,
+                'text-outline-opacity': 0,
+                'underlay-opacity': 0,
+                'text-background-opacity': 1,
+                'text-background-color': '#0f172a',
+                'text-background-padding': '4px',
+            });
+        });
+    }
+
+    /**
+     * Restore interactive styles after export
+     */
+    private restoreInteractiveStyles(): void {
+        this.cy.edges().forEach(edge => {
+            const backup = edge.data('_exportBackup');
+            if (backup) {
+                edge.style({
+                    'text-outline-width': backup['text-outline-width'],
+                    'text-outline-opacity': backup['text-outline-opacity'],
+                    'underlay-opacity': backup['underlay-opacity'],
+                });
+                edge.removeData('_exportBackup');
+            }
+        });
     }
 
     /**
@@ -302,6 +349,9 @@ export class PDFExporter {
         this.cy.fit(undefined, 50); // 50px padding
         await this.delay(100);
 
+        // Apply clean export styles
+        this.applyExportStyles();
+
         const pngData = this.cy.png({
             output: 'base64uri',
             bg: '#0f172a',
@@ -311,7 +361,10 @@ export class PDFExporter {
             maxHeight: 850 * 2,
         });
 
-        // Restore
+        // Restore styles
+        this.restoreInteractiveStyles();
+
+        // Restore viewport
         this.cy.zoom(currentZoom);
         this.cy.pan(currentPan);
 
