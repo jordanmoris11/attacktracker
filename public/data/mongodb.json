@@ -1,31 +1,74 @@
 {
-  "title": "MongoBleed (CVE-2025-14847) Exploitation",
-  "description": "Unauthenticated remote attackers exploit a critical vulnerability in the MongoDB BI Connector to bypass authentication and read sensitive local files (e.g., /etc/shadow) via the exposed MySQL protocol.",
-  "version": "2.0",
+  "title": "MongoBleed (CVE-2025-14847)",
+  "description": "Critical pre-authentication memory leak in MongoDB Wire Protocol Zlib handling allowing remote data harvesting.",
+  "version": "3.0",
   "viewport": {
-    "zoom": 1.260419839216413,
+    "zoom": 1.1,
     "pan": {
-      "x": 24.429134664243705,
-      "y": 234.8377103499044
+      "x": 150,
+      "y": 100
     }
+  },
+  "shortDescription": "Pre-auth MongoDB memory leak via Zlib",
+  "tags": [
+    "CVE-2025-14847",
+    "MongoDB",
+    "Memory_Leak",
+    "Pre-Auth",
+    "Information_Disclosure",
+    "Zlib",
+    "NoSQL"
+  ],
+  "metadata": {
+    "descriptionHtml": "<p><strong>MongoBleed</strong> is a critical vulnerability scoring <span style='color:#ef4444;font-weight:bold;'>CVSS 8.7</span> that affects MongoDB servers utilizing Zlib compression. Similar to the infamous Heartbleed bug, it exploits a discrepancy between memory allocation and initialization.</p><p>When the server receives a specially crafted <strong>OP_COMPRESSED</strong> packet with a falsified <span style='color:#3b82f6;'>uncompressedSize</span> field, it allocates a large buffer in heap memory but only populates a small portion of it with actual data. The remaining buffer space retains <strong>uninitialized 'garbage' memory</strong>—which contains sensitive residual data such as cleartext credentials, session tokens, and PII.</p><ol><li>Attacker connects to <span style='color:#3b82f6;'>TCP/27017</span> (no auth required).</li><li>Sends a malformed packet claiming a large size (e.g., 1MB) but providing small payload.</li><li>Server allocates 1MB heap buffer but fails to zero it out.</li><li>The BSON parser encounters the garbage data, triggers an error, and <strong>echoes the memory contents</strong> back to the attacker in the error message.</li></ol>",
+    "commandsBlock": "# Step 1: Python Exploit Logic (Conceptual)\n# Build packet with Fake Size in Header\n# OpCode 2012 (OP_COMPRESSED) | Compressor ID 2 (Zlib)\n\npayload = zlib.compress(b'A'*10)\nfake_size = 1024 * 1024  # 1MB Allocation Claim\n\n# Header Structure: MsgLen, ReqID, RespTo, OpCode(2012)\nheader = struct.pack('<IIII', len(payload)+..., 123, 0, 2012)\n\n# Step 2: Send to Target\nsocket.send(header + compression_details + payload)\n\n# Step 3: Receive 'Memory Oracle' Response\nresponse = socket.recv(4096)\nprint(extract_leaked_data(response))",
+    "prerequisites": [
+      "Network access to MongoDB port (default 27017)",
+      "Target running vulnerable version (e.g., < 7.0.28)",
+      "Zlib compression enabled (default configuration)"
+    ],
+    "attackerGains": [
+      "Cleartext database credentials",
+      "Application session tokens (JWTs/Cookies)",
+      "PII/PHI data resident in memory",
+      "Cloud API keys (AWS/GCP) from environment vars"
+    ],
+    "detectionNotes": [
+      "High volume of short-lived connections without 'Client Metadata' handshake",
+      "Suricata alerts for OP_COMPRESSED (2012) with Zlib (2)",
+      "Assertion spikes in serverStatus metrics",
+      "Nuclei active scanning results"
+    ],
+    "mitreCategories": [
+      "T1190",
+      "T1003",
+      "T1048",
+      "T1595.002"
+    ],
+    "extraInfo": [
+      "CVE-2025-14847 - MongoDB Zlib Heap Memory Leak",
+      "Nuclei Template - CVE-2025-14847.yaml",
+      "Suricata Signature - SID 1000001 (OpCode 2012 + Zlib)",
+      "Advisory - Upgrade to MongoDB 7.0.28 / 6.0.27"
+    ]
   },
   "entities": [
     {
       "id": "attacker",
-      "label": "Threat Actor",
+      "label": "Attacker",
       "position": {
-        "x": 50,
-        "y": 200
+        "x": -82.72727272727269,
+        "y": 169.0909090909091
       },
       "icon": "IconAttacker",
       "type": "node"
     },
     {
-      "id": "corporate_network",
-      "label": "Corporate Network (DMZ)",
+      "id": "victim_network",
+      "label": "Victim Infrastructure",
       "position": {
-        "x": 635.4463525535253,
-        "y": 239.65708876665042
+        "x": 421.90909090909093,
+        "y": 149.1363636363637
       },
       "icon": "IconCloud",
       "type": "container",
@@ -33,55 +76,66 @@
       "height": 400,
       "style": "dashed_border",
       "members": [
-        "database_host"
+        "mongodb_server"
       ]
     },
     {
-      "id": "database_host",
-      "label": "MongoDB Server Host",
+      "id": "mongodb_server",
+      "label": "MongoDB Server (Vulnerable)",
       "position": {
-        "x": 635.4463525535253,
-        "y": 239.65708876665042
+        "x": 451.909090909091,
+        "y": 213.22727272727278
       },
-      "icon": "IconServer",
+      "icon": "IconDatabase",
       "type": "container",
-      "width": 420,
-      "height": 320,
+      "width": 400,
+      "height": 300,
       "style": "dashed_border",
       "members": [
-        "bi_connector_process",
-        "etc_shadow",
-        "mongod_config"
+        "mongod_process",
+        "heap_memory",
+        "resident_secrets",
+        "zlib_compressor"
       ]
     },
     {
-      "id": "bi_connector_process",
-      "label": "BI Connector (mongosqld)",
+      "id": "mongod_process",
+      "label": "mongod (Service)",
       "position": {
-        "x": 527.9463525535253,
-        "y": 169.15708876665042
+        "x": 272.72727272727275,
+        "y": 39.090909090909165
       },
       "icon": "IconService",
       "type": "node"
     },
     {
-      "id": "etc_shadow",
-      "label": "/etc/shadow",
+      "id": "zlib_compressor",
+      "label": "Zlib Handler",
       "position": {
-        "x": 777.9463525535253,
-        "y": 169.15708876665042
+        "x": 501.8181818181818,
+        "y": 54.545454545454604
       },
-      "icon": "IconCredential",
+      "icon": "IconCode",
       "type": "node"
     },
     {
-      "id": "mongod_config",
-      "label": "mongod.conf",
+      "id": "heap_memory",
+      "label": "Uninitialized Heap",
       "position": {
-        "x": 777.9463525535253,
-        "y": 289.1570887666504
+        "x": 355.4545454545455,
+        "y": 206.36363636363643
       },
-      "icon": "IconKey",
+      "icon": "IconMemory",
+      "type": "node"
+    },
+    {
+      "id": "resident_secrets",
+      "label": "Credentials/PII",
+      "position": {
+        "x": 579.0909090909091,
+        "y": 238.18181818181822
+      },
+      "icon": "IconCredential",
       "type": "node"
     }
   ],
@@ -90,23 +144,27 @@
       "start": 0,
       "end": 100
     },
-    "corporate_network": {
+    "victim_network": {
       "start": 0,
       "end": 100
     },
-    "database_host": {
+    "mongodb_server": {
       "start": 0,
       "end": 100
     },
-    "bi_connector_process": {
+    "mongod_process": {
       "start": 0,
       "end": 100
     },
-    "etc_shadow": {
+    "zlib_compressor": {
       "start": 0,
       "end": 100
     },
-    "mongod_config": {
+    "heap_memory": {
+      "start": 0,
+      "end": 100
+    },
+    "resident_secrets": {
       "start": 0,
       "end": 100
     }
@@ -114,22 +172,22 @@
   "steps": [
     {
       "id": 1,
-      "name": "Scan MySQL Port (3307)",
+      "name": "Scan for MongoDB",
       "mitre": {
-        "id": "T1595",
+        "id": "T1595.002",
         "tactic": "Reconnaissance",
-        "technique": "Active Scanning"
+        "technique": "Active Scanning: Vulnerability Scanning"
       },
       "type": "edge",
       "from": "attacker",
-      "to": "bi_connector_process",
+      "to": "mongod_process",
       "icon": "IconPenetrationTool",
-      "tooltip": "Attacker identifies exposed MongoDB BI Connector service running on port 3307",
-      "cli": "nmap -p 3307 --script mongodb-info <target>"
+      "tooltip": "Attacker scans public internet for open port 27017",
+      "cli": "nmap -p 27017 target_ip"
     },
     {
       "id": 2,
-      "name": "Send Exploit Payload",
+      "name": "Send Malicious Packet",
       "mitre": {
         "id": "T1190",
         "tactic": "Initial Access",
@@ -137,81 +195,65 @@
       },
       "type": "edge",
       "from": "attacker",
-      "to": "bi_connector_process",
+      "to": "mongod_process",
       "icon": "IconExploit",
-      "tooltip": "Attacker sends crafted authentication packet to bypass auth and request arbitrary file read",
-      "cli": "python3 exploit.py --target <ip> --file /etc/shadow"
+      "tooltip": "Sends OP_COMPRESSED packet with forged uncompressedSize header (e.g., 1MB claim for 10b payload)",
+      "cli": "python3 exploit.py --target target_ip"
     },
     {
       "id": 3,
-      "name": "Read System Hashes",
-      "mitre": {
-        "id": "T1005",
-        "tactic": "Collection",
-        "technique": "Data from Local System"
-      },
+      "name": "Process via Zlib",
       "type": "edge",
-      "from": "etc_shadow",
-      "to": "bi_connector_process",
-      "icon": "IconCredential",
-      "tooltip": "Vulnerable connector service reads local /etc/shadow file (Data Flow)"
+      "from": "mongod_process",
+      "to": "zlib_compressor",
+      "icon": "IconProcess",
+      "tooltip": "Server passes payload to Zlib decompressor logic"
     },
     {
       "id": 4,
-      "name": "Exfiltrate Hashes",
-      "mitre": {
-        "id": "T1041",
-        "tactic": "Exfiltration",
-        "technique": "Exfiltration Over C2 Channel"
-      },
+      "name": "Allocate Uninitialized Buffer",
       "type": "edge",
-      "from": "bi_connector_process",
-      "to": "attacker",
-      "icon": "IconStolenCredential",
-      "tooltip": "Service returns file content to attacker via established connection"
+      "from": "zlib_compressor",
+      "to": "heap_memory",
+      "icon": "IconMemory",
+      "tooltip": "Zlib allocates large heap buffer based on attacker's claim but does not zero it out"
     },
     {
       "id": 5,
-      "name": "Request Config File",
+      "name": "Read Sensitive Garbage",
       "mitre": {
         "id": "T1005",
         "tactic": "Collection",
         "technique": "Data from Local System"
       },
       "type": "edge",
-      "from": "attacker",
-      "to": "bi_connector_process",
-      "icon": "IconExploit",
-      "tooltip": "Attacker leverages connection to request database configuration file",
-      "cli": "READ_FILE /etc/mongod.conf"
+      "from": "resident_secrets",
+      "to": "heap_memory",
+      "icon": "IconData",
+      "tooltip": "Existing sensitive data (passwords, PII) remains in the allocated buffer"
     },
     {
       "id": 6,
-      "name": "Read Configuration",
-      "mitre": {
-        "id": "T1552.001",
-        "tactic": "Credential Access",
-        "technique": "Unsecured Credentials: Credentials In Files"
-      },
+      "name": "Trigger Parser Error",
       "type": "edge",
-      "from": "mongod_config",
-      "to": "bi_connector_process",
-      "icon": "IconKey",
-      "tooltip": "Service reads configuration file containing potential secrets"
+      "from": "heap_memory",
+      "to": "mongod_process",
+      "icon": "IconAlert",
+      "tooltip": "BSON parser reads into garbage memory, fails validation, and includes 'invalid' data in error object"
     },
     {
       "id": 7,
-      "name": "Exfiltrate Config",
+      "name": "Leak Memory to Attacker",
       "mitre": {
-        "id": "T1041",
+        "id": "T1048",
         "tactic": "Exfiltration",
-        "technique": "Exfiltration Over C2 Channel"
+        "technique": "Exfiltration Over Alternative Protocol"
       },
       "type": "edge",
-      "from": "bi_connector_process",
+      "from": "mongod_process",
       "to": "attacker",
-      "icon": "IconStolenKey",
-      "tooltip": "Configuration file content returned to attacker"
+      "icon": "IconStolenCredential",
+      "tooltip": "Server returns error message containing the uninitialized memory dump (The Memory Oracle)"
     }
   ]
 }

