@@ -45,8 +45,9 @@ A clear, professional HTML explanation following this structure:
 2. **How attack works** - numbered steps (max 15 points)
 
 **Formatting**:
-- Use `<span style="color:#ef4444;font-weight:bold;">` for TOOLS and COMMANDS
-- Use `<span style="color:#3b82f6;">` for TCP/UDP ports
+- **CRITICAL**: Use SINGLE QUOTES for HTML attributes (e.g., `style='color:#ef4444'`) because the JSON uses double quotes
+- Use `<span style='color:#ef4444;font-weight:bold;'>` for TOOLS and COMMANDS
+- Use `<span style='color:#3b82f6;'>` for TCP/UDP ports
 - Use `<ul><li>` for bullet points, `<ol><li>` for numbered steps
 - Use `<strong>` for emphasis
 

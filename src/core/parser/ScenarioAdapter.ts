@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { ScenarioSchema, type ScenarioData, type ScenarioEntity, type VisibilityMap, type TimelineStep } from '../../shared/schemas/scenario.schema';
 import { getIconPath, ICON_REGISTRY } from '../../shared/config/icons.registry';
+import { parseJsonWithSanitization } from '../../shared/utils/jsonSanitizer';
 
 // Types for the Parse Result
 export interface ParseResult {
@@ -21,7 +22,23 @@ export interface ParseResult {
 export const scenarioAdapter = {
     parse(content: string | object): ParseResult {
         try {
-            const rawJson = typeof content === 'string' ? JSON.parse(content) : content;
+            // Use sanitizing parser for string input to handle common LLM output issues
+            let rawJson: any;
+            if (typeof content === 'string') {
+                const parseResult = parseJsonWithSanitization(content);
+                if (parseResult.error) {
+                    return {
+                        success: false,
+                        errors: [parseResult.error]
+                    };
+                }
+                rawJson = parseResult.data;
+                if (parseResult.wasSanitized) {
+                    console.info('[ScenarioAdapter] JSON was auto-sanitized (fixed HTML attribute quotes)');
+                }
+            } else {
+                rawJson = content;
+            }
 
             // 1. Validate
             const validation = ScenarioSchema.safeParse(rawJson);
