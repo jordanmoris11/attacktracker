@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
 // import dagre from 'cytoscape-dagre'; // Removed: defaulting to preset
 import { useScenarioStore } from '../../../core/store/useScenarioStore';
 import { usePersistence } from '../../../core/store/usePersistence'; // Re-enabled
 import { MITRE_INDEX } from '../../../shared/config/mitre-index';
 import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
+import { EdgeTooltip, type TooltipData } from './EdgeTooltip';
 
 // cytoscape.use(dagre);
 
@@ -12,6 +13,7 @@ export const GraphCanvas: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const cyRef = useRef<cytoscape.Core | null>(null);
     const cleanupHeaderLayerRef = useRef<(() => void) | null>(null);
+    const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
 
     // New Store
     const {
@@ -160,13 +162,38 @@ export const GraphCanvas: React.FC = () => {
             useScenarioStore.getState().updateEntityPosition(node.id(), pos.x, pos.y);
         };
 
+        const onEdgeHover = (e: any) => {
+            const edge = e.target;
+            const renderPos = e.renderedPosition; // Canvas coordinates relative to container
+
+            // Extract data
+            const mitreData = edge.data('mitre');
+            const color = mitreData ? MITRE_INDEX[mitreData.id]?.color : '#fbbf24';
+
+            setTooltipData({
+                x: renderPos.x,
+                y: renderPos.y,
+                label: edge.data('label'),
+                description: edge.data('tooltip'),
+                mitre: mitreData ? { ...mitreData, color } : undefined
+            });
+        };
+
+        const onEdgeLeave = () => {
+            setTooltipData(null);
+        };
+
         cy.on('pan zoom', updateStore);
         cy.on('dragfree', 'node', updateNodePos);
+        cy.on('mouseover', 'edge', onEdgeHover);
+        cy.on('mouseout', 'edge', onEdgeLeave);
 
         // Cleanup listeners
         return () => {
             cy.off('pan zoom', updateStore);
             cy.off('dragfree', 'node', updateNodePos);
+            cy.off('mouseover', 'edge', onEdgeHover);
+            cy.off('mouseout', 'edge', onEdgeLeave);
         };
     }, [cyElements, status]); // Only re-run if complete graph replacement (not just pos update)
 
@@ -271,6 +298,9 @@ export const GraphCanvas: React.FC = () => {
                             source: step.from,
                             target: step.to,
                             label: step.name,
+                            // Inject Tooltip Data
+                            tooltip: step.tooltip, // Correct property from schema
+                            mitre: step.mitre
                         },
                         style: isCurrentStepEdge ? {
                             // Current step edge: Ultra-Thin Laser ("Modern")
@@ -373,6 +403,9 @@ export const GraphCanvas: React.FC = () => {
             <div className="absolute bottom-4 left-4 bg-black/70 text-white p-2 text-xs z-50 rounded font-mono">
                 Step: {currentStep} / {timeline.length}
             </div>
+
+            {/* Edge Tooltip */}
+            <EdgeTooltip data={tooltipData} />
         </div>
     );
 };

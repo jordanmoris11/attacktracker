@@ -3,10 +3,10 @@
   "description": "Attack flow showing the Shai Hulud 2.0 NPM worm using the 'bun' runtime to evade detection, harvesting GitHub and AWS credentials, and validating them against public APIs.",
   "version": "3.0",
   "viewport": {
-    "zoom": 0.9837336978842637,
+    "zoom": 1.2975179907681003,
     "pan": {
-      "x": -132.5720296195638,
-      "y": -131.375604087815
+      "x": -360.2390034957441,
+      "y": -173.85251079966957
     }
   },
   "entities": [
