@@ -77,6 +77,12 @@ export const scenarioAdapter = {
 
                 const iconKey = entity.icon;
 
+                // For containers, use explicit color from JSON if provided, otherwise fall back to icon registry
+                const defaultColor = ICON_REGISTRY[iconKey as keyof typeof ICON_REGISTRY]?.color || ICON_REGISTRY['IconDefault'].color;
+                const entityColor = (entity.type === 'container' && 'color' in entity && entity.color)
+                    ? entity.color
+                    : defaultColor;
+
                 const cvElement = {
                     group: 'nodes',
                     data: {
@@ -85,8 +91,7 @@ export const scenarioAdapter = {
                         type: entity.type, // 'node' | 'container' | 'text_box'
                         parent: parentMap.get(entity.id), // The reverse mapping
                         iconPath: getIconPath(iconKey),
-                        color: ICON_REGISTRY[iconKey as keyof typeof ICON_REGISTRY]?.color || ICON_REGISTRY['IconDefault'].color,
-                        // Inferred color from Registry (No longer allowed in JSON input)
+                        color: entityColor,
                         // Container specific
                         style: entity.type === 'container' ? entity.style : undefined,
                         width: entity.type === 'container' ? entity.width : undefined,

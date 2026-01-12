@@ -3,10 +3,10 @@
   "description": "Adversary hijacks a victim's mobile phone number to intercept SMS-based Multi-Factor Authentication (MFA) codes.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.2173802448852045,
+    "zoom": 0.9904356177674806,
     "pan": {
-      "x": 252.67704771959362,
-      "y": 178.4254061439993
+      "x": 231.08539664383173,
+      "y": 159.72602125824537
     }
   },
   "shortDescription": "Hijacking phone numbers to bypass SMS MFA",
@@ -60,8 +60,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": -120.57109001395696,
-        "y": 273.15392721723424
+        "x": -116.53246304190169,
+        "y": 189.35241754708676
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -70,14 +70,15 @@
       "id": "attacker_infra",
       "label": "Attacker Infrastructure",
       "position": {
-        "x": -6.210892590993993,
-        "y": -43.63194608719735
+        "x": -32.396162337451344,
+        "y": -47.4800272324495
       },
-      "icon": "IconServer",
+      "icon": "IconInfectedProcess",
       "type": "container",
       "width": 300,
       "height": 250,
       "style": "dashed_border",
+      "color": "#FF0000",
       "members": [
         "otp_bot_service",
         "attacker_phone"
@@ -87,8 +88,8 @@
       "id": "otp_bot_service",
       "label": "Telegram OTP Bot",
       "position": {
-        "x": -6.210892590993993,
-        "y": -54.131946087197356
+        "x": -73.85789437292043,
+        "y": -23.842243796782675
       },
       "icon": "IconCode",
       "type": "node"
@@ -97,18 +98,18 @@
       "id": "attacker_phone",
       "label": "Attacker Device (New SIM)",
       "position": {
-        "x": 60.27051193802701,
-        "y": 18.944431063404412
+        "x": -13.434430301982255,
+        "y": -92.11781066811633
       },
-      "icon": "IconWorkstation",
+      "icon": "IconMobile",
       "type": "node"
     },
     {
       "id": "carrier_network",
       "label": "Telecommunications Provider",
       "position": {
-        "x": 674.1759225483975,
-        "y": 144.58885537998637
+        "x": 334.93125689575197,
+        "y": 251.04457885044977
       },
       "icon": "IconCloud",
       "type": "container",
@@ -125,8 +126,8 @@
       "id": "carrier_support",
       "label": "Support Agent / Insider",
       "position": {
-        "x": 574.1705872444845,
-        "y": 283.972860037134
+        "x": 197.5686221003279,
+        "y": 308.2046218694652
       },
       "icon": "IconUser",
       "type": "node"
@@ -135,8 +136,8 @@
       "id": "carrier_crm",
       "label": "Carrier CRM",
       "position": {
-        "x": 803.1812578523103,
-        "y": -15.795149277161258
+        "x": 441.72414385336043,
+        "y": 243.6866336773916
       },
       "icon": "IconServer",
       "type": "node"
@@ -145,8 +146,8 @@
       "id": "hlr_database",
       "label": "HLR/HSS Database",
       "position": {
-        "x": 567.5358312791195,
-        "y": 61.82229409991376
+        "x": 184.87592567687994,
+        "y": 178.94247628951726
       },
       "icon": "IconDatabase",
       "type": "node"
@@ -155,8 +156,8 @@
       "id": "internet_zone",
       "label": "Public Internet",
       "position": {
-        "x": 334.1104536967181,
-        "y": -66.537121317862
+        "x": 404.78642570768574,
+        "y": -28.17016508333669
       },
       "icon": "IconCloud",
       "type": "container",
@@ -171,24 +172,24 @@
       "id": "identity_provider",
       "label": "Identity Provider (Okta/Entra)",
       "position": {
-        "x": 334.1104536967181,
-        "y": -77.037121317862
+        "x": 404.78642570768574,
+        "y": -38.67016508333669
       },
       "icon": "IconCloud",
       "type": "node"
     },
     {
       "id": "victim_env",
-      "label": "Victim Environment",
+      "label": "Victim",
       "position": {
-        "x": 264.27548387537274,
-        "y": 424.79280158345784
+        "x": -47.12319420252908,
+        "y": 347.24193357756377
       },
-      "icon": "IconWorkstation",
       "type": "container",
       "width": 300,
       "height": 200,
       "style": "dashed_border",
+      "color": "#32CD32",
       "members": [
         "victim_phone"
       ]
@@ -197,10 +198,10 @@
       "id": "victim_phone",
       "label": "Victim Mobile Device",
       "position": {
-        "x": 264.27548387537274,
-        "y": 414.29280158345784
+        "x": -92.5577476381512,
+        "y": 364.00266563893706
       },
-      "icon": "IconWorkstation",
+      "icon": "IconMobile",
       "type": "node"
     }
   ],

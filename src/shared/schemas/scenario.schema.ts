@@ -35,6 +35,7 @@ export const ContainerEntitySchema = BaseEntitySchema.extend({
     width: z.number().optional(),
     height: z.number().optional(),
     style: z.string().optional(), // e.g. 'dashed_border'
+    color: z.string().optional(), // Border color e.g. '#3b82f6'
     members: z.array(z.string()).default([]) // IDs of children
 });
 

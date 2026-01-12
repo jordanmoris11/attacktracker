@@ -29,6 +29,7 @@ export const ICON_REGISTRY = {
     'IconLinux': { file: 'linux.svg', color: '#FCC624', category: 'os', keywords: ['ubuntu', 'centos'] },
     'IconServer': { file: 'server.svg', color: '#3B82F6', category: 'device', keywords: ['dc', 'srv'] },
     'IconWorkstation': { file: 'workstation.svg', color: '#64748B', category: 'device', keywords: ['pc', 'laptop'] },
+    'IconMobile': { file: 'mobile.svg', color: '#3B82F6', category: 'device', keywords: ['phone', 'smartphone', 'ios', 'android', 'mobile'] },
     'IconCloud': { file: 'cloud.svg', color: '#06B6D4', category: 'device', keywords: ['aws', 'azure', 'gcp'] },
     'IconFirewall': { file: 'firewall.svg', color: '#EF4444', category: 'device', keywords: ['fw', 'paloalto'] },
     'IconRouter': { file: 'router.svg', color: '#64748B', category: 'device', keywords: ['router', 'gateway'] },
