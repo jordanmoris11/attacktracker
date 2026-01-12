@@ -183,7 +183,10 @@ export const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
             </svg>
 
             {/* Instructions */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 pointer-events-none">
+            <div
+                className="absolute top-4 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2"
+                onMouseDown={(e) => e.stopPropagation()}
+            >
                 <p className="text-sm text-white font-medium">
                     {!selection && !isDrawing && "Click and drag to select export region"}
                     {isDrawing && "Release to confirm selection"}
@@ -194,22 +197,28 @@ export const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
             {/* Dimension badge */}
             {activeBounds && activeBounds.width > 0 && (
                 <div
-                    className="absolute bg-brand-blue text-white text-xs font-mono px-2 py-1 rounded pointer-events-none"
+                    className="absolute bg-brand-blue text-white text-xs font-mono px-2 py-1 rounded"
                     style={{
                         left: activeBounds.x + activeBounds.width / 2,
                         top: activeBounds.y + activeBounds.height + 8,
                         transform: 'translateX(-50%)'
                     }}
+                    onMouseDown={(e) => e.stopPropagation()}
                 >
                     {Math.round(activeBounds.width)} x {Math.round(activeBounds.height)}
                 </div>
             )}
 
-            {/* Control buttons */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+            {/* Control buttons - stop propagation to prevent triggering selection */}
+            <div
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2"
+                onMouseDown={(e) => e.stopPropagation()}
+                onMouseUp={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
+            >
                 <button
                     onClick={handleSelectAll}
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg border border-white/10 transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg border border-white/10 transition-colors cursor-pointer"
                     title="Select entire canvas"
                 >
                     <Maximize2 size={16} />
@@ -219,7 +228,7 @@ export const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
                 <button
                     onClick={handleReset}
                     disabled={!selection}
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg border border-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white text-sm rounded-lg border border-white/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     title="Reset selection"
                 >
                     <RotateCcw size={16} />
@@ -230,7 +239,7 @@ export const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
 
                 <button
                     onClick={onCancel}
-                    className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm rounded-lg border border-white/10 transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm rounded-lg border border-white/10 transition-colors cursor-pointer"
                 >
                     <X size={16} />
                     Cancel
@@ -239,7 +248,7 @@ export const SelectionOverlay: React.FC<SelectionOverlayProps> = ({
                 <button
                     onClick={handleConfirm}
                     disabled={!selection}
-                    className="flex items-center gap-2 px-3 py-2 bg-brand-blue hover:bg-brand-blue/90 text-white text-sm rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-3 py-2 bg-brand-blue hover:bg-brand-blue/90 text-white text-sm rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                     <Check size={16} />
                     Confirm
