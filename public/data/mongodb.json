@@ -1,12 +1,12 @@
 {
-  "title": "MongoBleed (CVE-2025-14847)",
-  "description": "Exploitation of a race condition in MongoDB Compass connection handling (CVE-2025-14847) to steal database credentials and exfiltrate sensitive data.",
+  "title": "MongoBleed (CVE-2025-14847) Exploitation",
+  "description": "Unauthenticated remote attackers exploit a critical vulnerability in the MongoDB BI Connector to bypass authentication and read sensitive local files (e.g., /etc/shadow) via the exposed MySQL protocol.",
   "version": "2.0",
   "viewport": {
-    "zoom": 1.3920940077662476,
+    "zoom": 1.260419839216413,
     "pan": {
-      "x": -11.596748512488603,
-      "y": 255.21339250375496
+      "x": 24.429134664243705,
+      "y": 234.8377103499044
     }
   },
   "entities": [
@@ -14,109 +14,72 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 242.07922026834314,
-        "y": 194.31859571078823
+        "x": 50,
+        "y": 200
       },
       "icon": "IconAttacker",
       "type": "node"
     },
     {
-      "id": "internet_zone",
-      "label": "Cloud Infrastructure",
+      "id": "corporate_network",
+      "label": "Corporate Network (DMZ)",
       "position": {
-        "x": 353.7615347122816,
-        "y": 396.0365275180069
+        "x": 635.4463525535253,
+        "y": 239.65708876665042
       },
       "icon": "IconCloud",
       "type": "container",
-      "width": 350,
-      "height": 250,
-      "style": "dashed_border",
-      "members": [
-        "mongo_cluster",
-        "customer_data"
-      ]
-    },
-    {
-      "id": "mongo_cluster",
-      "label": "Production MongoDB",
-      "position": {
-        "x": 151.46768261850534,
-        "y": 379.76025610517206
-      },
-      "icon": "IconDatabase",
-      "type": "node"
-    },
-    {
-      "id": "customer_data",
-      "label": "Customer Records",
-      "position": {
-        "x": 564.0553868060579,
-        "y": 391.3127989308417
-      },
-      "icon": "IconData",
-      "type": "node"
-    },
-    {
-      "id": "victim_network",
-      "label": "Corporate Network",
-      "position": {
-        "x": 696.4589494870052,
-        "y": 16.74807939726537
-      },
-      "icon": "IconRouter",
-      "type": "container",
       "width": 500,
-      "height": 300,
+      "height": 400,
       "style": "dashed_border",
       "members": [
-        "victim_laptop"
+        "database_host"
       ]
     },
     {
-      "id": "victim_laptop",
-      "label": "Developer Workstation",
+      "id": "database_host",
+      "label": "MongoDB Server Host",
       "position": {
-        "x": 696.4589494870052,
-        "y": 16.74807939726537
+        "x": 635.4463525535253,
+        "y": 239.65708876665042
       },
-      "icon": "IconWorkstation",
+      "icon": "IconServer",
       "type": "container",
-      "width": 440,
-      "height": 220,
+      "width": 420,
+      "height": 320,
       "style": "dashed_border",
       "members": [
-        "compass_app",
-        "local_listener",
-        "cached_creds"
+        "bi_connector_process",
+        "etc_shadow",
+        "mongod_config"
       ]
     },
     {
-      "id": "compass_app",
-      "label": "MongoDB Compass",
+      "id": "bi_connector_process",
+      "label": "BI Connector (mongosqld)",
       "position": {
-        "x": 531.2805225976083,
-        "y": 62.58219506523467
+        "x": 527.9463525535253,
+        "y": 169.15708876665042
       },
-      "icon": "IconProcess",
+      "icon": "IconService",
       "type": "node"
     },
     {
-      "id": "local_listener",
-      "label": "OIDC Listener (Port 27017)",
+      "id": "etc_shadow",
+      "label": "/etc/shadow",
       "position": {
-        "x": 629.2148311344713,
-        "y": -50.16350931742624
+        "x": 777.9463525535253,
+        "y": 169.15708876665042
       },
-      "icon": "IconAPI",
+      "icon": "IconCredential",
       "type": "node"
     },
     {
-      "id": "cached_creds",
-      "label": "Connection String (Creds)",
+      "id": "mongod_config",
+      "label": "mongod.conf",
       "position": {
-        "x": 847.1373763764021,
-        "y": 62.65966811195699
+        "x": 777.9463525535253,
+        "y": 289.1570887666504
       },
       "icon": "IconKey",
       "type": "node"
@@ -124,38 +87,26 @@
   ],
   "visibility": {
     "attacker": {
-      "start": 2,
-      "end": 100
-    },
-    "internet_zone": {
       "start": 0,
       "end": 100
     },
-    "mongo_cluster": {
+    "corporate_network": {
       "start": 0,
       "end": 100
     },
-    "customer_data": {
+    "database_host": {
       "start": 0,
       "end": 100
     },
-    "victim_network": {
+    "bi_connector_process": {
       "start": 0,
       "end": 100
     },
-    "victim_laptop": {
+    "etc_shadow": {
       "start": 0,
       "end": 100
     },
-    "compass_app": {
-      "start": 0,
-      "end": 100
-    },
-    "local_listener": {
-      "start": 1,
-      "end": 100
-    },
-    "cached_creds": {
+    "mongod_config": {
       "start": 0,
       "end": 100
     }
@@ -163,101 +114,104 @@
   "steps": [
     {
       "id": 1,
-      "name": "Initialize Listener",
+      "name": "Scan MySQL Port (3307)",
       "mitre": {
-        "id": "T1219",
-        "tactic": "Command and Control",
-        "technique": "Remote Access Tools"
+        "id": "T1595",
+        "tactic": "Reconnaissance",
+        "technique": "Active Scanning"
       },
       "type": "edge",
-      "from": "compass_app",
-      "to": "local_listener",
-      "icon": "IconService",
-      "tooltip": "MongoDB Compass starts a local HTTP server to handle OIDC callbacks and connection flows"
+      "from": "attacker",
+      "to": "bi_connector_process",
+      "icon": "IconPenetrationTool",
+      "tooltip": "Attacker identifies exposed MongoDB BI Connector service running on port 3307",
+      "cli": "nmap -p 3307 --script mongodb-info <target>"
     },
     {
       "id": 2,
-      "name": "Malicious Request (Exploit)",
+      "name": "Send Exploit Payload",
       "mitre": {
-        "id": "T1212",
-        "tactic": "Credential Access",
-        "technique": "Exploitation for Credential Access"
+        "id": "T1190",
+        "tactic": "Initial Access",
+        "technique": "Exploit Public-Facing Application"
       },
       "type": "edge",
       "from": "attacker",
-      "to": "local_listener",
+      "to": "bi_connector_process",
       "icon": "IconExploit",
-      "tooltip": "Attacker sends a crafted request to the local listener, exploiting CVE-2025-14847 to bypass authentication checks"
+      "tooltip": "Attacker sends crafted authentication packet to bypass auth and request arbitrary file read",
+      "cli": "python3 exploit.py --target <ip> --file /etc/shadow"
     },
     {
       "id": 3,
-      "name": "Access Credential Config",
+      "name": "Read System Hashes",
       "mitre": {
-        "id": "T1552",
-        "tactic": "Credential Access",
-        "technique": "Unsecured Credentials"
+        "id": "T1005",
+        "tactic": "Collection",
+        "technique": "Data from Local System"
       },
       "type": "edge",
-      "from": "local_listener",
-      "to": "cached_creds",
-      "icon": "IconSearch",
-      "tooltip": "The vulnerable application logic retrieves the active connection string containing plaintext credentials"
+      "from": "etc_shadow",
+      "to": "bi_connector_process",
+      "icon": "IconCredential",
+      "tooltip": "Vulnerable connector service reads local /etc/shadow file (Data Flow)"
     },
     {
       "id": 4,
-      "name": "Leak Connection String",
-      "mitre": {
-        "id": "T1552.001",
-        "tactic": "Credential Access",
-        "technique": "Credentials In Files"
-      },
-      "type": "edge",
-      "from": "cached_creds",
-      "to": "attacker",
-      "icon": "IconKey",
-      "tooltip": "The server response leaks the full mongodb:// connection string including username and password to the attacker"
-    },
-    {
-      "id": 5,
-      "name": "Connect to Database",
-      "mitre": {
-        "id": "T1078",
-        "tactic": "Initial Access",
-        "technique": "Valid Accounts"
-      },
-      "type": "edge",
-      "from": "attacker",
-      "to": "mongo_cluster",
-      "icon": "IconDatabase",
-      "tooltip": "Attacker connects directly to the production database using the stolen connection string"
-    },
-    {
-      "id": 6,
-      "name": "Query Customer Data",
-      "mitre": {
-        "id": "T1213.006",
-        "tactic": "Collection",
-        "technique": "Data from Information Repositories: Databases"
-      },
-      "type": "edge",
-      "from": "attacker",
-      "to": "customer_data",
-      "icon": "IconSearch",
-      "tooltip": "Attacker enumerates and queries sensitive collections"
-    },
-    {
-      "id": 7,
-      "name": "Exfiltrate Data",
+      "name": "Exfiltrate Hashes",
       "mitre": {
         "id": "T1041",
         "tactic": "Exfiltration",
         "technique": "Exfiltration Over C2 Channel"
       },
       "type": "edge",
-      "from": "customer_data",
+      "from": "bi_connector_process",
       "to": "attacker",
-      "icon": "IconData",
-      "tooltip": "Sensitive records are downloaded by the attacker for extortion or sale"
+      "icon": "IconStolenCredential",
+      "tooltip": "Service returns file content to attacker via established connection"
+    },
+    {
+      "id": 5,
+      "name": "Request Config File",
+      "mitre": {
+        "id": "T1005",
+        "tactic": "Collection",
+        "technique": "Data from Local System"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "bi_connector_process",
+      "icon": "IconExploit",
+      "tooltip": "Attacker leverages connection to request database configuration file",
+      "cli": "READ_FILE /etc/mongod.conf"
+    },
+    {
+      "id": 6,
+      "name": "Read Configuration",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials: Credentials In Files"
+      },
+      "type": "edge",
+      "from": "mongod_config",
+      "to": "bi_connector_process",
+      "icon": "IconKey",
+      "tooltip": "Service reads configuration file containing potential secrets"
+    },
+    {
+      "id": 7,
+      "name": "Exfiltrate Config",
+      "mitre": {
+        "id": "T1041",
+        "tactic": "Exfiltration",
+        "technique": "Exfiltration Over C2 Channel"
+      },
+      "type": "edge",
+      "from": "bi_connector_process",
+      "to": "attacker",
+      "icon": "IconStolenKey",
+      "tooltip": "Configuration file content returned to attacker"
     }
   ]
 }

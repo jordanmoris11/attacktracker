@@ -68,7 +68,8 @@ export const EdgeStepSchema = BaseStepSchema.extend({
     from: z.string(), // Source Entity ID
     to: z.string(),   // Target Entity ID
     icon: z.string().optional(), // Icon moving along the edge
-    tooltip: z.string().optional() // Description on hover
+    tooltip: z.string().optional(), // Description on hover
+    cli: z.string().optional() // Command line instruction
 });
 
 export const ShowTextStepSchema = BaseStepSchema.extend({

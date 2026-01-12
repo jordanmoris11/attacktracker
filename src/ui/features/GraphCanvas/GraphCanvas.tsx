@@ -175,6 +175,7 @@ export const GraphCanvas: React.FC = () => {
                 y: renderPos.y,
                 label: edge.data('label'),
                 description: edge.data('tooltip'),
+                cli: edge.data('cli'),
                 mitre: mitreData ? { ...mitreData, color } : undefined
             });
         };
@@ -300,6 +301,7 @@ export const GraphCanvas: React.FC = () => {
                             label: step.name,
                             // Inject Tooltip Data
                             tooltip: step.tooltip, // Correct property from schema
+                            cli: step.cli,          // Inject CLI command
                             mitre: step.mitre
                         },
                         style: isCurrentStepEdge ? {

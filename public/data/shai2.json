@@ -1,0 +1,305 @@
+{
+  "title": "Shai Hulud 2.0: NPM Supply Chain Attack",
+  "description": "Visualization of the Shai Hulud 2.0 campaign, where attackers publish malicious npm packages targeting Bun and Node.js environments to harvest credentials and exfiltrate them to a GitHub repository acting as C2.",
+  "version": "2.0",
+  "viewport": {
+    "zoom": 1.1349932300932166,
+    "pan": {
+      "x": 132.1787747275822,
+      "y": 37.1813754629984
+    }
+  },
+  "entities": [
+    {
+      "id": "attacker",
+      "label": "Threat Actor",
+      "position": {
+        "x": -66.67194859991578,
+        "y": 389.39555811280957
+      },
+      "icon": "IconAttacker",
+      "type": "node"
+    },
+    {
+      "id": "internet_zone",
+      "label": "Internet / Public Services",
+      "position": {
+        "x": 408.317700421905,
+        "y": 235.74309743009934
+      },
+      "icon": "IconCloud",
+      "type": "container",
+      "width": 450,
+      "height": 200,
+      "style": "dashed_border",
+      "members": [
+        "npm_registry",
+        "github_c2"
+      ]
+    },
+    {
+      "id": "npm_registry",
+      "label": "NPM Registry",
+      "position": {
+        "x": 301.66585730723153,
+        "y": 224.80256616811204
+      },
+      "icon": "IconNpm",
+      "type": "node"
+    },
+    {
+      "id": "github_c2",
+      "label": "GitHub (C2 Repo)",
+      "position": {
+        "x": 572.8113578826218,
+        "y": 236.25637897978163
+      },
+      "icon": "IconGitHub",
+      "type": "node"
+    },
+    {
+      "id": "victim_workstation",
+      "label": "Developer Workstation",
+      "position": {
+        "x": 308.51328154968206,
+        "y": 578.3375546605494
+      },
+      "icon": "IconWorkstation",
+      "type": "container",
+      "width": 400,
+      "height": 350,
+      "style": "dashed_border",
+      "members": [
+        "user_terminal",
+        "malware_process",
+        "aws_credentials",
+        "ssh_keys",
+        "env_files"
+      ]
+    },
+    {
+      "id": "user_terminal",
+      "label": "Terminal (Node/Bun)",
+      "position": {
+        "x": 108.80943229751449,
+        "y": 565.0633410051494
+      },
+      "icon": "IconTerminal",
+      "type": "node"
+    },
+    {
+      "id": "malware_process",
+      "label": "Malicious Script",
+      "position": {
+        "x": 318.5011200612351,
+        "y": 566.8254660530986
+      },
+      "icon": "IconInfectedProcess",
+      "type": "node"
+    },
+    {
+      "id": "aws_credentials",
+      "label": "~/.aws/credentials",
+      "position": {
+        "x": 513.2171308018496,
+        "y": 485.98708477175643
+      },
+      "icon": "IconKey",
+      "type": "node"
+    },
+    {
+      "id": "ssh_keys",
+      "label": "~/.ssh/*",
+      "position": {
+        "x": 500.4411277331026,
+        "y": 649.6880245493422
+      },
+      "icon": "IconKey",
+      "type": "node"
+    },
+    {
+      "id": "env_files",
+      "label": ".env",
+      "position": {
+        "x": 521.1455005753896,
+        "y": 563.5205868815202
+      },
+      "icon": "IconEnv",
+      "type": "node"
+    }
+  ],
+  "visibility": {
+    "internet_zone": {
+      "start": 0,
+      "end": 100
+    },
+    "npm_registry": {
+      "start": 0,
+      "end": 100
+    },
+    "github_c2": {
+      "start": 0,
+      "end": 100
+    },
+    "attacker": {
+      "start": 0,
+      "end": 100
+    },
+    "victim_workstation": {
+      "start": 0,
+      "end": 100
+    },
+    "user_terminal": {
+      "start": 0,
+      "end": 100
+    },
+    "aws_credentials": {
+      "start": 0,
+      "end": 100
+    },
+    "ssh_keys": {
+      "start": 0,
+      "end": 100
+    },
+    "env_files": {
+      "start": 0,
+      "end": 100
+    },
+    "malware_process": {
+      "start": 4,
+      "end": 100
+    }
+  },
+  "steps": [
+    {
+      "id": 1,
+      "name": "Publish malicious package",
+      "mitre": {
+        "id": "T1195.001",
+        "tactic": "Initial Access",
+        "technique": "Supply Chain Compromise"
+      },
+      "type": "edge",
+      "from": "attacker",
+      "to": "npm_registry",
+      "icon": "IconInfectedPackage",
+      "tooltip": "Attacker publishes a typosquatted package containing Shai Hulud 2.0 malware to the public NPM registry.",
+      "cli": "npm publish @malicious/package"
+    },
+    {
+      "id": 2,
+      "name": "Request package install",
+      "mitre": {
+        "id": "T1204.002",
+        "tactic": "Execution",
+        "technique": "User Execution: Malicious File"
+      },
+      "type": "edge",
+      "from": "user_terminal",
+      "to": "npm_registry",
+      "icon": "IconNpm",
+      "tooltip": "Developer unknowingly requests installation of the malicious package.",
+      "cli": "npm install @malicious/package"
+    },
+    {
+      "id": 3,
+      "name": "Download package",
+      "mitre": {
+        "id": "T1195.001",
+        "tactic": "Initial Access",
+        "technique": "Supply Chain Compromise"
+      },
+      "type": "edge",
+      "from": "npm_registry",
+      "to": "user_terminal",
+      "icon": "IconInfectedPackage",
+      "tooltip": "The registry delivers the package containing the 'postinstall' malware hook."
+    },
+    {
+      "id": 4,
+      "name": "Execute install script",
+      "mitre": {
+        "id": "T1059.007",
+        "tactic": "Execution",
+        "technique": "Command and Scripting Interpreter: JavaScript"
+      },
+      "type": "edge",
+      "from": "user_terminal",
+      "to": "malware_process",
+      "icon": "IconProcess",
+      "tooltip": "The package's postinstall script executes automatically. It checks for the Bun runtime but works in Node.js as well."
+    },
+    {
+      "id": 5,
+      "name": "Harvest AWS Credentials",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials: Credentials In Files"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "aws_credentials",
+      "icon": "IconSearch",
+      "tooltip": "Malware scans for and reads contents of ~/.aws/credentials.",
+      "cli": "cat ~/.aws/credentials"
+    },
+    {
+      "id": 6,
+      "name": "Harvest SSH Keys",
+      "mitre": {
+        "id": "T1552.004",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials: Private Keys"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "ssh_keys",
+      "icon": "IconSearch",
+      "tooltip": "Malware scans ~/.ssh/ for private keys.",
+      "cli": "ls -la ~/.ssh/id_rsa"
+    },
+    {
+      "id": 7,
+      "name": "Harvest Environment Files",
+      "mitre": {
+        "id": "T1552.001",
+        "tactic": "Credential Access",
+        "technique": "Unsecured Credentials: Credentials In Files"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "env_files",
+      "icon": "IconSearch",
+      "tooltip": "Malware looks for .env files containing secrets and API tokens."
+    },
+    {
+      "id": 8,
+      "name": "Exfiltrate to GitHub",
+      "mitre": {
+        "id": "T1567.001",
+        "tactic": "Exfiltration",
+        "technique": "Exfiltration Over Web Service: Exfiltration to Code Repository"
+      },
+      "type": "edge",
+      "from": "malware_process",
+      "to": "github_c2",
+      "icon": "IconStolenCredential",
+      "tooltip": "Stolen credentials are created as Issues or Comments on an attacker-controlled GitHub repository to evade firewalls."
+    },
+    {
+      "id": 9,
+      "name": "Retrieve stolen data",
+      "mitre": {
+        "id": "T1530",
+        "tactic": "Collection",
+        "technique": "Data from Cloud Storage"
+      },
+      "type": "edge",
+      "from": "github_c2",
+      "to": "attacker",
+      "icon": "IconStolenCredential",
+      "tooltip": "Attacker pulls the harvested credentials from their GitHub repository."
+    }
+  ]
+}
