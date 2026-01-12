@@ -67,8 +67,8 @@ const AppContent: React.FC = () => {
             <Route path="/:id" element={<GraphPage />} />
           </Routes>
 
-          {/* Animation Controls (Bottom Center) */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 pointer-events-auto z-50">
+          {/* Animation Controls (Bottom Left) */}
+          <div className="absolute bottom-6 left-6 pointer-events-auto z-50">
             <AnimationControls />
           </div>
 

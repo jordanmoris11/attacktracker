@@ -42,7 +42,7 @@ export const LAYOUT = {
         // Sub-elements
         ACTION_FONT_SIZE: 24,
         CLI_FONT_SIZE: 14,
-        TOOLTIP_FONT_SIZE: 15,
+        TOOLTIP_FONT_SIZE: 17,
         MITRE_FONT_SIZE: 12,
     },
 

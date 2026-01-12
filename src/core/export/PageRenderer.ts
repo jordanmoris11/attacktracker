@@ -254,12 +254,13 @@ export class PageRenderer {
 
         let yOffset = panelY + INFO_PANEL.PADDING;
 
-        // Action name
+        // Action name with step number
         this.ctx.fillStyle = COLORS.TEXT_PRIMARY;
         this.ctx.font = `bold ${INFO_PANEL.ACTION_FONT_SIZE}px ${FONTS.SANS}`;
         this.ctx.textAlign = 'left';
         this.ctx.textBaseline = 'top';
-        this.ctx.fillText(step.name || 'Action', panelX + INFO_PANEL.PADDING, yOffset);
+        const actionText = `${stepIndex}. ${step.name || 'Action'}`;
+        this.ctx.fillText(actionText, panelX + INFO_PANEL.PADDING, yOffset);
         yOffset += INFO_PANEL.ACTION_FONT_SIZE + 20;
 
         // CLI command (if present)

@@ -3,10 +3,10 @@
   "description": "Critical pre-authentication memory leak in MongoDB Wire Protocol Zlib handling allowing remote data harvesting.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.1,
+    "zoom": 1.1775861392166982,
     "pan": {
-      "x": 150,
-      "y": 100
+      "x": 507.3261897686643,
+      "y": 311.097494137761
     }
   },
   "shortDescription": "Pre-auth MongoDB memory leak via Zlib",
@@ -57,8 +57,8 @@
       "id": "attacker",
       "label": "Attacker",
       "position": {
-        "x": -82.72727272727269,
-        "y": 169.0909090909091
+        "x": -269.08329792298787,
+        "y": 237.99254264435288
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -67,8 +67,8 @@
       "id": "victim_network",
       "label": "Victim Infrastructure",
       "position": {
-        "x": 421.90909090909093,
-        "y": 149.1363636363637
+        "x": 332.0627138547435,
+        "y": 80.36109336442058
       },
       "icon": "IconCloud",
       "type": "container",
@@ -83,8 +83,8 @@
       "id": "mongodb_server",
       "label": "MongoDB Server (Vulnerable)",
       "position": {
-        "x": 451.909090909091,
-        "y": 213.22727272727278
+        "x": 332.0627138547435,
+        "y": 80.36109336442058
       },
       "icon": "IconDatabase",
       "type": "container",
@@ -102,8 +102,8 @@
       "id": "mongod_process",
       "label": "mongod (Service)",
       "position": {
-        "x": 272.72727272727275,
-        "y": 39.090909090909165
+        "x": 182.88089567292536,
+        "y": -53.86007094548488
       },
       "icon": "IconService",
       "type": "node"
@@ -112,8 +112,8 @@
       "id": "zlib_compressor",
       "label": "Zlib Handler",
       "position": {
-        "x": 501.8181818181818,
-        "y": 54.545454545454604
+        "x": 411.9718047638346,
+        "y": -38.40552549093944
       },
       "icon": "IconCode",
       "type": "node"
@@ -122,8 +122,8 @@
       "id": "heap_memory",
       "label": "Uninitialized Heap",
       "position": {
-        "x": 355.4545454545455,
-        "y": 206.36363636363643
+        "x": 359.4695345591381,
+        "y": 193.58225767432606
       },
       "icon": "IconMemory",
       "type": "node"
@@ -132,8 +132,8 @@
       "id": "resident_secrets",
       "label": "Credentials/PII",
       "position": {
-        "x": 579.0909090909091,
-        "y": 238.18181818181822
+        "x": 489.2445320365617,
+        "y": 145.23083814542423
       },
       "icon": "IconCredential",
       "type": "node"

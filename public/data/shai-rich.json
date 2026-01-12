@@ -3,10 +3,10 @@
   "description": "An advanced npm supply chain attack that utilizes malicious preinstall scripts to harvest sensitive credentials and exfiltrates them to an attacker-controlled GitHub repository acting as C2.",
   "version": "3.0",
   "viewport": {
-    "zoom": 0.9378700885778825,
+    "zoom": 1.5795838514178628,
     "pan": {
-      "x": 128.894109863014,
-      "y": 57.90596294623284
+      "x": 177.87306406959638,
+      "y": 41.62202548110766
     }
   },
   "shortDescription": "NPM malware exfiltrating credentials via GitHub C2",
@@ -103,8 +103,8 @@
       "id": "victim_workstation",
       "label": "Victim Developer Machine",
       "position": {
-        "x": 385.72057553227216,
-        "y": 351.84696228710897
+        "x": 348.06618552406206,
+        "y": 375.82912051134804
       },
       "icon": "IconWorkstation",
       "type": "container",

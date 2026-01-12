@@ -3,10 +3,10 @@
   "description": "Adversary hijacks a victim's mobile phone number to intercept SMS-based Multi-Factor Authentication (MFA) codes.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.2630665969238906,
+    "zoom": 1.2173802448852045,
     "pan": {
-      "x": 192.18266760234218,
-      "y": 190.12919428573267
+      "x": 252.67704771959362,
+      "y": 178.4254061439993
     }
   },
   "shortDescription": "Hijacking phone numbers to bypass SMS MFA",
@@ -60,8 +60,8 @@
       "id": "attacker",
       "label": "Threat Actor",
       "position": {
-        "x": 45.339542841778275,
-        "y": -11.85097179732083
+        "x": -120.57109001395696,
+        "y": 273.15392721723424
       },
       "icon": "IconAttacker",
       "type": "node"
@@ -70,8 +70,8 @@
       "id": "attacker_infra",
       "label": "Attacker Infrastructure",
       "position": {
-        "x": 81.39998508906241,
-        "y": 385.506654812434
+        "x": -6.210892590993993,
+        "y": -43.63194608719735
       },
       "icon": "IconServer",
       "type": "container",
@@ -87,8 +87,8 @@
       "id": "otp_bot_service",
       "label": "Telegram OTP Bot",
       "position": {
-        "x": -24.280555419390318,
-        "y": 356.5379496463784
+        "x": -6.210892590993993,
+        "y": -54.131946087197356
       },
       "icon": "IconCode",
       "type": "node"
@@ -97,8 +97,8 @@
       "id": "attacker_phone",
       "label": "Attacker Device (New SIM)",
       "position": {
-        "x": 164.58052559751513,
-        "y": 393.4753599784896
+        "x": 60.27051193802701,
+        "y": 18.944431063404412
       },
       "icon": "IconWorkstation",
       "type": "node"
@@ -107,8 +107,8 @@
       "id": "carrier_network",
       "label": "Telecommunications Provider",
       "position": {
-        "x": 722.3087785219515,
-        "y": 98.64740084606521
+        "x": 674.1759225483975,
+        "y": 144.58885537998637
       },
       "icon": "IconCloud",
       "type": "container",
@@ -125,8 +125,8 @@
       "id": "carrier_support",
       "label": "Support Agent / Insider",
       "position": {
-        "x": 636.8087785219515,
-        "y": 13.147400846065231
+        "x": 574.1705872444845,
+        "y": 283.972860037134
       },
       "icon": "IconUser",
       "type": "node"
@@ -135,8 +135,8 @@
       "id": "carrier_crm",
       "label": "Carrier CRM",
       "position": {
-        "x": 836.8087785219515,
-        "y": 13.147400846065231
+        "x": 803.1812578523103,
+        "y": -15.795149277161258
       },
       "icon": "IconServer",
       "type": "node"
@@ -145,8 +145,8 @@
       "id": "hlr_database",
       "label": "HLR/HSS Database",
       "position": {
-        "x": 674.2625911772786,
-        "y": 209.85911038196008
+        "x": 567.5358312791195,
+        "y": 61.82229409991376
       },
       "icon": "IconDatabase",
       "type": "node"
@@ -155,8 +155,8 @@
       "id": "internet_zone",
       "label": "Public Internet",
       "position": {
-        "x": 383.31778689136394,
-        "y": 140.66520510669307
+        "x": 334.1104536967181,
+        "y": -66.537121317862
       },
       "icon": "IconCloud",
       "type": "container",
@@ -171,8 +171,8 @@
       "id": "identity_provider",
       "label": "Identity Provider (Okta/Entra)",
       "position": {
-        "x": 346.03412962559037,
-        "y": 104.06664502065156
+        "x": 334.1104536967181,
+        "y": -77.037121317862
       },
       "icon": "IconCloud",
       "type": "node"
@@ -181,8 +181,8 @@
       "id": "victim_env",
       "label": "Victim Environment",
       "position": {
-        "x": 500,
-        "y": 490.5
+        "x": 264.27548387537274,
+        "y": 424.79280158345784
       },
       "icon": "IconWorkstation",
       "type": "container",
@@ -197,8 +197,8 @@
       "id": "victim_phone",
       "label": "Victim Mobile Device",
       "position": {
-        "x": 500,
-        "y": 480
+        "x": 264.27548387537274,
+        "y": 414.29280158345784
       },
       "icon": "IconWorkstation",
       "type": "node"
@@ -233,7 +233,7 @@
   "steps": [
     {
       "id": 1,
-      "name": "Acquire 'Fullz' (PII)",
+      "name": "Acquire Victim (PII)",
       "mitre": {
         "id": "T1589.001",
         "tactic": "Reconnaissance",

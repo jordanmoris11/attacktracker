@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Play, Pause, SkipBack, SkipForward, RefreshCw } from 'lucide-react';
 import { useScenarioStore } from '../../../core/store/useScenarioStore';
 
@@ -18,6 +18,9 @@ export const AnimationControls: React.FC = () => {
         status
     } = useScenarioStore();
 
+    // Track which button is flashing for click feedback
+    const [flashingButton, setFlashingButton] = useState<'prev' | 'next' | 'reset' | null>(null);
+
     // Animation Loop
     useEffect(() => {
         let interval: number;
@@ -29,19 +32,54 @@ export const AnimationControls: React.FC = () => {
         return () => clearInterval(interval);
     }, [isPlaying, nextStep]);
 
+    // Clear flash after animation
+    useEffect(() => {
+        if (flashingButton) {
+            const timeout = setTimeout(() => setFlashingButton(null), 200);
+            return () => clearTimeout(timeout);
+        }
+    }, [flashingButton]);
+
     if (status !== 'success' || timeline.length === 0) return null;
 
     const totalSteps = timeline.length > 0 ? timeline.length - 1 : 0;
+
+    // Click handlers with flash effect
+    const handlePrev = () => {
+        setFlashingButton('prev');
+        prevStep();
+    };
+
+    const handleNext = () => {
+        setFlashingButton('next');
+        nextStep();
+    };
+
+    const handleReset = () => {
+        setFlashingButton('reset');
+        reset();
+    };
+
+    // Flash effect classes
+    const getButtonClasses = (button: 'prev' | 'next' | 'reset') => {
+        const baseClasses = "p-2 rounded transition-all duration-150";
+        const isFlashing = flashingButton === button;
+        return `${baseClasses} ${
+            isFlashing
+                ? 'bg-brand-blue text-white scale-110 shadow-lg shadow-brand-blue/50'
+                : 'hover:text-white hover:bg-white/10'
+        }`;
+    };
 
     return (
         <div className="glass-panel px-6 py-3 flex items-center gap-6 text-slate-200 shadow-2xl scale-110 origin-bottom">
 
             {/* Playback Controls */}
             <div className="flex items-center gap-2">
-                <button onClick={reset} className="p-2 hover:text-white hover:bg-white/10 rounded transition" title="Reset">
+                <button onClick={handleReset} className={getButtonClasses('reset')} title="Reset">
                     <RefreshCw size={16} />
                 </button>
-                <button onClick={prevStep} className="p-2 hover:text-white hover:bg-white/10 rounded transition">
+                <button onClick={handlePrev} className={getButtonClasses('prev')}>
                     <SkipBack size={18} />
                 </button>
 
@@ -52,7 +90,7 @@ export const AnimationControls: React.FC = () => {
                     {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-0.5" />}
                 </button>
 
-                <button onClick={nextStep} className="p-2 hover:text-white hover:bg-white/10 rounded transition">
+                <button onClick={handleNext} className={getButtonClasses('next')}>
                     <SkipForward size={18} />
                 </button>
             </div>

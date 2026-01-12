@@ -6,6 +6,8 @@ import { usePersistence } from '../../../core/store/usePersistence'; // Re-enabl
 import { MITRE_INDEX } from '../../../shared/config/mitre-index';
 import { initContainerHeaderLayer, preloadContainerIcons } from './ContainerHeaderRenderer';
 import { EdgeTooltip, type TooltipData } from './EdgeTooltip';
+import { StepInfoBar } from './StepInfoBar';
+import type { EdgeStep } from '../../../shared/schemas/scenario.schema';
 
 // cytoscape.use(dagre);
 
@@ -92,9 +94,9 @@ export const GraphCanvas: React.FC = () => {
                         'label': 'data(label)',
                         'text-background-opacity': 1,
                         'text-background-color': '#0f172a',
-                        'text-background-padding': '4px',
+                        'text-background-padding': '5px',
                         'color': '#cbd5e1',
-                        'font-size': 10,
+                        'font-size': 13,
                         'text-rotation': 'autorotate'
                     }
                 },
@@ -306,13 +308,14 @@ export const GraphCanvas: React.FC = () => {
                         };
                     }
 
+                    const stepNumber = i + 1; // 1-indexed step number
                     const edge = cy.add({
                         group: 'edges',
                         data: {
                             id: `edge_${step.id}`,
                             source: step.from,
                             target: step.to,
-                            label: step.name,
+                            label: `${stepNumber}. ${step.name}`,
                             // Inject Tooltip Data
                             tooltip: step.tooltip, // Correct property from schema
                             cli: step.cli,          // Inject CLI command
@@ -411,16 +414,29 @@ export const GraphCanvas: React.FC = () => {
         });
     }, [currentStep, status, timeline, visibility]);
 
+    // Get current step data for the info bar
+    const currentStepData: EdgeStep | null = currentStep > 0 && timeline[currentStep - 1]?.type === 'edge'
+        ? timeline[currentStep - 1] as EdgeStep
+        : null;
+
+    // Get MITRE color for current step
+    const currentMitreColor = currentStepData?.mitre?.id
+        ? MITRE_INDEX[currentStepData.mitre.id]?.color
+        : undefined;
+
     return (
         <div className="w-full h-full relative bg-slate-900 overflow-hidden">
             <div ref={containerRef} className="w-full h-full" />
 
-            {/* Step Indicator (Temporary UI) */}
-            <div className="absolute bottom-4 left-4 bg-black/70 text-white p-2 text-xs z-50 rounded font-mono">
-                Step: {currentStep} / {timeline.length}
-            </div>
+            {/* Persistent Step Info Bar */}
+            <StepInfoBar
+                step={currentStepData}
+                stepIndex={currentStep}
+                totalSteps={timeline.length}
+                mitreColor={currentMitreColor}
+            />
 
-            {/* Edge Tooltip */}
+            {/* Edge Tooltip (on hover) */}
             <EdgeTooltip data={tooltipData} />
         </div>
     );
