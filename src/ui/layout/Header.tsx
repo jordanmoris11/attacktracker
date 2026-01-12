@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Shield, Upload, Download, Settings } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useScenarioStore } from '../../core/store/useScenarioStore';
+import { ExportModal } from '../features/Export/ExportModal';
 
 /**
  * Top Header Bar (Spec 6)
  * Glassmorphic strip at the top.
  */
 export const Header: React.FC = () => {
+    const navigate = useNavigate();
     const { scenario } = useScenarioStore();
     const title = scenario?.title;
+
+    const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
     return (
         <header className="h-16 flex-none border-b border-white/10 bg-background-secondary/80 backdrop-blur-md flex items-center px-6 justify-between z-20 relative">
@@ -32,17 +37,34 @@ export const Header: React.FC = () => {
 
             {/* Right: Actions */}
             <div className="flex items-center gap-2">
-                <button className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-colors" title="Import JSON/Mermaid">
+                <button
+                    onClick={() => navigate('/file')}
+                    className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-colors"
+                    title="Import JSON/Mermaid"
+                >
                     <Upload size={18} />
                 </button>
-                <button className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-colors" title="Export Image">
+                <button
+                    onClick={() => setIsExportModalOpen(true)}
+                    className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-colors"
+                    title="Export PDF/Image"
+                >
                     <Download size={18} />
                 </button>
                 <div className="w-px h-6 bg-white/10 mx-1"></div>
-                <button className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-colors" title="Settings">
+                <button
+                    className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-colors"
+                    title="Settings"
+                >
                     <Settings size={18} />
                 </button>
             </div>
+
+            {/* Export Modal */}
+            <ExportModal
+                isOpen={isExportModalOpen}
+                onClose={() => setIsExportModalOpen(false)}
+            />
         </header>
     );
 };

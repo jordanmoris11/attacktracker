@@ -22,11 +22,21 @@ export const GraphCanvas: React.FC = () => {
         currentStep,
         timeline,
         visibility,
-        scenario
+        scenario,
+        setCyInstance,
+        setGraphContainerRef
     } = useScenarioStore();
 
     // 0. Enable Persistence
     usePersistence();
+
+    // 0.5. Set container ref for export selection
+    useEffect(() => {
+        if (containerRef.current) {
+            setGraphContainerRef(containerRef.current);
+        }
+        return () => setGraphContainerRef(null);
+    }, [setGraphContainerRef]);
 
     // 1. Initialize Cytoscape (Once)
     useEffect(() => {
@@ -112,12 +122,16 @@ export const GraphCanvas: React.FC = () => {
 
         cleanupHeaderLayerRef.current = initContainerHeaderLayer(cyRef.current);
 
+        // Store cy instance for export
+        setCyInstance(cyRef.current);
+
         return () => {
             cleanupHeaderLayerRef.current?.();
+            setCyInstance(null);
             cyRef.current?.destroy();
             cyRef.current = null;
         };
-    }, []);
+    }, [setCyInstance]);
 
     // 2. Load Elements (Setting the Scene)
     useEffect(() => {

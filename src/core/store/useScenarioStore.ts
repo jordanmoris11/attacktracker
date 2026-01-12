@@ -1,6 +1,15 @@
 import { create } from 'zustand';
+import cytoscape from 'cytoscape';
 import { scenarioAdapter } from '../parser/ScenarioAdapter';
 import type { ScenarioData, TimelineStep, VisibilityMap } from '../../shared/schemas/scenario.schema';
+
+// Export selection bounds type
+export interface ExportSelectionBounds {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
 
 interface ScenarioState {
     // Data
@@ -21,6 +30,13 @@ interface ScenarioState {
     currentStep: number;
     isPlaying: boolean;
 
+    // Cytoscape Instance (for export)
+    cyInstance: cytoscape.Core | null;
+
+    // Export Selection
+    exportSelection: ExportSelectionBounds | null;
+    graphContainerRef: HTMLDivElement | null;
+
     // Actions
     loadScenario: (content: string, path?: string) => Promise<void>;
     updateEntityPosition: (id: string, x: number, y: number) => void;
@@ -30,6 +46,9 @@ interface ScenarioState {
     prevStep: () => void;
     togglePlay: () => void;
     reset: () => void;
+    setCyInstance: (cy: cytoscape.Core | null) => void;
+    setExportSelection: (bounds: ExportSelectionBounds | null) => void;
+    setGraphContainerRef: (ref: HTMLDivElement | null) => void;
 }
 
 export const useScenarioStore = create<ScenarioState>((set, get) => ({
@@ -43,6 +62,9 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
 
     currentStep: 0,
     isPlaying: false,
+    cyInstance: null,
+    exportSelection: null,
+    graphContainerRef: null,
 
 
     loadScenario: async (content: string, path?: string) => {
@@ -108,8 +130,16 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
         status: 'idle',
         error: null,
         currentStep: 0,
-        sourcePath: undefined
+        sourcePath: undefined,
+        cyInstance: null,
+        exportSelection: null
     }),
+
+    setCyInstance: (cy) => set({ cyInstance: cy }),
+
+    setExportSelection: (bounds) => set({ exportSelection: bounds }),
+
+    setGraphContainerRef: (ref) => set({ graphContainerRef: ref }),
 
     updateEntityPosition: (id, x, y) => {
         set(state => {
