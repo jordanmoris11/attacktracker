@@ -22,7 +22,11 @@ Your output is a **UNIFIED JSON** that contains everything: the attack graph, de
   "metadata": {
     "descriptionHtml": "<p>Full HTML description here...</p>",
     "commandsBlock": "# Step 1: ...\n$ command1\n\n# Step 2: ...\n$ command2",
-    "toolSource": "Tool location (e.g., Kali path, git URL)",
+    "extraInfo": [
+      "Tool Name - path or install command",
+      "GitHub - https://github.com/...",
+      "CVE-XXXX-YYYY - brief description if applicable"
+    ],
     "prerequisites": ["Requirement 1", "Requirement 2"],
     "attackerGains": ["Gain 1", "Gain 2"],
     "detectionNotes": ["Detection indicator 1", "Detection indicator 2"],
@@ -51,9 +55,14 @@ A clear, professional HTML explanation following this structure:
 - Use `<ul><li>` for bullet points, `<ol><li>` for numbered steps
 - Use `<strong>` for emphasis
 
-### metadata.toolSource (string)
+### metadata.extraInfo (array of strings)
 
-Where to find the tool: Kali path, git URL, or package manager command.
+3-5 relevant external references and resources:
+- **Tool sources**: Kali path, GitHub repo URL, pip/apt/npm install command
+- **CVE references**: If exploiting a specific vulnerability (e.g., "CVE-2021-34527 - PrintNightmare")
+- **Related MITRE techniques**: Direct link format "MITRE T1xxx - Technique Name"
+- **Useful blogs/docs**: Security research articles, tool documentation
+- **Alternative tools**: Other tools that achieve the same goal
 
 ### metadata.prerequisites (array of strings)
 

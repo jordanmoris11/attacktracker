@@ -83,14 +83,17 @@ export class OverviewPageRenderer {
             );
         }
 
-        // Tool Source
-        if (metadata.toolSource) {
-            yOffset = this.renderSection(
-                'Tool Source',
-                [metadata.toolSource],
-                yOffset,
-                COLORS.BRAND_PURPLE
-            );
+        // Full Description (strip HTML, render as plain text)
+        if (metadata.descriptionHtml) {
+            const plainDescription = this.stripHtml(metadata.descriptionHtml);
+            if (plainDescription) {
+                yOffset = this.renderSection(
+                    'Description',
+                    [plainDescription],
+                    yOffset,
+                    '#22d3ee' // Cyan
+                );
+            }
         }
 
         // Prerequisites
@@ -126,6 +129,16 @@ export class OverviewPageRenderer {
         // MITRE Techniques
         if (metadata.mitreCategories.length > 0) {
             yOffset = this.renderMitreSection(metadata.mitreCategories, yOffset);
+        }
+
+        // Extra Info (GitHub repos, CVE links, tools, references)
+        if (metadata.extraInfo.length > 0) {
+            yOffset = this.renderSection(
+                'Extra Info',
+                metadata.extraInfo,
+                yOffset,
+                COLORS.BRAND_PURPLE
+            );
         }
 
         // Footer: step count badge
@@ -263,6 +276,16 @@ export class OverviewPageRenderer {
         this.ctx.fillStyle = COLORS.BRAND_BLUE;
         this.ctx.font = `400 20px ${FONTS.SANS}`;
         this.ctx.fillText('Swipe to begin →', PAGE.WIDTH / 2, footerY + 30);
+    }
+
+    /**
+     * Strip HTML tags and return plain text
+     */
+    private stripHtml(html: string): string {
+        return html
+            .replace(/<[^>]+>/g, ' ')  // Remove HTML tags
+            .replace(/\s+/g, ' ')       // Normalize whitespace
+            .trim();
     }
 
     /**

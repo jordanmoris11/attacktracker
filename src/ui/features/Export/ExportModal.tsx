@@ -336,7 +336,7 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
                                     />
                                     <div>
                                         <span className="text-sm text-white group-hover:text-brand-blue transition-colors">Attack Overview</span>
-                                        <p className="text-xs text-slate-500">Prerequisites, gains, MITRE techniques</p>
+                                        <p className="text-xs text-slate-500">Description, prerequisites, gains, MITRE</p>
                                     </div>
                                 </label>
                                 <label className="flex items-center gap-3 cursor-pointer group">

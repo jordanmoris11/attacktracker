@@ -114,8 +114,8 @@ export interface PDFExportOptions {
     includeMitre: boolean;
     coverPage: boolean;
     ctaPage: boolean;
-    includeOverviewPage: boolean;    // NEW: Attack Overview page after cover
-    includeCommandsPage: boolean;    // NEW: Commands Reference page at end
+    includeOverviewPage: boolean;    // Attack Overview page (description, prerequisites, gains, etc.)
+    includeCommandsPage: boolean;    // Commands Reference page at end
     quality: 'standard' | 'high';
     selectionBounds: SelectionBounds | null;
 }

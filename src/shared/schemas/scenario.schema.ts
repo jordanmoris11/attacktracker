@@ -60,12 +60,12 @@ export const VisibilityMapSchema = z.record(z.string(), VisibilityRangeSchema);
 export const ScenarioMetadataSchema = z.object({
     descriptionHtml: z.string().optional(),        // Full HTML description from LLM
     commandsBlock: z.string().optional(),          // Enhanced commands with comments
-    toolSource: z.string().optional(),             // Where to get the tool (URL/path)
     prerequisites: z.array(z.string()).optional(), // Attack requirements
     attackerGains: z.array(z.string()).optional(), // What attacker achieves
     detectionNotes: z.array(z.string()).optional(), // Detection/OPSEC notes
     mitreCategories: z.array(z.string()).optional(), // MITRE technique IDs
     owaspCategories: z.array(z.string()).optional(), // OWASP categories
+    extraInfo: z.array(z.string()).optional(),     // Extra refs: GitHub, CVE, tools, blogs
 });
 
 // --- Timeline Steps ---
@@ -130,7 +130,7 @@ export interface ExtractedMetadata {
     tags: string[];
     descriptionHtml: string | null;
     commandsBlock: string;
-    toolSource: string | null;
+    extraInfo: string[];
     prerequisites: string[];
     attackerGains: string[];
     detectionNotes: string[];

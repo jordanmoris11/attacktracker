@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, Target, AlertTriangle, Eye, Layers } from 'lucide-react';
+import { Tag, Target, AlertTriangle, Eye, Layers, Link } from 'lucide-react';
 import { getTagColor, getTagBgColor, getTagBorderColor } from '../../../shared/config/tag-colors';
 import type { ExtractedMetadata, ScenarioData } from '../../../shared/schemas/scenario.schema';
 
@@ -69,23 +69,6 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ metadata, scenario }) 
                 </div>
             )}
 
-            {/* Tool Source */}
-            {metadata?.toolSource && (
-                <div>
-                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">
-                        Tool Source
-                    </h4>
-                    <a
-                        href={metadata.toolSource.startsWith('http') ? metadata.toolSource : `https://${metadata.toolSource}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-brand-blue hover:underline break-all"
-                    >
-                        {metadata.toolSource}
-                    </a>
-                </div>
-            )}
-
             {/* Prerequisites */}
             {metadata && metadata.prerequisites.length > 0 && (
                 <div>
@@ -134,6 +117,24 @@ export const OverviewTab: React.FC<OverviewTabProps> = ({ metadata, scenario }) 
                             <li key={i} className="text-sm text-slate-300 flex items-start gap-2">
                                 <span className="text-blue-400 mt-0.5 flex-shrink-0">!</span>
                                 <span>{d}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            {/* Extra Info (GitHub repos, CVE links, tools) */}
+            {metadata && metadata.extraInfo.length > 0 && (
+                <div>
+                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                        <Link size={12} />
+                        Extra Info
+                    </h4>
+                    <ul className="space-y-1.5">
+                        {metadata.extraInfo.map((info, i) => (
+                            <li key={i} className="text-sm text-slate-300 flex items-start gap-2">
+                                <span className="text-violet-400 mt-0.5 flex-shrink-0">→</span>
+                                <span>{info}</span>
                             </li>
                         ))}
                     </ul>

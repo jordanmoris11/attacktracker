@@ -39,7 +39,7 @@ function extractMetadataFromScenario(scenario: ScenarioData): ExtractedMetadata 
         tags: scenario.tags || [],
         descriptionHtml: scenario.metadata?.descriptionHtml || null,
         commandsBlock: scenario.metadata?.commandsBlock || buildCommandsFromSteps(scenario.steps),
-        toolSource: scenario.metadata?.toolSource || null,
+        extraInfo: scenario.metadata?.extraInfo || [],
         prerequisites: scenario.metadata?.prerequisites || [],
         attackerGains: scenario.metadata?.attackerGains || [],
         detectionNotes: scenario.metadata?.detectionNotes || [],
@@ -114,7 +114,7 @@ export class PDFExporter {
                 pageImages.push(coverBlob);
             }
 
-            // 2. Overview page (after cover, before steps)
+            // 2. Overview page (includes description, prerequisites, gains, detection, MITRE)
             if (this.options.includeOverviewPage) {
                 currentPage++;
                 this.reportProgress(currentPage, totalPages, 'Generating overview page...');

@@ -88,7 +88,7 @@ function extractMetadataFromScenario(scenario: ScenarioData): ExtractedMetadata 
         tags: scenario.tags || [],
         descriptionHtml: scenario.metadata?.descriptionHtml || null,
         commandsBlock: scenario.metadata?.commandsBlock || buildCommandsFromSteps(scenario.steps),
-        toolSource: scenario.metadata?.toolSource || null,
+        extraInfo: scenario.metadata?.extraInfo || [],
         prerequisites: scenario.metadata?.prerequisites || [],
         attackerGains: scenario.metadata?.attackerGains || [],
         detectionNotes: scenario.metadata?.detectionNotes || [],

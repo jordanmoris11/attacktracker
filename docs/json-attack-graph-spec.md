@@ -689,7 +689,11 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
   "metadata": {
     "descriptionHtml": "<p>Full HTML description...</p>",
     "commandsBlock": "# Step 1: Enumerate users\n$ GetNPUsers.py...",
-    "toolSource": "impacket - GetNPUsers.py (Kali: /usr/share/doc/python3-impacket/)",
+    "extraInfo": [
+      "Impacket - https://github.com/fortra/impacket",
+      "Kali path: /usr/share/doc/python3-impacket/",
+      "MITRE T1558.004 - Steal or Forge Kerberos Tickets: AS-REP Roasting"
+    ],
     "prerequisites": [
       "Network access to Domain Controller",
       "List of target usernames or ability to enumerate"
@@ -719,7 +723,7 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
 | `tags` | Section 2 of prompt | Categorization chips (parsed from comma-separated) |
 | `metadata.descriptionHtml` | Section 1 of prompt | Full HTML description for Details Panel |
 | `metadata.commandsBlock` | Section 3 of prompt | Copy-paste ready CLI commands |
-| `metadata.toolSource` | Section 1.2 | Where to find the tool |
+| `metadata.extraInfo` | Section 1.2 | Tool sources, CVE links, GitHub repos, docs |
 | `metadata.prerequisites` | Section 1.3 | Attack requirements |
 | `metadata.attackerGains` | Section 1.5 | What attacker achieves |
 | `metadata.detectionNotes` | Section 1.6 | Blue team indicators |
@@ -831,7 +835,12 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
   "metadata": {
     "descriptionHtml": "<p><span style=\"color:#ef4444;font-weight:bold;\">npm supply chain attacks</span> exploit the trust developers place in package registries. Attackers either compromise maintainer accounts or publish typosquatted packages containing malicious <strong>preinstall/postinstall hooks</strong>.</p><ol><li>Attacker gains access to legitimate maintainer credentials</li><li>Publishes trojanized package version with malicious preinstall script</li><li>Developer runs <span style=\"color:#ef4444;font-weight:bold;\">npm install</span></li><li>Preinstall hook executes automatically with user privileges</li><li>Script harvests credentials from ~/.aws, ~/.ssh, environment variables</li><li>Exfiltrates data to attacker-controlled endpoint</li></ol>",
     "commandsBlock": "# Step 1: Attacker publishes malicious package\n$ npm publish malicious-package@1.0.0\n\n# Step 2: Victim installs (unknowingly)\n$ npm install malicious-package\n\n# Step 3: Malware harvests credentials\n$ cat ~/.aws/credentials\n$ cat ~/.ssh/id_rsa\n\n# Step 4: Exfiltrate via git\n$ git push origin exfil-branch",
-    "toolSource": "npm CLI (pre-installed with Node.js) - Attack leverages legitimate package manager functionality",
+    "extraInfo": [
+      "NPM Registry - https://www.npmjs.com/",
+      "MITRE T1195.002 - Supply Chain Compromise: Software Supply Chain",
+      "socket.dev - npm supply chain security scanner",
+      "npm audit - Built-in vulnerability scanning"
+    ],
     "prerequisites": [
       "Compromised maintainer account OR typosquattable package name",
       "Target developers using npm/yarn/pnpm",

