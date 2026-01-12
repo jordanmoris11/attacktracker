@@ -1,0 +1,14 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="scale(3.333)">
+      <path d="M12 15L8.5 17L9.5 13L6.5 10.5L10.5 10.2L12 6.5L13.5 10.2L17.5 10.5L14.5 13L15.5 17L12 15Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+  </g>
+  <g transform="translate(52, 8)">
+      <path d="M0 16 L12 4 M6 4 L12 4 L12 10" 
+            stroke="#EF4444" 
+            stroke-width="3" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+            fill="none"/>
+  </g>
+</svg>

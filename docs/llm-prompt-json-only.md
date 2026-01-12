@@ -478,6 +478,26 @@ You MUST use a key from this list. Do NOT invent new keys.
 | `IconMalware` | Malware, virus, trojan, payload |
 | `IconC2` | Command & control server, beacon |
 
+## Infected Variants (Compromised Executables)
+| Key | Use For |
+|-----|---------|
+| `IconInfectedCode` | Malicious script, backdoored source |
+| `IconInfectedProcess` | Injected process, malware loader |
+| `IconInfectedTerminal` | Reverse shell, attacker shell session |
+| `IconInfectedService` | Backdoored daemon, persistent service |
+| `IconInfectedPackage` | Trojanized npm/pip/cargo package |
+| `IconInfectedPipeline` | Compromised CI/CD, poisoned build |
+| `IconInfectedDocker` | Malicious container image |
+| `IconInfectedScheduler` | Persistence via cron/scheduled task |
+
+## Stolen Variants (Exfiltrated Secrets)
+| Key | Use For |
+|-----|---------|
+| `IconStolenToken` | Harvested JWT, stolen OAuth token |
+| `IconStolenKey` | Exfiltrated SSH key, stolen API key |
+| `IconStolenCredential` | Dumped passwords, harvested creds |
+| `IconStolenCertificate` | Stolen code signing cert |
+
 ## Offensive Tools & Actions
 | Key | Use For |
 |-----|---------|
@@ -494,15 +514,84 @@ Use `IconTerminal` only for generic shell access or victim-side commands (npm in
 
 ## Quick Reference by Attack Type
 
-**Supply Chain Attack?** Use: `IconNpm`, `IconGitHub`, `IconPipeline`, `IconDocker`
+**Supply Chain Attack?**
+- Clean: `IconNpm`, `IconGitHub`, `IconPipeline`, `IconDocker`
+- Compromised: `IconInfectedPackage`, `IconInfectedPipeline`, `IconInfectedDocker`
 
-**Credential Theft?** Use: `IconKey`, `IconToken`, `IconCredential`, `IconEnv`
+**Credential Theft?**
+- Targets: `IconKey`, `IconToken`, `IconCredential`, `IconEnv`
+- Stolen: `IconStolenKey`, `IconStolenToken`, `IconStolenCredential`
 
-**Cloud Attack?** Use: `IconCloud`, `IconBucket`, `IconAPI`
+**Persistence?**
+- `IconInfectedService`, `IconInfectedScheduler`, `IconBackdoor`
 
-**System Internals?** Use: `IconProcess`, `IconTerminal`, `IconMemory`, `IconEnv`
+**Reverse Shell / RAT?**
+- `IconInfectedTerminal`, `IconInfectedProcess`, `IconC2`
 
 **Offensive Tooling?** Use: `IconExploit`, `IconPenetrationTool` (not `IconTerminal`)
+
+---
+
+---
+
+# Part 5.5: Icon State Selection (Clean vs. Compromised)
+
+## The Dual-State Problem
+
+Many entities can be either **clean** or **compromised**. Choose the appropriate icon variant based on the entity's state in the scenario.
+
+## Decision Matrix
+
+### For Executables (Processes, Scripts, Services)
+
+| Entity State | Icon to Use |
+|--------------|-------------|
+| Legitimate process | `IconProcess` |
+| Injected/backdoored process | `IconInfectedProcess` |
+| Clean source code | `IconCode` |
+| Malicious payload/script | `IconInfectedCode` |
+| Normal shell session | `IconTerminal` |
+| Attacker's reverse shell | `IconInfectedTerminal` |
+| Legitimate service | `IconService` |
+| Backdoored service | `IconInfectedService` |
+| Clean container | `IconDocker` |
+| Malicious container image | `IconInfectedDocker` |
+| Normal CI/CD | `IconPipeline` |
+| Compromised CI/CD | `IconInfectedPipeline` |
+| Legitimate scheduled task | `IconScheduler` |
+| Persistence mechanism | `IconInfectedScheduler` |
+| Clean package | `IconPackage` or `IconNpm` |
+| Trojanized package | `IconInfectedPackage` |
+
+### For Secrets (Credentials, Keys, Tokens)
+
+| Entity State | Icon to Use |
+|--------------|-------------|
+| Target credentials (not yet stolen) | `IconCredential` |
+| Exfiltrated/harvested credentials | `IconStolenCredential` |
+| Target API/SSH key | `IconKey` |
+| Stolen key in attacker's possession | `IconStolenKey` |
+| Target token/session | `IconToken` |
+| Harvested/stolen token | `IconStolenToken` |
+| Target certificate | `IconCertificate` |
+| Stolen signing certificate | `IconStolenCertificate` |
+
+## When to Use Each
+
+### Use CLEAN icons when:
+- Entity is the **target** of an attack (the thing being attacked)
+- Entity exists **before compromise** happens
+- Entity is **legitimate** infrastructure
+
+### Use INFECTED icons when:
+- Entity is the **result** of compromise (spawned malware, backdoor)
+- Entity has been **modified/injected** by attacker
+- Entity is **attacker-controlled** executable
+
+### Use STOLEN icons when:
+- Secret is now **in attacker's possession**
+- Credential has been **exfiltrated** to C2/attacker
+- Key/token is being **used by attacker** (not the original owner)
 
 ---
 
@@ -953,6 +1042,8 @@ Before returning JSON, verify:
 - [ ] All icons use exact PascalCase keys from Icon Registry
 - [ ] No invented icon names
 - [ ] No `color` fields anywhere
+- [ ] **State-appropriate icons used** — Infected variants for attacker payloads, Stolen variants for exfiltrated secrets
+- [ ] **Clean icons for targets** — Use base icons (IconKey, IconProcess) for entities being attacked
 
 ## MITRE
 - [ ] All MITRE IDs are valid T-codes (T1xxx or T1xxx.xxx)

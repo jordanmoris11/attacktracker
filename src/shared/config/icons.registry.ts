@@ -118,6 +118,26 @@ export const ICON_REGISTRY = {
     'IconVPN': { file: 'vpn.svg', color: '#F59E0B', category: 'device', keywords: ['vpn', 'tunnel'] },
 
     // ═══════════════════════════════════════════════════════════════
+    // INFECTED VARIANTS (Compromised Executables)
+    // ═══════════════════════════════════════════════════════════════
+    // 'IconInfectedCode': { file: 'infected_code.svg', color: '#EF4444', category: 'security', keywords: ['malicious', 'backdoor', 'trojan'] }, // Already exists
+    // 'IconInfectedProcess': { file: 'infected_process.svg', color: '#EF4444', category: 'security', keywords: ['injected', 'compromised'] }, // Already exists
+    'IconInfectedTerminal': { file: 'infected_terminal.svg', color: '#EF4444', category: 'security', keywords: ['reverse shell', 'attacker shell'] },
+    'IconInfectedService': { file: 'infected_service.svg', color: '#EF4444', category: 'security', keywords: ['backdoor', 'persistent'] },
+    'IconInfectedPackage': { file: 'infected_package.svg', color: '#EF4444', category: 'security', keywords: ['typosquat', 'supply chain', 'trojan'] },
+    'IconInfectedPipeline': { file: 'infected_pipeline.svg', color: '#EF4444', category: 'security', keywords: ['compromised ci', 'poisoned build'] },
+    'IconInfectedDocker': { file: 'infected_docker.svg', color: '#EF4444', category: 'security', keywords: ['malicious image', 'container escape'] },
+    'IconInfectedScheduler': { file: 'infected_scheduler.svg', color: '#EF4444', category: 'security', keywords: ['persistence', 'cron', 'scheduled task'] },
+
+    // ═══════════════════════════════════════════════════════════════
+    // STOLEN VARIANTS (Exfiltrated Secrets)
+    // ═══════════════════════════════════════════════════════════════
+    'IconStolenToken': { file: 'stolen_token.svg', color: '#EF4444', category: 'security', keywords: ['exfiltrated', 'harvested', 'jwt'] },
+    'IconStolenKey': { file: 'stolen_key.svg', color: '#EF4444', category: 'security', keywords: ['exfiltrated', 'ssh', 'api key'] },
+    'IconStolenCredential': { file: 'stolen_credential.svg', color: '#EF4444', category: 'security', keywords: ['harvested', 'dumped', 'password'] },
+    'IconStolenCertificate': { file: 'stolen_certificate.svg', color: '#EF4444', category: 'security', keywords: ['exfiltrated', 'signing', 'tls'] },
+
+    // ═══════════════════════════════════════════════════════════════
     // NEWLY DISCOVERED (Auto-Added)
     // ═══════════════════════════════════════════════════════════════
     'IconAttackerAlt': { file: 'attacker1.svg', color: '#EF4444', category: 'role', keywords: ['hacker', 'apt'] },

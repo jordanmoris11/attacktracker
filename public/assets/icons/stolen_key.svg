@@ -1,0 +1,22 @@
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- SSH/API Key icon -->
+    <!-- Key head (circular part) -->
+    <circle cx="28" cy="30" r="14" fill="#27272a" stroke="#f59e0b" stroke-width="2"/>
+    <circle cx="28" cy="30" r="6" fill="none" stroke="#f59e0b" stroke-width="2"/>
+    <!-- Key shaft -->
+    <rect x="38" y="26" width="30" height="8" rx="2" fill="#27272a" stroke="#f59e0b" stroke-width="2"/>
+    <!-- Key teeth -->
+    <rect x="56" y="34" width="4" height="8" fill="#f59e0b"/>
+    <rect x="64" y="34" width="4" height="12" fill="#f59e0b"/>
+    <!-- Shine -->
+    <circle cx="24" cy="26" r="3" fill="#fbbf24" opacity="0.6"/>
+
+  <g transform="translate(52, 8)">
+      <path d="M0 16 L12 4 M6 4 L12 4 L12 10" 
+            stroke="#EF4444" 
+            stroke-width="3" 
+            stroke-linecap="round" 
+            stroke-linejoin="round"
+            fill="none"/>
+  </g>
+</svg>

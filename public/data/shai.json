@@ -3,10 +3,10 @@
   "description": "Attack flow showing the Shai Hulud 2.0 NPM worm using the 'bun' runtime to evade detection, harvesting GitHub and AWS credentials, and validating them against public APIs.",
   "version": "3.0",
   "viewport": {
-    "zoom": 1.7328865326737282,
+    "zoom": 0.9837336978842637,
     "pan": {
-      "x": -540.2879603299474,
-      "y": -241.01942538667362
+      "x": -132.5720296195638,
+      "y": -131.375604087815
     }
   },
   "entities": [
@@ -24,8 +24,8 @@
       "id": "internet_zone",
       "label": "Internet / Public Services",
       "position": {
-        "x": 799.3292968261012,
-        "y": 254.24069993708406
+        "x": 802.1657392979519,
+        "y": 289.223490423242
       },
       "icon": "IconCloud",
       "type": "container",
@@ -51,8 +51,8 @@
       "id": "github_platform",
       "label": "GitHub API",
       "position": {
-        "x": 957.3134766067412,
-        "y": 267.9169742243626
+        "x": 962.9863615504427,
+        "y": 337.88255519667854
       },
       "icon": "IconGitHub",
       "type": "node"
@@ -61,8 +61,8 @@
       "id": "attacker_infra",
       "label": "C2 INFRA via Github",
       "position": {
-        "x": 858.0159636074993,
-        "y": 270.6373360365766
+        "x": 860.85240607935,
+        "y": 305.62012652273455
       },
       "icon": "IconServer",
       "type": "container",
@@ -88,7 +88,7 @@
       "id": "victim_workstation",
       "label": "Developer Workstation",
       "position": {
-        "x": 627.99927484503,
+        "x": 620.4973410744778,
         "y": 562.1961042927015
       },
       "icon": "IconWindows",
