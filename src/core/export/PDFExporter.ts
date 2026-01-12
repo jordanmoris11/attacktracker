@@ -333,8 +333,10 @@ export class PDFExporter {
 
     /**
      * Apply clean styles for export (remove glow/blur effects)
+     * Also enables native labels for containers (normally drawn by custom canvas layer)
      */
     private applyExportStyles(): void {
+        // Edge styles
         this.cy.edges().forEach(edge => {
             // Store current styles for restoration
             edge.data('_exportBackup', {
@@ -353,12 +355,31 @@ export class PDFExporter {
                 'text-background-padding': '4px',
             });
         });
+
+        // Container labels - enable native Cytoscape labels for export
+        // (normally rendered by custom cytoscape-canvas layer which cy.png() doesn't capture)
+        this.cy.nodes(':parent').forEach(container => {
+            const label = container.data('label') || '';
+            container.data('_exportBackup', { label: container.style('label') });
+
+            container.style({
+                'label': label,
+                'text-valign': 'top',
+                'text-halign': 'center',
+                'text-margin-y': -10,
+                'font-size': 14,
+                'font-weight': 'bold',
+                'color': '#cbd5e1',
+                'text-background-opacity': 0,
+            });
+        });
     }
 
     /**
      * Restore interactive styles after export
      */
     private restoreInteractiveStyles(): void {
+        // Restore edge styles
         this.cy.edges().forEach(edge => {
             const backup = edge.data('_exportBackup');
             if (backup) {
@@ -368,6 +389,17 @@ export class PDFExporter {
                     'underlay-opacity': backup['underlay-opacity'],
                 });
                 edge.removeData('_exportBackup');
+            }
+        });
+
+        // Restore container labels (disable native, let canvas layer handle it)
+        this.cy.nodes(':parent').forEach(container => {
+            const backup = container.data('_exportBackup');
+            if (backup) {
+                container.style({
+                    'label': '',  // Disable native label
+                });
+                container.removeData('_exportBackup');
             }
         });
     }
