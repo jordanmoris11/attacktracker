@@ -6,62 +6,97 @@ I'm building a database of pentesting commands and attack techniques. For every 
 
 # RESPONSE FORMAT
 
-## 1. Description
+**CRITICAL**: Return **ONLY** a single valid JSON object. No markdown code blocks. No preamble. No explanations. Raw JSON only.
 
-A clear, concise explanation of the Tool and the attack vector (max 50 sentences). Format it professionally using HTML.
+Your output is a **UNIFIED JSON** that contains everything: the attack graph, description, commands, and metadata.
 
-### Structure and Output of Description section
+## JSON Structure
 
-All Description part should be HTML code for beautiful description, and should follow this structure (render html code itself beautified so easy to read):
+```json
+{
+  "title": "Attack Name",
+  "description": "Brief 1-2 sentence description",
+  "shortDescription": "7 words max summary",
+  "tags": ["Tag1", "Tag2", "Tag3"],
+  "version": "3.0",
+  "metadata": {
+    "descriptionHtml": "<p>Full HTML description here...</p>",
+    "commandsBlock": "# Step 1: ...\n$ command1\n\n# Step 2: ...\n$ command2",
+    "toolSource": "Tool location (e.g., Kali path, git URL)",
+    "prerequisites": ["Requirement 1", "Requirement 2"],
+    "attackerGains": ["Gain 1", "Gain 2"],
+    "detectionNotes": ["Detection indicator 1", "Detection indicator 2"],
+    "mitreCategories": ["T1558.004", "T1110.002"]
+  },
+  "viewport": { "zoom": 1.0, "pan": { "x": 0, "y": 0 } },
+  "entities": [ ... ],
+  "visibility": { ... },
+  "steps": [ ... ]
+}
+```
 
-1.  **Tool & Attack Description**:
-    Describe the tool/command and explain the attack it does (max 15 sentences).
+## Field Requirements
 
-2.  **Tool location/source**:
-    Describe where user can find the tool, is it typically in a place in kali, or he has to get it from git or other place, mention exact path on system, link, or git url, use internet if you need to check.
+### metadata.descriptionHtml (HTML)
 
-3.  **Attack Prerequisites**:
-    About requirements for the tool and attack to work (max 3-5 sentences in bullet points).
+A clear, professional HTML explanation following this structure:
 
-4.  **How attack works (step by step)**: (max 15 sentences in numbered points)
+1. **Tool & Attack Description** (max 15 sentences)
+2. **How attack works** - numbered steps (max 15 points)
 
-5.  **What attacker gains**: (max 5 sentences in bullet points)
+**Formatting**:
+- Use `<span style="color:#ef4444;font-weight:bold;">` for TOOLS and COMMANDS
+- Use `<span style="color:#3b82f6;">` for TCP/UDP ports
+- Use `<ul><li>` for bullet points, `<ol><li>` for numbered steps
+- Use `<strong>` for emphasis
 
-6.  **Detection/Defense/OPSEC (if relevant)**: (max 5 sentences in bullet points)
+### metadata.toolSource (string)
 
-7.  **MITRE / OWASP category**:
-    (max 5 sentences in bullet points)
+Where to find the tool: Kali path, git URL, or package manager command.
 
-### Formatting Requirements
+### metadata.prerequisites (array of strings)
 
--   Use `<span style="color:#ef4444;font-weight:bold;">` for TOOLS and any COMMANDS mentioned (impacket, mimikatz, etc.) start with # to hint at tool/command.
--   Use fonts / colors for key ideas, errors, at your judgement as expert.
--   Use `<ul>` and `<li>` for listing steps or requirements.
--   Use `<strong>` for emphasis on key phrases.
--   Use blue color for TCP/UDP ports.
--   Use numbered list for how attack works section: `<ol><li><p>Step 1</p></li>...</ol>`.
+3-5 requirements for the attack to work.
 
-## 2. Tags
+### metadata.attackerGains (array of strings)
 
-Comma-separated tags for categorization. Use existing tags when applicable:
+3-5 outcomes/benefits the attacker achieves.
+
+### metadata.detectionNotes (array of strings)
+
+3-5 blue team detection indicators or OPSEC considerations.
+
+### metadata.commandsBlock (string)
+
+Copy-paste ready commands with comments:
+```
+# Step 1: Description
+$ actual_command --flags target
+
+# Step 2: Description
+$ next_command --flags
+```
+
+### tags (array of strings)
+
+Use existing tags when applicable:
 `AD, CrackMapExec, Credential_Dumping, DCSync, Hashcat, Impacket, Lateral_Movement, NTLM, Offline_Attack, Pass_The_Hash, Password_Cracking, PowerShell, PowerView, RCE, Windows, Linux, Kerberoasting, Kerberos, net.exe, Incognito, Enumeration, Privilege_Escalation, Persistence, Initial_Access, SMB, LDAP, WMI, DCOM, PSExec, Responder, Relay_Attack, MitM, Web, LFI, RFI, SQLi, XSS, SSRF, Deserialization, Token_Manipulation, LSASS, SAM, NTDS, Golden_Ticket, Silver_Ticket, ASREPRoast, Delegation, ACL_Abuse, BloodHound, Coercion, PetitPotam, PrintNightmare, ZeroLogon`
 
-## 3. Commands
+### shortDescription (string)
 
-Start from the original commands provided, then:
+7 words max summary capturing the essence.
 
--   Fix any syntax errors.
--   Add missing flags that are commonly needed.
--   Add brief inline comments explaining key parts.
--   If it's a multi-step attack, number the steps.
--   Keep it practical and copy-paste ready.
+## Attack Graph (entities, visibility, steps)
 
-## 4. Attack Graph (JSON)
+The specs for the graph are strictly defined by the attached json-attack-graph-spec.md file.
 
-Your goal is to convert the technical attack description into a precise, logical **JSON Object** that visualizes the attack flow 
-
-The specs of the graph, are stricitl defined by attached json-attack-graph-spec.md file. 
-
-## 5. Short Description
-
-A summary title (7 words max) that captures the essence of the tool/commands and the attack.
+**Important**: Each step with a CLI command should include the `cli` field:
+```json
+{
+  "id": 1,
+  "type": "edge",
+  "name": "Execute GetNPUsers",
+  "cli": "GetNPUsers.py -dc-ip 10.10.10.10 domain.local/user -no-pass",
+  ...
+}
+```

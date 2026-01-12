@@ -8,29 +8,69 @@
 import { PDFDocument } from 'pdf-lib';
 import cytoscape from 'cytoscape';
 import { PageRenderer } from './PageRenderer';
+import { OverviewPageRenderer } from './OverviewPageRenderer';
+import { CommandsPageRenderer } from './CommandsPageRenderer';
 import { PAGE, DEFAULT_EXPORT_OPTIONS, type PDFExportOptions } from './pdf.constants';
 import { MITRE_INDEX } from '../../shared/config/mitre-index';
-import type { ScenarioData, TimelineStep, VisibilityMap, EdgeStep } from '../../shared/schemas/scenario.schema';
+import type { ScenarioData, TimelineStep, VisibilityMap, EdgeStep, ExtractedMetadata } from '../../shared/schemas/scenario.schema';
 
 export type ProgressCallback = (current: number, total: number, message: string) => void;
+
+/**
+ * Extract metadata from scenario with fallbacks (same logic as store)
+ */
+function extractMetadataFromScenario(scenario: ScenarioData): ExtractedMetadata {
+    const buildCommandsFromSteps = (steps: TimelineStep[]): string => {
+        return steps
+            .filter((s): s is EdgeStep => s.type === 'edge' && !!s.cli)
+            .map((s, i) => `# Step ${i + 1}: ${s.name}\n$ ${s.cli}`)
+            .join('\n\n');
+    };
+
+    const extractMitreFromSteps = (steps: TimelineStep[]): string[] => {
+        const ids = steps
+            .map(s => s.mitre?.id)
+            .filter((id): id is string => !!id);
+        return [...new Set(ids)];
+    };
+
+    return {
+        shortDescription: scenario.shortDescription || scenario.description || '',
+        tags: scenario.tags || [],
+        descriptionHtml: scenario.metadata?.descriptionHtml || null,
+        commandsBlock: scenario.metadata?.commandsBlock || buildCommandsFromSteps(scenario.steps),
+        toolSource: scenario.metadata?.toolSource || null,
+        prerequisites: scenario.metadata?.prerequisites || [],
+        attackerGains: scenario.metadata?.attackerGains || [],
+        detectionNotes: scenario.metadata?.detectionNotes || [],
+        mitreCategories: scenario.metadata?.mitreCategories || extractMitreFromSteps(scenario.steps),
+    };
+}
 
 export class PDFExporter {
     private scenario: ScenarioData;
     private cy: cytoscape.Core;
     private options: PDFExportOptions;
     private pageRenderer: PageRenderer;
+    private overviewRenderer: OverviewPageRenderer;
+    private commandsRenderer: CommandsPageRenderer;
+    private metadata: ExtractedMetadata;
 
     public onProgress?: ProgressCallback;
 
     constructor(
         scenario: ScenarioData,
         cy: cytoscape.Core,
-        options?: Partial<PDFExportOptions>
+        options?: Partial<PDFExportOptions>,
+        metadata?: ExtractedMetadata
     ) {
         this.scenario = scenario;
         this.cy = cy;
         this.options = { ...DEFAULT_EXPORT_OPTIONS, ...options };
         this.pageRenderer = new PageRenderer();
+        this.overviewRenderer = new OverviewPageRenderer();
+        this.commandsRenderer = new CommandsPageRenderer();
+        this.metadata = metadata || extractMetadataFromScenario(scenario);
     }
 
     /**
@@ -39,9 +79,15 @@ export class PDFExporter {
     async export(): Promise<Blob> {
         const timeline = this.scenario.steps.filter(s => s.type === 'edge') as EdgeStep[];
         const totalSteps = timeline.length;
-        const totalPages = this.options.coverPage ? totalSteps + 1 : totalSteps;
+
+        // Calculate total pages including optional pages
+        let totalPages = totalSteps;
+        if (this.options.coverPage) totalPages++;
+        if (this.options.includeOverviewPage) totalPages++;
+        if (this.options.includeCommandsPage) totalPages++;
 
         const pageImages: Blob[] = [];
+        let currentPage = 0;
 
         // Save current state
         const originalStep = this.getCurrentVisibleStep();
@@ -49,7 +95,8 @@ export class PDFExporter {
         try {
             // 1. Cover page
             if (this.options.coverPage) {
-                this.reportProgress(0, totalPages, 'Generating cover page...');
+                currentPage++;
+                this.reportProgress(currentPage, totalPages, 'Generating cover page...');
 
                 // Get overview graph (step 0 or zoomed out)
                 const overviewImage = await this.captureGraphOverview();
@@ -67,12 +114,26 @@ export class PDFExporter {
                 pageImages.push(coverBlob);
             }
 
-            // 2. Step pages
+            // 2. Overview page (after cover, before steps)
+            if (this.options.includeOverviewPage) {
+                currentPage++;
+                this.reportProgress(currentPage, totalPages, 'Generating overview page...');
+
+                const overviewBlob = await this.overviewRenderer.renderPage({
+                    metadata: this.metadata,
+                    scenarioTitle: this.scenario.title,
+                    totalSteps,
+                });
+
+                pageImages.push(overviewBlob);
+            }
+
+            // 3. Step pages
             for (let i = 0; i < totalSteps; i++) {
                 const stepIndex = i + 1; // 1-indexed for display
-                const pageIndex = this.options.coverPage ? i + 2 : i + 1;
+                currentPage++;
 
-                this.reportProgress(pageIndex, totalPages, `Generating step ${stepIndex}...`);
+                this.reportProgress(currentPage, totalPages, `Generating step ${stepIndex}...`);
 
                 // Apply step state to graph
                 this.applyStepState(stepIndex);
@@ -95,7 +156,20 @@ export class PDFExporter {
                 pageImages.push(pageBlob);
             }
 
-            // 3. Assemble PDF
+            // 4. Commands page (at end)
+            if (this.options.includeCommandsPage && this.metadata.commandsBlock) {
+                currentPage++;
+                this.reportProgress(currentPage, totalPages, 'Generating commands page...');
+
+                const commandsBlob = await this.commandsRenderer.renderPage({
+                    metadata: this.metadata,
+                    scenarioTitle: this.scenario.title,
+                });
+
+                pageImages.push(commandsBlob);
+            }
+
+            // 5. Assemble PDF
             this.reportProgress(totalPages, totalPages, 'Assembling PDF...');
             const pdfBlob = await this.assemblePDF(pageImages);
 
@@ -439,9 +513,10 @@ export async function exportScenarioToPDF(
     scenario: ScenarioData,
     cy: cytoscape.Core,
     options?: Partial<PDFExportOptions>,
-    onProgress?: ProgressCallback
+    onProgress?: ProgressCallback,
+    metadata?: ExtractedMetadata
 ): Promise<void> {
-    const exporter = new PDFExporter(scenario, cy, options);
+    const exporter = new PDFExporter(scenario, cy, options, metadata);
     exporter.onProgress = onProgress;
 
     const blob = await exporter.export();

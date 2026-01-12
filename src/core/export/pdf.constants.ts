@@ -114,6 +114,8 @@ export interface PDFExportOptions {
     includeMitre: boolean;
     coverPage: boolean;
     ctaPage: boolean;
+    includeOverviewPage: boolean;    // NEW: Attack Overview page after cover
+    includeCommandsPage: boolean;    // NEW: Commands Reference page at end
     quality: 'standard' | 'high';
     selectionBounds: SelectionBounds | null;
 }
@@ -124,9 +126,41 @@ export const DEFAULT_EXPORT_OPTIONS: PDFExportOptions = {
     includeMitre: true,
     coverPage: true,
     ctaPage: false,
+    includeOverviewPage: true,       // Enabled by default
+    includeCommandsPage: true,       // Enabled by default
     quality: 'high',
     selectionBounds: null,
 };
+
+// =============================================================================
+// OVERVIEW PAGE LAYOUT
+// =============================================================================
+
+export const OVERVIEW_LAYOUT = {
+    TITLE_Y: 80,
+    TITLE_FONT_SIZE: 32,
+    SECTION_START_Y: 150,
+    SECTION_GAP: 30,
+    SECTION_TITLE_SIZE: 16,
+    SECTION_CONTENT_SIZE: 14,
+    BULLET_INDENT: 30,
+    LINE_HEIGHT: 24,
+    MAX_LINES_PER_SECTION: 8,
+} as const;
+
+// =============================================================================
+// COMMANDS PAGE LAYOUT
+// =============================================================================
+
+export const COMMANDS_LAYOUT = {
+    TITLE_Y: 80,
+    TITLE_FONT_SIZE: 32,
+    CODE_BLOCK_TOP: 150,
+    CODE_BLOCK_PADDING: 30,
+    CODE_FONT_SIZE: 13,
+    CODE_LINE_HEIGHT: 22,
+    MAX_LINES_PER_PAGE: 40,
+} as const;
 
 // =============================================================================
 // MITRE TACTIC COLORS (Subset for PDF - matches mitre-index.ts)

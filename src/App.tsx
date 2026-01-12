@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from './ui/layout/MainLayout';
 import { GraphCanvas } from './ui/features/GraphCanvas/GraphCanvas';
 import { AnimationControls } from './ui/features/Animation/AnimationControls';
+import { AttackDetailsPanel } from './ui/features/AttackDetails';
 import { MatrixExplorer } from './ui/features/MatrixExplorer/MatrixExplorer';
 import { useScenarioStore } from './core/store/useScenarioStore';
 import { FileLoader } from './ui/pages/FileLoader';
@@ -71,6 +72,8 @@ const AppContent: React.FC = () => {
             <AnimationControls />
           </div>
 
+          {/* Attack Details Panel (Floating, Bottom Right) */}
+          <AttackDetailsPanel />
         </div>
       </div>
     </MainLayout>

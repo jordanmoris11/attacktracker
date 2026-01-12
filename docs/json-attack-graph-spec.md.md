@@ -682,13 +682,48 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
 {
   "title": "Attack Scenario Title (Required)",
   "description": "Brief description of the attack",
-  "version": "2.0",
+  "shortDescription": "7-word summary of the attack",
+  "tags": ["AD", "Kerberos", "Credential_Access", "Impacket"],
+  "version": "3.0",
   "viewport": { "zoom": 1.0, "pan": { "x": 0, "y": 0 } },
+  "metadata": {
+    "descriptionHtml": "<p>Full HTML description...</p>",
+    "commandsBlock": "# Step 1: Enumerate users\n$ GetNPUsers.py...",
+    "toolSource": "impacket - GetNPUsers.py (Kali: /usr/share/doc/python3-impacket/)",
+    "prerequisites": [
+      "Network access to Domain Controller",
+      "List of target usernames or ability to enumerate"
+    ],
+    "attackerGains": [
+      "Valid domain user credentials",
+      "Potential for lateral movement"
+    ],
+    "detectionNotes": [
+      "Monitor for AS-REQ without pre-authentication (Event ID 4768)",
+      "Unusual Kerberos traffic patterns from non-standard hosts"
+    ],
+    "mitreCategories": ["T1558.004", "T1110.002"],
+    "owaspCategories": []
+  },
   "entities": [ ... ],
   "visibility": { ... },
   "steps": [ ... ]
 }
 ```
+
+### New Fields Explained
+
+| Field | Source | Purpose |
+|-------|--------|---------|
+| `shortDescription` | Section 5 of prompt | 7-word summary for UI header |
+| `tags` | Section 2 of prompt | Categorization chips (parsed from comma-separated) |
+| `metadata.descriptionHtml` | Section 1 of prompt | Full HTML description for Details Panel |
+| `metadata.commandsBlock` | Section 3 of prompt | Copy-paste ready CLI commands |
+| `metadata.toolSource` | Section 1.2 | Where to find the tool |
+| `metadata.prerequisites` | Section 1.3 | Attack requirements |
+| `metadata.attackerGains` | Section 1.5 | What attacker achieves |
+| `metadata.detectionNotes` | Section 1.6 | Blue team indicators |
+| `metadata.mitreCategories` | Section 1.7 | MITRE ATT&CK IDs (auto-extracted from steps if omitted) |
 
 ## 7.2 Entity Types
 
@@ -790,7 +825,32 @@ Attacker Infrastructure (container) — Optional, for sophisticated attacks
 {
   "title": "NPM Supply Chain Attack",
   "description": "Trojanized npm package harvests cloud credentials via malicious preinstall hook",
-  "version": "2.0",
+  "shortDescription": "Supply chain credential theft via npm",
+  "tags": ["Supply_Chain", "NPM", "Credential_Dumping", "Initial_Access", "JavaScript", "Cloud"],
+  "version": "3.0",
+  "metadata": {
+    "descriptionHtml": "<p><span style=\"color:#ef4444;font-weight:bold;\">npm supply chain attacks</span> exploit the trust developers place in package registries. Attackers either compromise maintainer accounts or publish typosquatted packages containing malicious <strong>preinstall/postinstall hooks</strong>.</p><ol><li>Attacker gains access to legitimate maintainer credentials</li><li>Publishes trojanized package version with malicious preinstall script</li><li>Developer runs <span style=\"color:#ef4444;font-weight:bold;\">npm install</span></li><li>Preinstall hook executes automatically with user privileges</li><li>Script harvests credentials from ~/.aws, ~/.ssh, environment variables</li><li>Exfiltrates data to attacker-controlled endpoint</li></ol>",
+    "commandsBlock": "# Step 1: Attacker publishes malicious package\n$ npm publish malicious-package@1.0.0\n\n# Step 2: Victim installs (unknowingly)\n$ npm install malicious-package\n\n# Step 3: Malware harvests credentials\n$ cat ~/.aws/credentials\n$ cat ~/.ssh/id_rsa\n\n# Step 4: Exfiltrate via git\n$ git push origin exfil-branch",
+    "toolSource": "npm CLI (pre-installed with Node.js) - Attack leverages legitimate package manager functionality",
+    "prerequisites": [
+      "Compromised maintainer account OR typosquattable package name",
+      "Target developers using npm/yarn/pnpm",
+      "Credentials stored in standard locations (~/.aws, ~/.ssh, .env)"
+    ],
+    "attackerGains": [
+      "AWS access keys and secrets",
+      "SSH private keys for lateral movement",
+      "Environment variables with API tokens",
+      "Potential access to CI/CD pipelines"
+    ],
+    "detectionNotes": [
+      "Monitor npm audit and lock file changes",
+      "Scan preinstall/postinstall scripts in dependencies",
+      "Alert on outbound connections during npm install",
+      "Use tools like socket.dev or snyk for supply chain monitoring"
+    ],
+    "mitreCategories": ["T1195.001", "T1552.001", "T1567.001"]
+  },
   "viewport": { "zoom": 1.2, "pan": { "x": 200, "y": 100 } },
 
   "entities": [

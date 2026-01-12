@@ -56,6 +56,18 @@ export const VisibilityRangeSchema = z.object({
 
 export const VisibilityMapSchema = z.record(z.string(), VisibilityRangeSchema);
 
+// --- Scenario Metadata (Extended LLM Output) ---
+export const ScenarioMetadataSchema = z.object({
+    descriptionHtml: z.string().optional(),        // Full HTML description from LLM
+    commandsBlock: z.string().optional(),          // Enhanced commands with comments
+    toolSource: z.string().optional(),             // Where to get the tool (URL/path)
+    prerequisites: z.array(z.string()).optional(), // Attack requirements
+    attackerGains: z.array(z.string()).optional(), // What attacker achieves
+    detectionNotes: z.array(z.string()).optional(), // Detection/OPSEC notes
+    mitreCategories: z.array(z.string()).optional(), // MITRE technique IDs
+    owaspCategories: z.array(z.string()).optional(), // OWASP categories
+});
+
 // --- Timeline Steps ---
 const BaseStepSchema = z.object({
     id: z.number().int(),
@@ -91,8 +103,13 @@ export const ScenarioSchema = z.object({
     version: z.string().default('2.0'),
     viewport: ViewportSchema.optional(),
 
+    // NEW: Extended metadata from full LLM output
+    shortDescription: z.string().optional(),       // 7-word max summary
+    tags: z.array(z.string()).optional(),          // Categorization tags
+    metadata: ScenarioMetadataSchema.optional(),   // Rich metadata object
+
     entities: z.array(ScenarioEntitySchema),
-    visibility: VisibilityMapSchema.optional(), // Optional, default to always visible if missing? Or should strict parser handle defaults.
+    visibility: VisibilityMapSchema.optional(),
     steps: z.array(TimelineStepSchema)
 });
 
@@ -101,7 +118,21 @@ export type Position = z.infer<typeof PositionSchema>;
 export type Viewport = z.infer<typeof ViewportSchema>;
 export type ScenarioEntity = z.infer<typeof ScenarioEntitySchema>;
 export type VisibilityMap = z.infer<typeof VisibilityMapSchema>;
+export type ScenarioMetadata = z.infer<typeof ScenarioMetadataSchema>;
 export type TimelineStep = z.infer<typeof TimelineStepSchema>;
 export type EdgeStep = z.infer<typeof EdgeStepSchema>;
 export type ShowTextStep = z.infer<typeof ShowTextStepSchema>;
 export type ScenarioData = z.infer<typeof ScenarioSchema>;
+
+// --- Extracted Metadata (for UI consumption with fallbacks) ---
+export interface ExtractedMetadata {
+    shortDescription: string;
+    tags: string[];
+    descriptionHtml: string | null;
+    commandsBlock: string;
+    toolSource: string | null;
+    prerequisites: string[];
+    attackerGains: string[];
+    detectionNotes: string[];
+    mitreCategories: string[];
+}

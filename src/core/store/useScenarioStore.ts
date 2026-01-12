@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import cytoscape from 'cytoscape';
 import { scenarioAdapter } from '../parser/ScenarioAdapter';
-import type { ScenarioData, TimelineStep, VisibilityMap } from '../../shared/schemas/scenario.schema';
+import type { ScenarioData, TimelineStep, VisibilityMap, ExtractedMetadata, EdgeStep } from '../../shared/schemas/scenario.schema';
 
 // Export selection bounds type
 export interface ExportSelectionBounds {
@@ -10,6 +10,9 @@ export interface ExportSelectionBounds {
     width: number;
     height: number;
 }
+
+// Details panel tab type
+export type DetailsPanelTab = 'overview' | 'commands' | 'mitre' | 'description';
 
 interface ScenarioState {
     // Data
@@ -20,11 +23,14 @@ interface ScenarioState {
     timeline: TimelineStep[];
     visibility: VisibilityMap | null;
 
+    // Extended Metadata (extracted with fallbacks)
+    extractedMetadata: ExtractedMetadata | null;
+
     // Meta
     status: 'idle' | 'loading' | 'success' | 'error';
     error: string | null;
     activeTitle: string;
-    sourcePath?: string; // New: Track file path for persistence
+    sourcePath?: string; // Track file path for persistence
 
     // Playback State
     currentStep: number;
@@ -36,6 +42,10 @@ interface ScenarioState {
     // Export Selection
     exportSelection: ExportSelectionBounds | null;
     graphContainerRef: HTMLDivElement | null;
+
+    // Attack Details Panel State
+    detailsPanelOpen: boolean;
+    detailsPanelTab: DetailsPanelTab;
 
     // Actions
     loadScenario: (content: string, path?: string) => Promise<void>;
@@ -49,6 +59,41 @@ interface ScenarioState {
     setCyInstance: (cy: cytoscape.Core | null) => void;
     setExportSelection: (bounds: ExportSelectionBounds | null) => void;
     setGraphContainerRef: (ref: HTMLDivElement | null) => void;
+    toggleDetailsPanel: () => void;
+    setDetailsPanelTab: (tab: DetailsPanelTab) => void;
+}
+
+/**
+ * Extract metadata from scenario with fallbacks for backwards compatibility
+ */
+function extractMetadataFromScenario(scenario: ScenarioData): ExtractedMetadata {
+    // Build commands from steps if not provided
+    const buildCommandsFromSteps = (steps: TimelineStep[]): string => {
+        return steps
+            .filter((s): s is EdgeStep => s.type === 'edge' && !!s.cli)
+            .map((s, i) => `# Step ${i + 1}: ${s.name}\n$ ${s.cli}`)
+            .join('\n\n');
+    };
+
+    // Extract unique MITRE IDs from steps
+    const extractMitreFromSteps = (steps: TimelineStep[]): string[] => {
+        const ids = steps
+            .map(s => s.mitre?.id)
+            .filter((id): id is string => !!id);
+        return [...new Set(ids)];
+    };
+
+    return {
+        shortDescription: scenario.shortDescription || scenario.description || '',
+        tags: scenario.tags || [],
+        descriptionHtml: scenario.metadata?.descriptionHtml || null,
+        commandsBlock: scenario.metadata?.commandsBlock || buildCommandsFromSteps(scenario.steps),
+        toolSource: scenario.metadata?.toolSource || null,
+        prerequisites: scenario.metadata?.prerequisites || [],
+        attackerGains: scenario.metadata?.attackerGains || [],
+        detectionNotes: scenario.metadata?.detectionNotes || [],
+        mitreCategories: scenario.metadata?.mitreCategories || extractMitreFromSteps(scenario.steps),
+    };
 }
 
 export const useScenarioStore = create<ScenarioState>((set, get) => ({
@@ -56,6 +101,7 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
     cyElements: [],
     timeline: [],
     visibility: null,
+    extractedMetadata: null,
     status: 'idle',
     error: null,
     activeTitle: 'Untitled',
@@ -66,6 +112,9 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
     exportSelection: null,
     graphContainerRef: null,
 
+    // Details panel state
+    detailsPanelOpen: false,
+    detailsPanelTab: 'overview',
 
     loadScenario: async (content: string, path?: string) => {
         set({ status: 'loading', error: null, sourcePath: path }); // Store path
@@ -77,12 +126,16 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
         const result = scenarioAdapter.parse(content);
 
         if (result.success && result.data) {
+            // Extract metadata with fallbacks
+            const extractedMetadata = extractMetadataFromScenario(result.data);
+
             set({
                 status: 'success',
                 scenario: result.data,
                 cyElements: result.cyElements || [],
                 timeline: result.data.steps,
                 visibility: result.data.visibility || null,
+                extractedMetadata,
                 activeTitle: result.data.title,
                 currentStep: 0, // Reset to start
                 isPlaying: false
@@ -127,12 +180,15 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
         scenario: null,
         cyElements: [],
         timeline: [],
+        extractedMetadata: null,
         status: 'idle',
         error: null,
         currentStep: 0,
         sourcePath: undefined,
         cyInstance: null,
-        exportSelection: null
+        exportSelection: null,
+        detailsPanelOpen: false,
+        detailsPanelTab: 'overview'
     }),
 
     setCyInstance: (cy) => set({ cyInstance: cy }),
@@ -140,6 +196,10 @@ export const useScenarioStore = create<ScenarioState>((set, get) => ({
     setExportSelection: (bounds) => set({ exportSelection: bounds }),
 
     setGraphContainerRef: (ref) => set({ graphContainerRef: ref }),
+
+    toggleDetailsPanel: () => set(state => ({ detailsPanelOpen: !state.detailsPanelOpen })),
+
+    setDetailsPanelTab: (tab) => set({ detailsPanelTab: tab }),
 
     updateEntityPosition: (id, x, y) => {
         set(state => {

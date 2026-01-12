@@ -23,7 +23,12 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
     const [error, setError] = useState<string | null>(null);
     const [isSelectingRegion, setIsSelectingRegion] = useState(false);
 
-    const { scenario, cyInstance, exportSelection, setExportSelection, graphContainerRef } = useScenarioStore();
+    // PDF-specific options
+    const [includeCover, setIncludeCover] = useState(true);
+    const [includeOverview, setIncludeOverview] = useState(true);
+    const [includeCommands, setIncludeCommands] = useState(true);
+
+    const { scenario, cyInstance, exportSelection, setExportSelection, graphContainerRef, extractedMetadata } = useScenarioStore();
 
     // Create a ref object that points to the graphContainerRef
     const containerRefObject = useRef<HTMLDivElement | null>(null);
@@ -72,14 +77,17 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
                         scenario,
                         cyInstance,
                         {
-                            coverPage: true,
+                            coverPage: includeCover,
                             includeCLI: true,
                             includeTooltips: true,
+                            includeOverviewPage: includeOverview,
+                            includeCommandsPage: includeCommands,
                             selectionBounds: selectionToUse
                         },
                         (current, total, message) => {
                             setProgress({ current, total, message });
-                        }
+                        },
+                        extractedMetadata || undefined
                     );
                     break;
 
@@ -299,6 +307,53 @@ export const ExportModal: React.FC<ExportModalProps> = ({ isOpen, onClose }) => 
                             ))}
                         </div>
                     </div>
+
+                    {/* PDF Options (only when PDF selected) */}
+                    {selectedFormat === 'pdf' && (
+                        <div className="space-y-2">
+                            <label className="text-xs font-medium text-slate-400 uppercase tracking-wide">
+                                PDF Pages
+                            </label>
+                            <div className="space-y-2 p-3 bg-white/5 rounded-lg border border-white/10">
+                                <label className="flex items-center gap-3 cursor-pointer group">
+                                    <input
+                                        type="checkbox"
+                                        checked={includeCover}
+                                        onChange={(e) => setIncludeCover(e.target.checked)}
+                                        className="w-4 h-4 rounded border-slate-600 text-brand-blue focus:ring-brand-blue/50 bg-slate-700"
+                                    />
+                                    <div>
+                                        <span className="text-sm text-white group-hover:text-brand-blue transition-colors">Cover Page</span>
+                                        <p className="text-xs text-slate-500">Title card with overview graph</p>
+                                    </div>
+                                </label>
+                                <label className="flex items-center gap-3 cursor-pointer group">
+                                    <input
+                                        type="checkbox"
+                                        checked={includeOverview}
+                                        onChange={(e) => setIncludeOverview(e.target.checked)}
+                                        className="w-4 h-4 rounded border-slate-600 text-brand-blue focus:ring-brand-blue/50 bg-slate-700"
+                                    />
+                                    <div>
+                                        <span className="text-sm text-white group-hover:text-brand-blue transition-colors">Attack Overview</span>
+                                        <p className="text-xs text-slate-500">Prerequisites, gains, MITRE techniques</p>
+                                    </div>
+                                </label>
+                                <label className="flex items-center gap-3 cursor-pointer group">
+                                    <input
+                                        type="checkbox"
+                                        checked={includeCommands}
+                                        onChange={(e) => setIncludeCommands(e.target.checked)}
+                                        className="w-4 h-4 rounded border-slate-600 text-brand-blue focus:ring-brand-blue/50 bg-slate-700"
+                                    />
+                                    <div>
+                                        <span className="text-sm text-white group-hover:text-brand-blue transition-colors">Commands Reference</span>
+                                        <p className="text-xs text-slate-500">Copy-paste ready CLI commands</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Progress */}
                     {status === 'exporting' && (
